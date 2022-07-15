@@ -2,17 +2,26 @@
 Wordpress plugin to embed Bible reading plans into a post or page
 
 Contributors: drmikegreen
+
 Donate link: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url)
+
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
+
 Requires at least: 2.8
+
 Tested up to: 6.0
+
 Requires PHP: 5.6
+
 Tested up to PHP: 7.4
+
 Stable tag: trunk
+
 License: GPLv3 or later
+
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-Provides the ability to embed Bible Reading Plans into a post or page using a shortcode.
+This plugin provides the ability to embed Bible Reading Plans into a post or page using a shortcode.
 
 ## Description
 
