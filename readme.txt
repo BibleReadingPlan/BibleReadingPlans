@@ -1,9 +1,9 @@
 === Bible Reading Plans ===
-Contributors: drmikegreen
+Contributors: drmikegreen, sophoservices
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.0
+Tested up to: 6.0.1
 Requires PHP: 5.6
 Tested up to PHP: 7.4
 Stable tag: trunk
@@ -150,6 +150,14 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 == Upgrade Notice ==
+
+= 2.0.1 =
+
+This version:
+
+1. Corrects problem with the AJAX call that was causing a conflict with some other plugins.
+
+1. Corrects Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 23 June.
 
 = 2.0 =
 
@@ -386,6 +394,16 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
+
+= 2.0.1 =
+
+This version:
+
+1. Problem with the AJAX call that was causing a conflict with some other plugins is corrected.
+
+1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 23 June is corrected.
+
+= 2.0 =
 
 = 2.0 =
 
