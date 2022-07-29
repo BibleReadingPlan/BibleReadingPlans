@@ -5525,10 +5525,10 @@ $reading_plan = array (
     ),
     4 => 
     array (
-      'passage' => 'Acts 19:2',
+      'passage' => 'Acts 19:21-end',
       'verses' => 
       array (
-        0 => 'ACT/19?verse_start=2&verse_end=999',
+        0 => 'ACT/19?verse_start=21&verse_end=999',
       ),
     ),
   ),
