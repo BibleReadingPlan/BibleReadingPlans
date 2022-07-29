@@ -772,7 +772,7 @@ class BibleReadingPlans {
 											'P'			=> __('Portion', 'bible-reading-plans'),
 											'S'			=> __('Stories', 'bible-reading-plans'),
 											);
-		$this->ajax_url	= admin_url('admin-ajax.php', 'relative').'?action=put_bible_reading_plan&';
+		$this->ajax_url	= admin_url('admin-ajax.php', 'relative');
 		add_shortcode('bible-reading-plan', array(&$this, 'shortcodeAttributes'));
 	}
 
@@ -1727,7 +1727,7 @@ EOS;
 		var reading_plan		= encodeURI('{$this->reading_plan}');
 		var source				= encodeURI('{$this->source}');
 		var version				= encodeURI('{$this->version}');
-		var ajaxurl				= '{$this->ajax_url}&reading_plan=' + reading_plan + '&source=' + source + '&version=' + version + '&bible_id=' + bible_id + '&language=' + language + '&lng_code_iso=' + lng_code_iso + '&device_screen_width=' + jQuery(window).width() + '&requested_date=';
+		var ajaxurl				= '{$this->ajax_url}?action=put_bible_reading_plan&reading_plan=' + reading_plan + '&source=' + source + '&version=' + version + '&bible_id=' + bible_id + '&language=' + language + '&lng_code_iso=' + lng_code_iso + '&device_screen_width=' + jQuery(window).width() + '&requested_date=';
 		if (calendar_in_text && switch_cal_width < jQuery(window).width()) {
 			datepicker_id = '#datepicker';
 		}
