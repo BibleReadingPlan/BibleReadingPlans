@@ -405,8 +405,6 @@ This version:
 
 = 2.0 =
 
-= 2.0 =
-
 This version:
 
 1. Access to over 1700 versions in more than 1500 languages via the Bible Brain (aka the Digital Bible Platform) API is added.
