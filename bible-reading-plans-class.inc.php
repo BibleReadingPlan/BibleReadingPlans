@@ -663,6 +663,7 @@ class BibleReadingPlans {
 			$search_prefixes[$ary_key++] = $this->cbrp_prefix.$source_prefix;
 			$search_prefixes[$ary_key++] = $this->brp_prefix.$source_prefix;
 		}
+		$this->move_readings_plans_arrays_to_database(); // If there are any reading plans arrays, move them to the database.
 		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
@@ -1302,7 +1303,6 @@ EOT;*/
 
 	public function initializeAdmin () {
 		if ((isset($_REQUEST['page']) && ('bible_reading_plans_plugin' == $_REQUEST['page'] || 'bible_reading_plans_plugin' == $_REQUEST['page'])) || (isset($_REQUEST['option_page']) && 'bible_reading_plans_settings' == $_REQUEST['option_page'])) {
-			$this->move_readings_plans_arrays_to_database(); // If there are any reading plans arrays, move them to the database.
 			// Deal with plans created by the Create Bible Reading Plans plugin.
 			$reading_plans_list = get_option('brp_reading_plans_list');
 			$plan_options = array_keys($reading_plans_list);

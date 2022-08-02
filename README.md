@@ -1,7 +1,7 @@
 # BibleReadingPlans
 Wordpress plugin to embed Bible reading plans into a post or page
 
-Contributors: drmikegreen, sophoservices
+Contributors: drmikegreen
 
 Donate link: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url)
 
@@ -9,7 +9,7 @@ Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digita
 
 Requires at least: 2.8
 
-Tested up to: 6.0.1
+Tested up to: 6.0
 
 Requires PHP: 5.6
 
@@ -70,8 +70,8 @@ If the source is ABS, the values of version can, at present, be:
 
 `ASV` - American Standard Version
 `LXXup` - Brenton English Septuagint (Updated Spelling and Formatting)
- `Brenton` - Brenton English translation of the Septuagint
- `KJVCPB` - Cambridge Paragraph Bible of the KJV
+`Brenton` - Brenton English translation of the Septuagint
+`KJVCPB` - Cambridge Paragraph Bible of the KJV
 `DRA` - Douay-Rheims American 1899
 `EMTV` - English Majority Text Version
 `FBV` - Free Bible Version
@@ -162,13 +162,21 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
+### 2.0.2
+
+This version:
+
+1. Moves call to method which checks on whether or not there are any new reading plans from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
+
+2. Corrects Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 Aug.
+
 ### 2.0.1
 
 This version:
 
 1. Corrects problem with the AJAX call that was causing a conflict with some other plugins.
 
-1. Corrects Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 23 June.
+2. Corrects Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 23 June.
 
 ### 2.0
 
@@ -405,6 +413,15 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+### 2.0.2
+
+This version:
+
+1. The call to the method which checks on whether or not there are any new reading plans is moved from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
+
+
+1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 Aug is corrected.
 
 ### 2.0.1
 

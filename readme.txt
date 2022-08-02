@@ -151,6 +151,15 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
+= 2.0.2 =
+
+This version:
+
+1. Moves call to method which checks on whether or not there are any new reading plans from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
+
+
+1. Corrects Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 Aug.
+
 = 2.0.1 =
 
 This version:
@@ -394,6 +403,15 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
+
+= 2.0.2 =
+
+This version:
+
+1. The call to the method which checks on whether or not there are any new reading plans is moved from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
+
+
+1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 Aug is corrected.
 
 = 2.0.1 =
 
