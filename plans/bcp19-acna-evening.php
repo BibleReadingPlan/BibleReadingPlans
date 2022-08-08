@@ -6853,7 +6853,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'John 8:3',
+      'passage' => 'John 8:3-end'
       'verses' => 
       array (
         0 => 'JHN/8?verse_start=3&verse_end=999',
@@ -8708,7 +8708,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'Matthew 25:3',
+      'passage' => 'Matthew 25:3-end'
       'verses' => 
       array (
         0 => 'MAT/25?verse_start=3&verse_end=999',
@@ -9171,7 +9171,7 @@ $reading_plan = array (
     ),
     4 => 
     array (
-      'passage' => 'Mark 5:2',
+      'passage' => 'Mark 5:2-end'
       'verses' => 
       array (
         0 => 'MRK/5?verse_start=2&verse_end=999',
@@ -10045,7 +10045,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'Luke 4:3',
+      'passage' => 'Luke 4:3-end'
       'verses' => 
       array (
         0 => 'LUK/4?verse_start=3&verse_end=999',
@@ -10410,7 +10410,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'Luke 9:5',
+      'passage' => 'Luke 9:5-end'
       'verses' => 
       array (
         0 => 'LUK/9?verse_start=5&verse_end=999',

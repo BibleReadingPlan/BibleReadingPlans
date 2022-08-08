@@ -1,7 +1,7 @@
 # BibleReadingPlans
 Wordpress plugin to embed Bible reading plans into a post or page
 
-Contributors: drmikegreen
+Contributors: drmikegreen, sophoservices
 
 Donate link: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url)
 
@@ -116,7 +116,7 @@ If the source is ESV, the value of the version naturally can only be ESV.
 
 The page opens with the plan reading for the current date, as set on the client computer. An optional date picker calendar is available to enable users to choose readings for other dates.
 
-See the ten example pages at a [Test Site For SaeSolved:: Software](https://test.sitewidgets.com).
+See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site For SaeSolved:: Software](https://test.sitewidgets.com/) for example implementations of this plugin.
 
 This plugin requires JavaScript to be active.
 
@@ -168,7 +168,7 @@ This version:
 
 1. Moves call to method which checks on whether or not there are any new reading plans from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
 
-2. Corrects Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 Aug.
+2. Corrects Scripture references in a number of places where the references were from a specific verse to the end of the chapter for the Book of Common Prayer, 2019, Anglican Church in North America. These references weren't being handled correctly for the ESV API.
 
 ### 2.0.1
 
@@ -420,8 +420,7 @@ This version:
 
 1. The call to the method which checks on whether or not there are any new reading plans is moved from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
 
-
-1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 Aug is corrected.
+2. Scripture references in a number of places where the references were from a specific verse to the end of the chapter for the Book of Common Prayer, 2019, Anglican Church in North America for the ESV API are corrected.
 
 ### 2.0.1
 

@@ -613,7 +613,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'John 6:4',
+      'passage' => 'John 6:4-end'
       'verses' => 
       array (
         0 => 'JHN/6?verse_start=4&verse_end=999',
@@ -3212,7 +3212,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'Mark 5:2',
+      'passage' => 'Mark 5:2-end'
       'verses' => 
       array (
         0 => 'MRK/5?verse_start=2&verse_end=999',
