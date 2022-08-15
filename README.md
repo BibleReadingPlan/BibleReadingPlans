@@ -162,6 +162,12 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
+### 2.0.3
+
+This version:
+
+1. A typo on line 1460 of bible-reading-plans-class.inc.php is corrected.
+
 ### 2.0.2
 
 This version:
@@ -413,6 +419,12 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+### 2.0.3
+
+This version:
+
+1. Corrects a typo on line 1460 of bible-reading-plans-class.inc.php.
 
 ### 2.0.2
 

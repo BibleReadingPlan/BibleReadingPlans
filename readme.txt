@@ -151,6 +151,12 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
+= 2.0.3 =
+
+This version:
+
+1. Corrects typo on line 1460 of bible-reading-plans-class.inc.php.
+
 = 2.0.2 =
 
 This version:

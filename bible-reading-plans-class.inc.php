@@ -1457,7 +1457,7 @@ EOT;*/
 				} elseif (isset($this->dbp_lang_id2iso_alt[$lang_id]) && $this->dbp_lang_id2iso_alt[$lang_id]) {
 					$this->lng_code_iso	= $this->dbp_lang_id2iso_alt[$lang_id];
 				} else {
-					$this->lng_code_iso	= $this->$dbp_language_iso;
+					$this->lng_code_iso	= $this->dbp_language_iso;
 				}
 				$split_bible_id 		= str_split($this->bible_id, 3);
 				$language_code			= array_shift($split_bible_id);
