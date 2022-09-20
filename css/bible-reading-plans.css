@@ -208,6 +208,54 @@ b.verse-num .woc{
 	float: left;
 }
 
+/* Table of Contents
+-------------------------------------------------------------- */
+
+.brp-toc {
+	float: right;
+	position: fixed;
+	top: 15%;
+	right: 15%;
+	border: 1px solid gray;
+	border-radius: 3px;
+	padding: 0;
+}
+
+.brp-toc-header {
+	padding: 0 0.5em;
+	background: url("https://code.jquery.com/ui/1.12.1/themes/smoothness/images/ui-bg_highlight-soft_75_cccccc_1x100.png");
+	background-repeat: repeat-x;
+	background-size: auto;
+	border: 1px solid gray;
+	border-radius: 3px;
+	margin: 0.1em;
+}
+
+.brp-toc-title {
+	padding: 0.5em 0.2em;
+	margin: 0 0.2em;
+	font-size: 0.8em;
+	font-weight: 500;
+	line-height: 1.8em;
+	text-align: center;
+}
+
+.brp-toc ul {
+	margin: 0.1em 0 0.4em 0;
+}
+
+.brp-toc li {
+	line-height: 1.2em;
+	margin: 0;
+	list-style: none;
+}
+
+.brp-toc a {
+	line-height: 0.8em;
+	font-size: 0.8em;
+	color: black;
+}
+
 /* Mobile
 -------------------------------------------------------------- */
 
@@ -236,5 +284,20 @@ b.verse-num .woc{
 		float: none;
 	}
 	
+	.brp-toc {
+		float: none;
+		position: fixed;
+		top: auto;
+		right: 0;
+		left: 0;
+		bottom: 0;
+		width: 99%;
+		margin: 0 auto;	
+		padding: 0;
+		background-color: #eee;
+		font-size: 0.7em !important;
+		line-height: 0.7em !important;		
+	}
+
 }
 

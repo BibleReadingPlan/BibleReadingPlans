@@ -162,11 +162,15 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
-### 2.0.3
+### 2.1
 
 This version:
 
-1. A typo on line 1460 of bible-reading-plans-class.inc.php is corrected.
+1. Adds a floating table of contents, 
+
+1. Corrects typo on line 1460 of bible-reading-plans-class.inc.php of version 2.0.2.
+
+1. Restructures some code for easier maintenance.
 
 ### 2.0.2
 
@@ -420,11 +424,15 @@ Initial release.
 
 ## Changelog
 
-### 2.0.3
+### 2.1
 
 This version:
 
-1. Corrects a typo on line 1460 of bible-reading-plans-class.inc.php.
+1. A floating table of contents is added.
+
+1. A typo on line 1460 of bible-reading-plans-class.inc.php of version 2.0.2 is corrected.
+
+1. Some code is restructured for easier maintenance.
 
 ### 2.0.2
 

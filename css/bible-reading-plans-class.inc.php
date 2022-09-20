@@ -2076,7 +2076,7 @@ EOS;
 					}
 					if ($this->display_toc) {
 						$toc	 .= "</ul></div>\n";
-						$rtn_str  = $toc.$rtn_str;
+						$rtn_str  = $rtn_str.$toc;
 					}
 					// DO NOT REMOVE THE COPYRIGHT INFORMATION FOR THE SCRIPTURE TEXTS.
 					$end_texts = end($texts);
