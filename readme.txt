@@ -151,6 +151,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
+= 2.1.1 =
+
+This version updates the .pot languages file.
+
 = 2.1 =
 
 This version:
@@ -413,6 +417,10 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
+
+= 2.1.1 =
+
+The .pot languages file is updated.
 
 = 2.1 =
 
