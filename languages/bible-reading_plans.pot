@@ -1,15 +1,15 @@
-# Copyright (C) 2022 M.D. Green
+# Copyright (C) 2022 
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bible Reading Plans 2.1\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/2.1.1\n"
+"Project-Id-Version: Bible Reading Plans 2.1.2\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/2.1.2\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2022-09-22T16:42:53-04:00\n"
+"POT-Creation-Date: 2022-10-22T17:51:59-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.5.0\n"
 "X-Domain: bible-reading-plans\n"
@@ -25,14 +25,6 @@ msgstr ""
 
 #. Description of the plugin
 msgid "This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan=\"mcheyne\" source=\"DBP\" version=\"ESV\"]</code> or <code>[bible-reading-plan reading_plan=\"mcheyne\" source=\"DBP\" bible_id=\"ENGESV\"]</code>. The latter form is new in this version, applies only to the DBP source, and  provides access to over 1700 Bible versions in more than 1500 languages, with more versions and languages being added regularly. Three sources for the Scriptures displayed for each plan are available: the American Bible Society API, Version 1 (API.Bible), the Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). There are now 16 different Bible reading plans available with the plugin, plus the ability to create ones own reading plan using an auxiliary, premium plugin."
-msgstr ""
-
-#. Author of the plugin
-msgid "M.D. Green"
-msgstr ""
-
-#. Author URI of the plugin
-msgid "https://www.saesolved.com/"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:656
@@ -115,7 +107,7 @@ msgid "It takes a short while to load and process all of the required data from 
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:937
-#: bible-reading-plans-class.inc.php:1349
+#: bible-reading-plans-class.inc.php:1354
 msgid "Bible Reading Plans Settings"
 msgstr ""
 
@@ -259,192 +251,196 @@ msgstr ""
 msgid "Create your own Bible reading plans to use with this plugin. Purchase the "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1251
-msgid "Questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
+#: bible-reading-plans-class.inc.php:1256
+msgid "Further questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1257
+#: bible-reading-plans-class.inc.php:1262
 msgid "Save Changes"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1313
+#: bible-reading-plans-class.inc.php:1318
 msgid "If you find this plugin of value, please contribute to the cost of its development:"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1313
+#: bible-reading-plans-class.inc.php:1318
 msgid "\"Do not muzzle an ox while it is treading out the grain.\" and \"The worker deserves his wages.\""
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1313
+#: bible-reading-plans-class.inc.php:1318
 msgid "NIV"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1313
+#: bible-reading-plans-class.inc.php:1318
 msgid "1 Timothy 5:18"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1350
+#: bible-reading-plans-class.inc.php:1355
 msgid "American Bible Society<br />Access Key (API Version 1)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1351
+#: bible-reading-plans-class.inc.php:1356
 msgid "Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1352
+#: bible-reading-plans-class.inc.php:1357
 msgid "English Standard Version<br />Access Key (API Version 3)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1353
+#: bible-reading-plans-class.inc.php:1358
 msgid "Display Plan Name on Pages"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1354
+#: bible-reading-plans-class.inc.php:1359
 msgid "Show Date Picker Calendar"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1355
+#: bible-reading-plans-class.inc.php:1360
 msgid "Display Table of Contents on Pages"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1356
+#: bible-reading-plans-class.inc.php:1361
 msgid "Show \"Powered by\" attribution at bottom of page"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1534
+#: bible-reading-plans-class.inc.php:1543
 msgid "Versions are loading..."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1568
+#: bible-reading-plans-class.inc.php:1577
 msgid "Select another language to get a list of the versions available in that language:"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1585
-#: bible-reading-plans-class.inc.php:1586
+#: bible-reading-plans-class.inc.php:1594
+#: bible-reading-plans-class.inc.php:1595
 msgid "English"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1589
+#: bible-reading-plans-class.inc.php:1598
 msgid "Languages are sorted by their ISO code. (If different from the native name, English or alternate names for a language are in parentheses.)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1590
+#: bible-reading-plans-class.inc.php:1599
 msgid "NOTES:"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1591
+#: bible-reading-plans-class.inc.php:1600
 msgid "There are ~90 more languages available, but which have had to be excluded from this version of the plugin because of the format in which they are available. It is hoped that the next version will be able to include these languages.)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1592
+#: bible-reading-plans-class.inc.php:1601
 msgid "There are likely formatting issues with some languages. It is hoped that the users of those languages will work with us to resolve these issues"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1599
+#: bible-reading-plans-class.inc.php:1608
 msgid "The "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1607
+#: bible-reading-plans-class.inc.php:1616
 msgid " language versions available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for \"bible_id\" in the shortcode currently are:"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1624
+#: bible-reading-plans-class.inc.php:1633
 msgid "The default version is "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1627
+#: bible-reading-plans-class.inc.php:1636
 msgid "(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1788
-#: bible-reading-plans-class.inc.php:2165
+#: bible-reading-plans-class.inc.php:1797
+#: bible-reading-plans-class.inc.php:2171
 msgid "Click on a date to open the readings for that day."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1837
-#: bible-reading-plans-class.inc.php:1849
-#: bible-reading-plans-class.inc.php:2099
-#: bible-reading-plans-class.inc.php:2111
+#: bible-reading-plans-class.inc.php:1846
+#: bible-reading-plans-class.inc.php:1858
+#: bible-reading-plans-class.inc.php:2105
+#: bible-reading-plans-class.inc.php:2117
 msgid "Scriptures copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1840
-#: bible-reading-plans-class.inc.php:2102
+#: bible-reading-plans-class.inc.php:1849
+#: bible-reading-plans-class.inc.php:2108
 msgid "Scriptures Copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1842
-#: bible-reading-plans-class.inc.php:2104
+#: bible-reading-plans-class.inc.php:1851
+#: bible-reading-plans-class.inc.php:2110
 msgid "Scriptures &copy; Copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1860
-#: bible-reading-plans-class.inc.php:2122
+#: bible-reading-plans-class.inc.php:1869
+#: bible-reading-plans-class.inc.php:2128
 msgid "This Bible reading plan from "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1860
-#: bible-reading-plans-class.inc.php:2122
+#: bible-reading-plans-class.inc.php:1869
+#: bible-reading-plans-class.inc.php:2128
 msgid " is licensed under the <a target=\"_blank\" href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General Public License v.3</a> by Alan Hartless in a plugin written for Joomla: https://github.com/alanhartless/bibleplan, &copy; HartlessByDesign 2011. All rights reserved. Licensed under GNU General Public License v.3."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1864
-#: bible-reading-plans-class.inc.php:2126
+#: bible-reading-plans-class.inc.php:1873
+#: bible-reading-plans-class.inc.php:2132
 msgid "All not-for-profit reproduction of this Bible reading plan by churches and non-profit organizations is permitted (reference Copyright statement in <a href=\"https://bcp2019.anglicanchurch.net/\" target=\"_blank\">"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1864
-#: bible-reading-plans-class.inc.php:2126
+#: bible-reading-plans-class.inc.php:1873
+#: bible-reading-plans-class.inc.php:2132
 msgid "Many thanks to "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1864
-#: bible-reading-plans-class.inc.php:2126
+#: bible-reading-plans-class.inc.php:1873
+#: bible-reading-plans-class.inc.php:2132
 msgid "for supplying this plan in digital form."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1868
-#: bible-reading-plans-class.inc.php:2130
+#: bible-reading-plans-class.inc.php:1877
+#: bible-reading-plans-class.inc.php:2136
 msgid "This Bible reading plan by "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1868
-#: bible-reading-plans-class.inc.php:2130
+#: bible-reading-plans-class.inc.php:1877
+#: bible-reading-plans-class.inc.php:2136
 msgid " is in the Public Domain."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2056
+#: bible-reading-plans-class.inc.php:1990
+msgid "Table of Contents"
+msgstr ""
+
+#: bible-reading-plans-class.inc.php:2062
 msgid "Portions from the Apocrypha are from the "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2057
+#: bible-reading-plans-class.inc.php:2063
 msgid "Source: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2058
+#: bible-reading-plans-class.inc.php:2064
 msgid "Copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2150
+#: bible-reading-plans-class.inc.php:2156
 msgid "No readings for this date."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2415
+#: bible-reading-plans-class.inc.php:2201
+#: bible-reading-plans-class.inc.php:2752
+#: bible-reading-plans-class.inc.php:2790
+msgid "ERROR: Response to request for Scriptures yields an error."
+msgstr ""
+
+#: bible-reading-plans-class.inc.php:2446
 msgid "ERROR: Cannot move "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2419
+#: bible-reading-plans-class.inc.php:2450
 msgid "ERROR: Cannot retrieve "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2554
+#: bible-reading-plans-class.inc.php:2571
 msgid "No Scriptures available in this version for "
-msgstr ""
-
-#: bible-reading-plans-class.inc.php:2732
-#: bible-reading-plans-class.inc.php:2766
-#: bible-reading-plans-class.inc.php:2790
-msgid "ERROR: Response to request for Scriptures yields an error."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:2792

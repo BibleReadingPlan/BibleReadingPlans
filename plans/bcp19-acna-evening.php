@@ -8708,10 +8708,10 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'Matthew 25:3',
+      'passage' => 'Matthew 25:31-end',
       'verses' => 
       array (
-        0 => 'MAT/25?verse_start=3&verse_end=999',
+        0 => 'MAT/25?verse_start=31&verse_end=999',
       ),
     ),
   ),
@@ -9171,10 +9171,10 @@ $reading_plan = array (
     ),
     4 => 
     array (
-      'passage' => 'Mark 5:2',
+      'passage' => 'Mark 5:21-end',
       'verses' => 
       array (
-        0 => 'MRK/5?verse_start=2&verse_end=999',
+        0 => 'MRK/5?verse_start=21&verse_end=999',
       ),
     ),
   ),

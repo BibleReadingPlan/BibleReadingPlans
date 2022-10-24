@@ -1245,11 +1245,16 @@ EOS;
 	<div style="clear: both; padding-top: 15px;">';
 		_e('The page opens with the plan reading for the current date. A date picker calendar is available (see option below) to enable users to choose readings for other dates.<br /><br />This plugin requires JavaScript to be active.', 'bible-reading-plans');
 		echo '
-	</div><p>&nbsp;</p><p style="text-align: center; font-weight: bold; border: 1px solid gold; margin: 0 auto 20px 200px; padding: 15px; color: #005353; background-color: #F3E8DF; width: 50%; border-radius: 25px;">';
+	</div><p>&nbsp;</p><div style="text-align: center; font-weight: bold; border: 1px solid gold; margin: 0 auto 20px 200px; padding: 15px; color: #005353; background-color: #F3E8DF; width: 50%; border-radius: 25px;">';
 		_e('Create your own Bible reading plans to use with this plugin. Purchase the ', 'bible-reading-plans');
-		echo '<a href="http://sllwi.re/p/1Il" target="_blank">Create Bible Reading Plans plugin</a>.<br /><br />';
-		_e('Questions? <a href="https://saesolved.com/contact-us/" target="_blank">Contact us.</a>', 'bible-reading-plans');
-		echo '</p><div id="instructions_below">&nbsp;</div>';
+		echo '<a href="http://sllwi.re/p/1Il" target="_blank">Create Bible Reading Plans plugin</a>.';
+		echo '<p><details>
+  <summary style="cursor: pointer;">Click to toggle for more or less info...</summary>
+  <p style="text-align: center; font-weight: bold;">This is a screen-shot of the input screen for the Create Bible Reading Plans plugin.<br />Click on it to open it in new tab where you can zoom in to see it in more detail.
+  <a href="'.$this->plugin_url.'images/cbrp-input-screen.png" title="Click to open image in new tab.+" target="_blank"><img width=100% title="Create Bible Reading Plans plugin input dashboard screenshot." class="brp_loading_img" src="'.$this->plugin_url.'images/cbrp-input-screen.png" /></a>Clicking on "Save Changes" saves the Bible reading plan(s) directly into the Bible Reading Plans database.</p>
+</details></p>';
+		_e('Further questions? <a href="https://saesolved.com/contact-us/" target="_blank">Contact us.</a>', 'bible-reading-plans');
+		echo '</div><div id="instructions_below">&nbsp;</div>';
 		echo '<form method="post" action="options.php">';
 		settings_fields('bible_reading_plans_settings');
 		do_settings_sections('bible_reading_plans_plugin');
@@ -1494,11 +1499,15 @@ EOT;*/
 	}
 
 	protected function add_date_picker_ui () {
-		$language_name = $this->dbp_versions[$this->lng_code_iso][0]['language_name'];
+		$language_name	 = $this->dbp_versions[$this->lng_code_iso][0]['language_name'];
 		if (isset($this->lng_name_to_2_ltr_cd[$language_name]) && $this->lng_name_to_2_ltr_cd[$language_name]) {
 			$lang_code_2ltr = $this->lng_name_to_2_ltr_cd[$language_name];
 		} else {
 			$lang_code_2ltr = 'en';
+		}
+		$first_day		 = get_option('start_of_week');
+		if (!isset($first_day)) {
+			$first_day = 0;
 		}
 		$includes_path	 = includes_url();
 		$rtn_str		 = '<script type="text/javascript" src="'.$includes_path.'js/jquery/ui/core.min.js"></script>'."\n";
@@ -1511,7 +1520,7 @@ EOT;*/
 	/* <![CDATA[ */";
 			$rtn_str .= "
 			jQuery(document).ready(function($){
-				$.datepicker.setDefaults(\"dateFormat\":\"".$this->js_date_format."\",\"firstDay\":0});
+				$.datepicker.setDefaults(\"dateFormat\":\"".$this->js_date_format."\",\"firstDay\":$first_day});
 			})";
 		} else {
 			$rtn_str .= "
@@ -1978,7 +1987,7 @@ EOS;
 						$rtn_str .= $this->date_picker();
 					}
 					if ($this->display_toc) {
-						$toc = "\n".'<div class="brp-toc"><div class="brp-toc-header"><span class="brp-toc-title">Table of Contents</span></div><ul>'."\n";
+						$toc = "\n".'<div class="brp-toc"><div class="brp-toc-header"><span class="brp-toc-title">'.__('Table of Contents', 'bible-reading-plans').'</span></div><ul>'."\n";
 					}
 					$i						= 0;
 					$n						= 0;
@@ -2000,9 +2009,6 @@ EOS;
 						} elseif ('dbp_' == $this->scptr_src_prefix) {
 							if (isset($readings_querys[$n]['passage'])) {
 								$passage = $readings_querys[$n]['passage'];
-								if ($this->display_toc) {
-									$this->toc_list($passage, $rtn_str, $toc);
-								}
 							} else {
 								$passage = '';
 							}
@@ -2048,9 +2054,9 @@ EOS;
 										}
 										$rtn_str 		.= "<div class=\"brp-passage\">$passage_header</div>";
 									} else {
-										if ($this->display_toc) {
+										/*if ($this->display_toc) {
 											$this->toc_list($passage, $rtn_str, $toc);
-										}
+										}*/
 									}
 									$rtn_str			    = $this->put_verses_abs($rtn_str, $txt, $fumsIDs_array, true);
 									$apocrypha_copyright   .= __('Portions from the Apocrypha are from the ', 'bible-reading-plans');
@@ -2067,7 +2073,7 @@ EOS;
 								} elseif ('esv_' == $this->scptr_src_prefix && !$use_abs4apocrypha[$passage]) {
 									$rtn_str = $this->put_verses_esv($rtn_str, $txt);
 								} elseif ('dbp_' == $this->scptr_src_prefix) {
-									$rtn_str = $this->put_verses_dbp($rtn_str, $txt, $passage_index, $prgrph_nr);
+									$rtn_str = $this->put_verses_dbp($rtn_str, $txt, $passage_index, $prgrph_nr, $toc);
 								}
 							}
 						} else {
@@ -2181,6 +2187,31 @@ EOS;
 		return $abs_url_end;
 	}
 	
+	protected function decoded_body_passages_is_empty ($decoded_body, &$texts) {
+		global $use_abs4apocrypha;
+		$book_chapter_and_verses = $this->parse_bk_chp_vrs($decoded_body->query);
+		$book    				 = $book_chapter_and_verses[0];
+		$chapter_and_verses		 = $book_chapter_and_verses[1];
+		$passage				 = $decoded_body->query;
+		if (in_array($book, $this->book_names_ap)) {
+			$book_id	= array_search($book, $this->book_codes_names_ap);
+			$args		= array('book' => $book_id, 'chapter_and_verses' => $chapter_and_verses);
+			$response	= $this->get_from_default_apocrypha($args);
+			if (is_wp_error($response)) {
+				$texts[$passage][] = __('ERROR: Response to request for Scriptures yields an error.', 'bible-reading-plans');
+			} elseif (is_array($response)) {
+				if (strpos($response['body'], 'missing key') || strpos($response['body'], '"data":[]')) {
+					$texts[$passage][] = $this->err_flag.$this->api_request_err.'ABS.';
+				}
+			}
+			$texts[$passage][]				= $response['body'];
+			$use_abs4apocrypha[$passage]	= true;
+		} else {
+			$texts[$passage][]				= $response['body'];
+			$use_abs4apocrypha[$passage]	= false;
+		}
+	}
+
 	protected function get_from_default_apocrypha ($input = array()) {
 		// Default Apocrypha is the King James Version, Ecumenical, from API.Bible (ABS).
 		$version	= $this->abs_vers_default['KJV-E']['id'];
@@ -2524,30 +2555,16 @@ EOS;
 		// This function transforms the header from English to whatever language is being used.
 		// Get book name for the language being used.
 		if (isset($decoded_text['data'][0]['book_name_alt']) && $decoded_text['data'][0]['book_name_alt']) {
-			$book = $decoded_text['data'][0]['book_name_alt'];
+			$language_passage	= $decoded_text['data'][0]['book_name_alt'];
+			// Use whatever formatting the database has for the language passage.
 		} else {
-			$book = $decoded_text['data'][0]['book_name'];
-		}
-		$parts = explode(' ', $passage);
-		if (isset($parts[1])) {
-			if (false !== strpos($book, $parts[1])) {
-				$language_passage = $book;
-			} else {
-				$language_passage = $book.' '.$parts[1];
-			}
-			if (isset($parts[2])) {
-				$language_passage .= ' '.$parts[2];
-			}
-		} else {
-			$language_passage	= $book;
-			if (isset($parts[1])) {
-				$language_passage .= ' '.$parts[1];
-			}
+			// Only English name is present in database
+			$language_passage 	= $decoded_text['data'][0]['book_name'];
 		}
 		return $language_passage;
 	}
 
-	protected function put_verses_dbp ($rtn_str, $txt, $passage, &$prgrph_nr) {
+	protected function put_verses_dbp ($rtn_str, $txt, $passage, &$prgrph_nr, &$toc) {
 		global $passage_prev;
 		$decoded_text = json_decode($txt, true);
 		if (isset($decoded_text['error']['message']) && 'No Fileset Chapters Found for the provided params' == $decoded_text['error']['message']) {
@@ -2564,6 +2581,9 @@ EOS;
 			$passage_prev	 = $passage;
 			$passage		 = $this->transform_passage_dbp($passage, $decoded_text);
 			$passage_header  = $this->transform_header($passage);
+			if ($this->display_toc && $passage_header) {
+				$this->toc_list($passage_header, $rtn_str, $toc);
+			}
 			$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
 		}
 		if (array_key_exists($english_book, $this->poetic)) {
@@ -2754,27 +2774,7 @@ EOS;
 							}
 							$decoded_body = json_decode($response['body']);
 							if (empty($decoded_body->passages)) {
-								$book_chapter_and_verses = $this->parse_bk_chp_vrs($decoded_body->query);
-								$book    				 = $book_chapter_and_verses[0];
-								$chapter_and_verses		 = $book_chapter_and_verses[1];
-								$passage				 = $decoded_body->query;
-								if (in_array($book, $this->book_names_ap)) {
-									$book_id	= array_search($book, $this->book_codes_names_ap);
-									$args		= array('book' => $book_id, 'chapter_and_verses' => $chapter_and_verses);
-									$response	= $this->get_from_default_apocrypha($args);
-									if (is_wp_error($response)) {
-										$texts[$passage][] = __('ERROR: Response to request for Scriptures yields an error.', 'bible-reading-plans');
-									} elseif (is_array($response)) {
-										if (strpos($response['body'], 'missing key') || strpos($response['body'], '"data":[]')) {
-											$texts[$passage][] = $this->err_flag.$this->api_request_err.'ABS.';
-										}
-									}
-									$texts[$passage][]				= $response['body'];
-									$use_abs4apocrypha[$passage]	= true;
-								} else {
-									$texts[$passage][]				= $response['body'];
-									$use_abs4apocrypha[$passage]	= false;
-								}
+								$this->decoded_body_passages_is_empty($decoded_body, $texts);
 							}
 						} else {
 							return $this->err_flag.': Neither ABS, DBP, nor ESV are specified.';

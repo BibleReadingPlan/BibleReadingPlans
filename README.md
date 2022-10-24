@@ -120,8 +120,6 @@ See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-read
 
 This plugin requires JavaScript to be active.
 
-Copyright 2022 M.D. Green, SaeSolved:: LLC
-
 ## License
 
 This program is free software; you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation; either version 3 of the License, or (at your option) any later version.
@@ -161,6 +159,24 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 ## Upgrade Notice
+
+## 2.1.2
+
+This version:
+
+1. Makes first day of week for the calendar that of the first day of the week set in the WordPress options for English calendars (the script for the calendar for other languages set this).
+
+1. Adds screenshot of Create Bible Readings Plans plugin settings screen to text linking to that plugin.
+
+1. Bug fix: Corrects Table of Contents so that it now displays in the language of the page.
+
+1. Bug fix: Corrects heading for first Scripture readings to be only for the language of the page, instead of a combination of that language and English.
+
+1. Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 7 and 22 October.
+
+1. Bug fix: Makes Table of Contents text be aligned center, as originally intended.
+
+1. Bug fix: Corrects repetition of Apocryphal books.
 
 ## 2.1.1
 
@@ -427,6 +443,24 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+## 2.1.2
+
+This version:
+
+1. First day of week for the calendar is set to that of the first day of the week set in the WordPress options for English calendars (the script for the calendar for other languages set this).
+
+1. Screenshot of Create Bible Readings Plans plugin settings screen to text linking to that plugin is added.
+
+1. Bug fix: Table of Contents is corrected so that it now displays in the language of the page.
+
+1. Bug fix: Heading for first Scripture is corrected so that readings to be only for the language of the page, instead of a combination of that language and English.
+
+1. Bug fixes: Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 7 and 22 October are corrected.
+
+1. Bug fix: Table of Contents text is aligned center, as originally intended.
+
+1. Bug fix: Repetition of Apocryphal books is corrected.
 
 ## 2.1.1
 
