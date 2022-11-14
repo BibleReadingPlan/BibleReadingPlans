@@ -3,7 +3,7 @@ Contributors: drmikegreen, sophoservices
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.0.1
+Tested up to: 6.1
 Requires PHP: 5.6
 Tested up to PHP: 7.4
 Stable tag: trunk
@@ -43,7 +43,7 @@ The values of reading_plan can be:
 
 The default reading plan is M'Cheyne One-Year Reading Plan. 
 
-We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (http://sllwi.re/p/1Il) to make it possible to create one's own Bible reading plan for use in this plugin.
+We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il) to make it possible to create one's own Bible reading plan for use in this plugin.
 
 The values of source can be:
 
@@ -148,6 +148,14 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 == Upgrade Notice ==
+
+= 2.1.3 =
+
+This version:
+
+1. Registers Display Table of Contents on Pages settings.
+
+1. Corrects link to Create Bible Reading plans to https://sllwi.re/p/1Il.
 
 = 2.1.2 =
 
@@ -416,7 +424,7 @@ This version implements:
 
 This version implements:
 
-1.	Compatibility with the premium plugin "Create Bible Reading Plans" (http://sllwi.re/p/1Il).
+1.	Compatibility with the premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il).
 
 1.	Addition of another version of the Bible.
 
@@ -433,6 +441,14 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
+
+= 2.1.3 =
+
+This version:
+
+1. Bug fix: Display Table of Contents is registered in Pages settings.
+
+1. Bug fix: Link to Create Bible Reading plans is corrected to https://sllwi.re/p/1Il.
 
 = 2.1.2 =
 
@@ -660,7 +676,7 @@ Addition of omitted style sheets.
 
 = 0.3 =
 
-1.	Incorporates compatibility with the premium plugin "Create Bible Reading Plans" (http://sllwi.re/p/1Il).
+1.	Incorporates compatibility with the premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il).
 
 1.	Addition of another version of the Bible. by including passage headings
 

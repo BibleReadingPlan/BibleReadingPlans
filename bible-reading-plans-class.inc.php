@@ -1247,7 +1247,7 @@ EOS;
 		echo '
 	</div><p>&nbsp;</p><div style="text-align: center; font-weight: bold; border: 1px solid gold; margin: 0 auto 20px 200px; padding: 15px; color: #005353; background-color: #F3E8DF; width: 50%; border-radius: 25px;">';
 		_e('Create your own Bible reading plans to use with this plugin. Purchase the ', 'bible-reading-plans');
-		echo '<a href="http://sllwi.re/p/1Il" target="_blank">Create Bible Reading Plans plugin</a>.';
+		echo '<a href="https://sllwi.re/p/1Il" target="_blank">Create Bible Reading Plans plugin</a>.';
 		echo '<p><details>
   <summary style="cursor: pointer;">Click to toggle for more or less info...</summary>
   <p style="text-align: center; font-weight: bold;">This is a screen-shot of the input screen for the Create Bible Reading Plans plugin.<br />Click on it to open it in new tab where you can zoom in to see it in more detail.
@@ -1366,6 +1366,7 @@ EOT;*/
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_toc');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_use_calendar');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_calendar_in_text');
+			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_toc');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_show_poweredby');
 		}
 	}
