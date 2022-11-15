@@ -149,6 +149,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
+= 2.1.4 =
+
+This version corrects bugs which were causing Scriptures obtained from the American Bible Society to always be in the King James version.
+
 = 2.1.3 =
 
 This version:
@@ -441,6 +445,10 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
+
+= 2.1.4 =
+
+Corrects bugs which were causing Scriptures obtained from the American Bible Society to always be in the King James version.
 
 = 2.1.3 =
 

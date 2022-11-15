@@ -1400,7 +1400,7 @@ EOT;*/
 		if (isset($_REQUEST['version'])) {
 			$this->version = sanitize_text_field($_REQUEST['version']);
 			if ('abs_' == $this->scptr_src_prefix) {
-				if (!is_array($this->abs_languages) || (is_array($this->abs_versions) && !array_key_exists($this->version, $this->abs_versions))) {
+				if (!is_array($this->abs_versions) || (is_array($this->abs_versions) && !array_key_exists($this->version, $this->abs_versions))) {
 					$this->version = $this->default_version();
 				}
 			} elseif ('dbp_' == $this->scptr_src_prefix) {
@@ -1463,7 +1463,7 @@ EOT;*/
 				$this->language = strtolower($combined_atts['language_code']);
 			}
 			$this->abs_language_id = $this->language;
-			if (!is_array($this->abs_versions) || !in_array($combined_atts['version'], $this->abs_versions)) {
+			if (!is_array($this->abs_versions) || !array_key_exists($combined_atts['version'], $this->abs_versions)) {
 				$this->version = $this->default_version();
 			} else {
 				$this->version = $combined_atts['version'];
