@@ -10410,7 +10410,7 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'Luke 9:5',
+      'passage' => 'Luke 9:5-end',
       'verses' => 
       array (
         0 => 'LUK/9?verse_start=5&verse_end=999',

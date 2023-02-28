@@ -815,7 +815,7 @@ class BibleReadingPlans {
 					jQuery(document).ready(function($) {
 						$('#brp-dbp-languages-and-versions').html(loading_image);
 						$.ajax({
-							timeout:	240000, // sets timeout to 2 minutes
+							timeout:	180000, // sets timeout to 3 minutes
 							url:		ajaxurl,
 							data: {
 								action:	'put_languages_and_versions',
@@ -1632,7 +1632,7 @@ EOS;
 				}
 			}
 			if ('eng' == $lng_code_iso) {
-				$dbp_versions_list .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS';
+				$dbp_versions_list .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNLV';
 			}
 			$dbp_versions_list .= "\t\t</ul>\n";
 			$dbp_versions_list .= "\t<span class=\"brp-available-versons-note\">".__('(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)', 'bible-reading-plans')."</span></div>\n";
@@ -1825,9 +1825,25 @@ EOS;
 		}
 	}
 
-	protected function display_copyright_info (&$rtn_str, $apocrypha_copyright = '', $copyright_ary = array(), $reading_plan_0 = array()) {
+	protected function display_copyright_info (&$rtn_str, $texts = array(), $apocrypha_copyright = '', $fumsIDs_array = '', $copyright_ary = array(), $reading_plan_0 = array()) {
 		// DO NOT REMOVE THE COPYRIGHT INFORMATION FOR THE SCRIPTURE TEXTS.
-		$scriptures_copyright = '';
+		$end_texts = end($texts);
+		if ('abs_' == $this->scptr_src_prefix || $apocrypha_copyright) {
+			$rtn_str   .= '
+				<script type=\"text/javascript\"> 
+					var fumsIDarray = ['.$fumsIDs_array.']
+					fumsIDarray.forEach(sendFUMSIDs);
+					function sendFUMSIDs(item) {
+						try {
+							_BAPI.t(item);
+						}
+						catch {
+							// alert("ERROR: Could not transmit Fair Use Management System ID:" + item + ".");
+						}
+					}
+				</script>';
+		}
+		$scriptures_copyright	= '';
 		if ('abs_' == $this->scptr_src_prefix) {
 			$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures copyright: ', 'bible-reading-plans').$this->abs_copyright.'.';
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
@@ -1837,11 +1853,11 @@ EOS;
 				$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures &copy; Copyright: ', 'bible-reading-plans');
 			}
 			if ($copyright_ary['date']) {
-				$scriptures_copyright .= $copyright_ary['date'].' ';
+				$scriptures_copyright .= IntlDateFormatter::formatObject(strtotime($copyright_ary['date']), " yyyy ", $this->lng_code_iso);
 			}
 			$scriptures_copyright .= $copyright_ary['copyright'];
 		} elseif ('esv_' == $this->scptr_src_prefix) {
-			$scriptures_copyright .= '<br />'.__('Scriptures Copyright: The ESV Bible® (The Holy Bible, English Standard Version®) Copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. ESV® Text Edition: 2007. All rights reserved. English Standard Version, ESV, and the ESV logo are registered trademarks of Good News Publishers. Used by permission.', 'bible-reading-plans');
+			$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures copyright: ', 'bible-reading-plans').$this->esv_copyright.'.';
 			$rtn_str   			  .= '<br />';
 		}
 		$rtn_str .= '<div class="brp-copyright-small">';
@@ -2073,10 +2089,66 @@ EOS;
 						$rtn_str  = $toc.$rtn_str;
 					}
 					// DO NOT REMOVE THE COPYRIGHT INFORMATION FOR THE SCRIPTURE TEXTS.
-					if (!isset($copyright_ary)) {
-						$copyright_ary = array();
+					$end_texts = end($texts);
+					if ('abs_' == $this->scptr_src_prefix || $apocrypha_copyright) {
+						$rtn_str   .= '
+							<script type=\"text/javascript\"> 
+								var fumsIDarray = ['.$fumsIDs_array.']
+								fumsIDarray.forEach(sendFUMSIDs);
+								function sendFUMSIDs(item) {
+									try {
+										_BAPI.t(item);
+									}
+									catch {
+										// alert("ERROR: Could not transmit Fair Use Management System ID:" + item + ".");
+									}
+								}
+							</script>';
 					}
-					$this->display_copyright_info ($rtn_str, $apocrypha_copyright, $copyright_ary, $reading_plan[0]);
+					if ('abs_' == $this->scptr_src_prefix) {
+						$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures copyright: ', 'bible-reading-plans').$this->abs_copyright.'.';
+					} elseif ('dbp_' == $this->scptr_src_prefix) {
+						if (is_array($copyright_ary) && 'Public Domain' == $copyright_ary['copyright']) {
+							$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures Copyright: ', 'bible-reading-plans');
+						} else {
+							$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures &copy; Copyright: ', 'bible-reading-plans');
+						}
+						if (isset($copyright_ary['date'])) {
+							$scriptures_copyright .= $copyright_ary['date'];
+						}
+//						$scriptures_copyright .= $copyright_ary['copyright'];
+					} elseif ('esv_' == $this->scptr_src_prefix) {
+						$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures copyright: ', 'bible-reading-plans').$this->esv_copyright.'.';
+						$rtn_str   .= '<br />';
+					}
+					$rtn_str .= '<div class="brp-copyright-small">';
+					if ('standardized' == $reading_plan[0]['copyright'] || 'Public Domain' == $reading_plan[0]['copyright']) {
+						if ('Public Domain' == $reading_plan[0]['copyright']) {
+							$reading_plan[0]['copy_type'] = 'Public Domain';
+						}						
+						switch ($reading_plan[0]['copy_type']) {
+						
+							case 'Alan Hartless':
+								$rtn_str .= __('This Bible reading plan from ', 'bible-reading-plans').$reading_plan[0]['plan_orgn'].__(' is licensed under the <a target="_blank" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v.3</a> by Alan Hartless in a plugin written for Joomla: https://github.com/alanhartless/bibleplan, &copy; HartlessByDesign 2011. All rights reserved. Licensed under GNU General Public License v.3.', 'bible-reading-plans');
+								break;
+								
+							case 'ACNA':
+								$rtn_str .= __('All not-for-profit reproduction of this Bible reading plan by churches and non-profit organizations is permitted (reference Copyright statement in <a href="https://bcp2019.anglicanchurch.net/" target="_blank">', 'bible-reading-plans').'<span style="font-style: italic;">The Book of Common Prayer</span></a>, 2019, Anglican Church in North America). '.'<span style="font-size: 0.9em;">'.__('Many thanks to ', 'bible-reading-plans').'<a href="https://www.joshuapsteele.com/" target="_blank">The Revd Joshua P Steele</a> '.__('for supplying this plan in digital form.', 'bible-reading-plans').'</span>';
+								break;
+								
+							case 'Public Domain':
+								$rtn_str .= __('This Bible reading plan by ', 'bible-reading-plans').$reading_plan[0]['plan_orgn'].__(' is in the Public Domain.', 'bible-reading-plans');
+								break;
+								
+							default:
+								$rtn_str .= $reading_plan[0]['copy_type'];
+							
+						}
+					} else {
+						$rtn_str .= $reading_plan[0]['copyright'];
+					}
+					$rtn_str .= $scriptures_copyright.'<br />';
+					$rtn_str .= $apocrypha_copyright.'</div>';
 				} else {
 					$rtn_str = $this->return_api_error($texts);
 				}
@@ -2320,6 +2392,7 @@ EOS;
 				}
 			}
 		}
+//		array_multisort (array_column($this->dbp_language_ids, 'native_name'), SORT_ASC, $this->dbp_language_ids);
 		if (isset($lng_code_iso) && $lng_code_iso) {
 			$this->lng_code_iso	= $lng_code_iso;
 		} else {

@@ -3,17 +3,15 @@ Wordpress plugin to embed Bible reading plans into a post or page
 
 Contributors: drmikegreen, sophoservices
 
-Donate link: [PayPal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url)
-
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 
 Requires at least: 2.8
 
-Tested up to: 6.1
+Tested up to: 6.1.1
 
 Requires PHP: 5.6
 
-Tested up to PHP: 7.4
+Tested up to PHP: 8.2
 
 Stable tag: trunk
 
@@ -159,6 +157,22 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 ## Upgrade Notice
+
+## 2.1.5
+
+This version:
+
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because the ESV is no longer supported by the DBP.
+
+1. Fixes the following bugs: 
+
+	1. Corrects code incompatible with PHP 8.2.
+
+	1. Corrects DBP headers to include verse numbers.
+
+	1. Re-corrects Table of Contents so that it again displays in the language of the page. (This waa lost along the way.)
+
+	1. Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
 
 ## 2.1.4
 
@@ -455,6 +469,22 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+## 2.1.5
+
+This version:
+
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because the ESV is no longer supported by the DBP.
+
+1. Corrects the following bugs:
+
+	1. Corrects code incompatible with PHP 8.2.
+
+	1. Corrects DBP headers to include verse numbers.
+
+	1. Re-corrects Table of Contents so that it again displays in the language of the page. (This waa lost along the way.)
+
+	1. Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
 
 ## 2.1.4
 
