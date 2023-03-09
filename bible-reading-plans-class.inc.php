@@ -815,7 +815,7 @@ class BibleReadingPlans {
 					jQuery(document).ready(function($) {
 						$('#brp-dbp-languages-and-versions').html(loading_image);
 						$.ajax({
-							timeout:	240000, // sets timeout to 2 minutes
+							timeout:	300000, // sets timeout to 5 minutes
 							url:		ajaxurl,
 							data: {
 								action:	'put_languages_and_versions',
@@ -1618,21 +1618,23 @@ EOS;
 		$dbp_versions_list .= "\t\t".'<ul class="brp-plans">'."\n";
 		if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
 			$bible_ids = array();
-			foreach ($this->dbp_versions[$lng_code_iso] as $vers_data) {
-				if (!in_array($vers_data['bible_id'], $bible_ids)) { // Eliminate duplicates.
-					$bible_ids[] 		= $vers_data['bible_id'];
-					$size				= $vers_data['size'];
-					$portion			= $this->dbp_size_to_portions[$size];
-					$dbp_versions_list .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}";
-					if ($portion) {
-						$dbp_versions_list .= " ($portion)";
+			if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
+				foreach ($this->dbp_versions[$lng_code_iso] as $vers_data) {
+					if (!in_array($vers_data['bible_id'], $bible_ids)) { // Eliminate duplicates.
+						$bible_ids[] 		= $vers_data['bible_id'];
+						$size				= $vers_data['size'];
+						$portion			= $this->dbp_size_to_portions[$size];
+						$dbp_versions_list .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}";
+						if ($portion) {
+							$dbp_versions_list .= " ($portion)";
+						}
+						$dbp_versions_list .= "</li>\n";
 					}
-					$dbp_versions_list .= "</li>\n";
-					// $dbp_versions_list .= " [{$vers_data['type']}]</li>\n";
 				}
 			}
 			if ('eng' == $lng_code_iso) {
-				$dbp_versions_list .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS';
+				$dbp_versions_list .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS.';
+				$dbp_versions_list .= '<div class="brp-available-versons-note">'.__('Note that this changed from ', 'bible-reading-plans').'ENGESV'.__(' at Version 2.1.5 of this plugin, since for a period of time prior to the release of this version the ESV was not available to the DBP.', 'bible-reading-plans').'</div>';
 			}
 			$dbp_versions_list .= "\t\t</ul>\n";
 			$dbp_versions_list .= "\t<span class=\"brp-available-versons-note\">".__('(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)', 'bible-reading-plans')."</span></div>\n";
@@ -1677,7 +1679,7 @@ EOS;
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
 		$urls_ary['metadata'] = $this->dbp_query_string.'bibles/';
-		if (isset($this->dbp_language_iso) && $this->dbp_language_iso) {
+		if (isset($this->dbp_language_iso[$this->dbp_language_iso]) && is_array($this->dbp_language_iso[$this->dbp_language_iso])) {
 			foreach ($this->dbp_versions[$this->dbp_language_iso] as $key => $ary) {
 				if (array_search($this->dam_id, $ary)) {
 					$urls_ary['metadata'] .= $this->dbp_versions[$this->dbp_language_iso][$key]['bible_abbr'];
@@ -1840,14 +1842,17 @@ EOS;
 				$scriptures_copyright .= $copyright_ary['date'].' ';
 			}
 			$scriptures_copyright .= $copyright_ary['copyright'];
+			if (!$scriptures_copyright) {
+//			https://4.dbt.io/api/bibles/ENGESV/copyright?&v=4&key=1462b719-42d8-0874-7c50-905063472458',
+
+			}
 		} elseif ('esv_' == $this->scptr_src_prefix) {
-			$scriptures_copyright .= '<br />'.__('Scriptures Copyright: The ESV Bible® (The Holy Bible, English Standard Version®) Copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. ESV® Text Edition: 2007. All rights reserved. English Standard Version, ESV, and the ESV logo are registered trademarks of Good News Publishers. Used by permission.', 'bible-reading-plans');
-			$rtn_str   			  .= '<br />';
+			$scriptures_copyright .= '<br />'.__('Scriptures Copyright: The ESV Bible® (The Holy Bible, English Standard Version®) Copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. ESV® Text Edition: 2007. All rights reserved. English Standard Version, ESV, and the ESV logo are registered trademarks of Good News Publishers. Used by permission.', 'bible-reading-plans').'<br />';
 		}
 		$rtn_str .= '<div class="brp-copyright-small">';
 		if ('standardized' == $reading_plan_0['copyright'] || 'Public Domain' == $reading_plan_0['copyright']) {
 			if ('Public Domain' == $reading_plan_0['copyright']) {
-				$reading_plan_0['copy_type'] = 'Public Domain';
+				$reading_plan_0['copy_type'] = __('Public Domain', 'bible-reading-plans');
 			}						
 			switch ($reading_plan_0['copy_type']) {
 			
@@ -1874,7 +1879,7 @@ EOS;
 		$rtn_str .= $apocrypha_copyright.'</div>';
 	}
 	
-	protected function display_header_items ($scriptures_date, $scptr_src_prefix = 'dbp_', &$date_key, $reading_plan_0 = array()) {
+	protected function display_header_items ($scriptures_date, $scptr_src_prefix, &$date_key, $reading_plan_0 = array()) {
 		if ($this->display_plan_name) {
 			if ('bcp19-acna-twoyear' == $this->reading_plan) {
 				$acna_twoyear_reading_plan	= get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan);
@@ -1903,10 +1908,7 @@ EOS;
 		}
 		return $reading_plan;
 	}
-/*
-	protected function  () {
-	}
-*/
+
 	protected function get_bible_reading_plan ($scriptures_date = '', $error_message = 'ERROR: Could not retrieve readings') {
 		global $use_abs4apocrypha;
 		$this->reading_plan_shortcode = $this->reading_plan;
@@ -1967,6 +1969,7 @@ EOS;
 					$this->text_source	= '<br />'.$this->text_source.' '.$this->esv_sctr_src_url.'.';
 				}
 				$texts = $this->remote_get_scriptures($urls_ary, $date_key);
+//$this->debug_print('$texts', $texts);
 				if (is_array($texts)) {
 					$rtn_str = "";
 					if ($this->use_calendar) {
@@ -2002,6 +2005,12 @@ EOS;
 								foreach ($txt_ary[0] as $sub_ary) {
 									if (is_array($sub_ary)) {
 										if ($sub_ary['id'] == $this->bible_id) {
+												if (!$sub_ary['copyright'] && $sub_ary['copyright_description']) {
+													$sub_ary['copyright'] = $sub_ary['copyright_description'];
+												}
+												if (!$sub_ary['copyright'] && !$sub_ary['copyright_description']) {
+													$sub_ary['copyright'] = '';
+												}
 												$copyright_ary = array(	'copyright'	=> $sub_ary['copyright']['copyright'],
 																		'date'		=> $sub_ary['copyright']['copyright_date'],
 																		);
@@ -2283,6 +2292,9 @@ EOS;
 							}
 							if (isset($data_ary['iso']) && $data_ary['iso'] && 1 != $not_text) {
 								if (strpos($filesets['type'], 'ext_')) {
+									if (!isset($filesets['volume'])) {
+										$filesets['volume'] = '';
+									}
 									$dbp_versions[$data_ary['iso']][]			= array(
 																							'bible_abbr'		=> $data_ary['abbr'],
 																							'bible_id' 			=> $filesets['id'], 
@@ -2306,20 +2318,20 @@ EOS;
 										}
 									}
 								}
-								foreach ($dbp_versions as $iso => $ary) {
-									$this->dbp_versions[$iso] = array_unique($ary, SORT_REGULAR);
-								}
-								$this->dbp_lang_id2iso_alt = array_unique($dbp_lang_id2iso_alt);
-								update_option('bible_reading_plans_dbp_bible_id_to_iso', $this->dbp_bible_id_to_iso);
-								update_option('bible_reading_plans_dbp_lang_id2iso_alt', $this->dbp_lang_id2iso_alt);
-								update_option('bible_reading_plans_dbp_lang_id_to_iso', $this->dbp_language_ids);
-								update_option('bible_reading_plans_dbp_versions', $this->dbp_versions);
 							}
 						}
 					}
 				}
 			}
 		}
+		foreach ($dbp_versions as $iso => $ary) {
+			$this->dbp_versions[$iso] = array_unique($ary, SORT_REGULAR);
+		}
+		$this->dbp_lang_id2iso_alt = array_unique($dbp_lang_id2iso_alt);
+		update_option('bible_reading_plans_dbp_bible_id_to_iso', $this->dbp_bible_id_to_iso);
+		update_option('bible_reading_plans_dbp_lang_id2iso_alt', $this->dbp_lang_id2iso_alt);
+		update_option('bible_reading_plans_dbp_lang_id_to_iso', $this->dbp_language_ids);
+		update_option('bible_reading_plans_dbp_versions', $this->dbp_versions);
 		if (isset($lng_code_iso) && $lng_code_iso) {
 			$this->lng_code_iso	= $lng_code_iso;
 		} else {
@@ -2505,7 +2517,7 @@ EOS;
 			$book = $decoded_text['data'][0]['book_name'];
 		}
 		$parts = explode(' ', $passage);
-		if (isset($parts[1])) {
+		if (isset($parts[1]) && isset($book)) {
 			if (false !== strpos($book, $parts[1])) {
 				$language_passage = $book;
 			} else {
@@ -2917,7 +2929,7 @@ EOS;
 /*
 $this->debug_print('', );
 */
-protected function debug_print ($label = '', $input, $print_or_dump = 'print', $die = false) {
+protected function debug_print ($label = '', $input = '', $print_or_dump = 'print', $die = false) {
 	echo '<br />'.$label.':&nbsp;';
 	if (is_array($input) || is_object($input)) {
 		echo '<pre>';

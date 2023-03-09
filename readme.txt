@@ -97,7 +97,7 @@ If the source is DBP, the English language values of the version can, at present
 	ENGWM1 - World Messianic Version
 	ENGWMV - Wycliffe Modern
 
-The default version is ENGESV.
+The default version is ENGNAS.
 
 In addition DBP source provides over 1700 Bible versions in more than 1500 languages, with more versions and languages being added regularly.
 
@@ -153,7 +153,9 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 This version:
 
-1. Changes the default version for the Bible Brain (aka the Digital Bible Platform) API from ESV to the New American Standard Bible (NAS) because the ESV is no longer supported by the DBP.
+1. TO DO: Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
 1. Fixes the following bugs: 
 
@@ -466,7 +468,9 @@ Initial release.
 
 This version:
 
-1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because the ESV is no longer supported by the DBP.
+1. TO DO: Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
 1. Corrects the following bugs:
 

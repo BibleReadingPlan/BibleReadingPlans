@@ -23,7 +23,7 @@ This plugin provides the ability to embed Bible Reading Plans into a post or pag
 
 ## Description
 
-This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="ESV"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGESV"]</code>. **The latter form is new in this version, applies only to the DBP source, and *provides access to over 1700 Bible versions in more than 1500 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin.
+This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="NAS"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGNAS"]</code>. **The latter form is new in this version, applies only to the DBP source, and *provides access to over 1700 Bible versions in more than 1500 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin.
 
 This plugin is a fork of the Embed Bible Passages plugin (https://wordpress.org/plugins/embed-bible-passages/) made necessary by changes in the ESV Bible Web Service API. (Version 2 included Bible reading plans, but is deprecated and was terminate completely on 15 April 2021. Version 3 is the only version available to new users, but does not include Bible reading plans.) Since the American Bible Society API provides more than 20 English language versions (with the potential for more via the Digital Bible Library to acquire the necessary licenses) and over 1600 languages and the Bible Brain API provides 10 English versions and access to over 1700 Bible versions in more than 1500 languages. In addition it has the potential for audio and video for many of the versions. We hope this fork promises a much broader future than did the Embed Bible Passages plugin. The ESV Bible Web Service API, Version 3, however, has also been included in this plugin because it provides audio directly with the texts as well as better formatting control, even though it naturally provides only the English Standard Version.
 
@@ -106,7 +106,7 @@ If the source is DBP, the English language values of the version can, at present
 `ENGWM1` - World Messianic Version
 `ENGWMV` - Wycliffe Modern
 
-The default version is `ENGESV`.
+The default version is `ENGNAS`.
 
 In addition DBP source provides over 1700 Bible versions in more than 1500 languages, with more versions and languages being added regularly.
 
@@ -162,7 +162,9 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 This version:
 
-1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because the ESV is no longer supported by the DBP.
+1. TO DO: Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
 1. Fixes the following bugs: 
 
@@ -474,7 +476,9 @@ Initial release.
 
 This version:
 
-1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because the ESV is no longer supported by the DBP.
+11. TO DO: Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+
+. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
 1. Corrects the following bugs:
 
