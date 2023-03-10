@@ -153,7 +153,7 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 This version:
 
-1. TO DO: Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+1. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
 
 1. Changes the default version for the Bible Brain (aka the Digital Bible Platform) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
@@ -468,7 +468,7 @@ Initial release.
 
 This version:
 
-1. TO DO: Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+1. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
 
 1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
