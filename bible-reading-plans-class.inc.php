@@ -1678,18 +1678,21 @@ EOS;
 			}
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
-		$urls_ary['metadata'] = $this->dbp_query_string.'bibles/';
-		if (isset($this->dbp_language_iso[$this->dbp_language_iso]) && is_array($this->dbp_language_iso[$this->dbp_language_iso])) {
+		$urls_ary['metadata']	= $this->dbp_query_string.'bibles/';
+		$bible_abbr				= '';
+		if (isset($this->dbp_versions[$this->dbp_language_iso])
+				&& is_array($this->dbp_versions[$this->dbp_language_iso])) {
 			foreach ($this->dbp_versions[$this->dbp_language_iso] as $key => $ary) {
-				if (array_search($this->dam_id, $ary)) {
-					$urls_ary['metadata'] .= $this->dbp_versions[$this->dbp_language_iso][$key]['bible_abbr'];
+				if ($ary['bible_abbr'] && $ary['bible_id'] == $this->dam_id) {
+					$bible_abbr = $ary['bible_abbr'];
 					break;
 				}				
 			}
-		} else {
-			$urls_ary['metadata'] .= $this->dam_id;
+		} 
+		if (!$bible_abbr) {
+			$bible_abbr = $this->dam_id;
 		}
-		$urls_ary['metadata'] .= '/copyright?'.$this->dbp_query_base;
+		$urls_ary['metadata'] .= $bible_abbr.'/copyright?'.$this->dbp_query_base;
 		return $urls_ary;
 	}
 
@@ -1833,18 +1836,18 @@ EOS;
 		if ('abs_' == $this->scptr_src_prefix) {
 			$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures copyright: ', 'bible-reading-plans').$this->abs_copyright.'.';
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
-			if ('Public Domain' == $copyright_ary['copyright']) {
+			if (isset($copyright_ary['copyright']) && 'Public Domain' == $copyright_ary['copyright']) {
 				$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures Copyright: ', 'bible-reading-plans');
 			} else {
 				$scriptures_copyright .= $this->text_source.'<br />'.__('Scriptures &copy; Copyright: ', 'bible-reading-plans');
 			}
-			if ($copyright_ary['date']) {
+			if (isset($copyright_ary['date']) && $copyright_ary['date']) {
 				$scriptures_copyright .= $copyright_ary['date'].' ';
 			}
-			$scriptures_copyright .= $copyright_ary['copyright'];
-			if (!$scriptures_copyright) {
-//			https://4.dbt.io/api/bibles/ENGESV/copyright?&v=4&key=1462b719-42d8-0874-7c50-905063472458',
-
+			if (isset($copyright_ary['copyright'])) {
+				$scriptures_copyright .= $copyright_ary['copyright'];
+			} else {
+				$scriptures_copyright .= __('Unavailable.', 'bible-reading-plans');			
 			}
 		} elseif ('esv_' == $this->scptr_src_prefix) {
 			$scriptures_copyright .= '<br />'.__('Scriptures Copyright: The ESV Bible® (The Holy Bible, English Standard Version®) Copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. ESV® Text Edition: 2007. All rights reserved. English Standard Version, ESV, and the ESV logo are registered trademarks of Good News Publishers. Used by permission.', 'bible-reading-plans').'<br />';
@@ -1969,7 +1972,6 @@ EOS;
 					$this->text_source	= '<br />'.$this->text_source.' '.$this->esv_sctr_src_url.'.';
 				}
 				$texts = $this->remote_get_scriptures($urls_ary, $date_key);
-//$this->debug_print('$texts', $texts);
 				if (is_array($texts)) {
 					$rtn_str = "";
 					if ($this->use_calendar) {
@@ -1993,18 +1995,21 @@ EOS;
 								if ($this->display_toc) {
 									$this->toc_list($passage_header, $rtn_str, $toc);
 								}
-								$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
+								$rtn_str .= '<div class="brp-passage">'.$passage_header.'</div>';
 							}
 						} elseif ('dbp_' == $this->scptr_src_prefix) {
-							if (isset($readings_querys[$n]['passage'])) {
-								$passage = $readings_querys[$n]['passage'];
+							if (is_array($txt_ary[0]) && 'Not Found' == $txt_ary[0]['error']) {
+								$txt_ary = array();
 							} else {
-								$passage = '';
-							}
-							if ('metadata' == $passage_index) {
-								foreach ($txt_ary[0] as $sub_ary) {
-									if (is_array($sub_ary)) {
-										if ($sub_ary['id'] == $this->bible_id) {
+								if (isset($readings_querys[$n]['passage'])) {
+									$passage = $readings_querys[$n]['passage'];
+								} else {
+									$passage = '';
+								}
+								if ('metadata' == $passage_index) {
+									foreach ($txt_ary[0] as $sub_ary) {
+										if (is_array($sub_ary)) {
+											if ($sub_ary['id'] == $this->bible_id) {
 												if (!$sub_ary['copyright'] && $sub_ary['copyright_description']) {
 													$sub_ary['copyright'] = $sub_ary['copyright_description'];
 												}
@@ -2015,10 +2020,11 @@ EOS;
 																		'date'		=> $sub_ary['copyright']['copyright_date'],
 																		);
 												break;
+											}
 										}
 									}
+									$passage_header	= '<div class="brp-passage"> </div>';
 								}
-								$passage_header	= '<div class="brp-passage"> </div>';
 							}
 						} elseif ('esv_' == $this->scptr_src_prefix) {
 							if (isset($readings_querys[$n]['passage'])) {
@@ -2050,10 +2056,6 @@ EOS;
 											$this->toc_list($passage_header, $rtn_str, $toc);
 										}
 										$rtn_str 		.= "<div class=\"brp-passage\">$passage_header</div>";
-									} else {
-										/*if ($this->display_toc) {
-											$this->toc_list($passage, $rtn_str, $toc);
-										}*/
 									}
 									$rtn_str			    = $this->put_verses_abs($rtn_str, $txt, $fumsIDs_array, true);
 									$apocrypha_copyright   .= __('Portions from the Apocrypha are from the ', 'bible-reading-plans');
@@ -2327,6 +2329,7 @@ EOS;
 		foreach ($dbp_versions as $iso => $ary) {
 			$this->dbp_versions[$iso] = array_unique($ary, SORT_REGULAR);
 		}
+		//$dbp_versions['iso']
 		$this->dbp_lang_id2iso_alt = array_unique($dbp_lang_id2iso_alt);
 		update_option('bible_reading_plans_dbp_bible_id_to_iso', $this->dbp_bible_id_to_iso);
 		update_option('bible_reading_plans_dbp_lang_id2iso_alt', $this->dbp_lang_id2iso_alt);
