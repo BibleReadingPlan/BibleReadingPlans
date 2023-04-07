@@ -7,7 +7,7 @@ Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digita
 
 Requires at least: 2.8
 
-Tested up to: 6.2
+Tested up to: 6.1.1
 
 Requires PHP: 5.6
 
