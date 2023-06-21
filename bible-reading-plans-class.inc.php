@@ -5,660 +5,109 @@ class BibleReadingPlans {
 		[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS"] are replaced 
 		by the Scriptures from a Bible Reading Plan for the date selected.
 	 */
+	 
 	 /* This needs to be broken up into much smaller sections of code. */
 	 
 // NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE PAGE.
 	
+	/*	Property values are in the includes/properties directory.
+		Properties used only by administrative methods are loaded as needed.
+		The others are loading by the load_property_values() method.
+	*/
+	
 	protected $abs_api_key	     	= '';
-	protected $abs_key_length	 	= 32;
+	protected $abs_key_length	 	= '';
 	protected $abs_copyright     	= '';
 	protected $abs_language_id	 	= '';
-	protected $abs_language_ids	 	= array('eng',);
-	protected $abs_sctr_src_url	 	= '<a href="https://scripture.api.bible/" target="_blank">American Bible Society API</a>';
-	protected $abs_url_base		 	= 'https://api.scripture.api.bible/v1/bibles';
-	protected $abs_vers_default  	= array(
-										"ASV" 	=> array(
-														"name"	=> "American Standard Version",
-														"id"	=> "06125adad2d5898a-01",
-														),
-										"DRA" 	=> array(
-														"name"	=> "Douay-Rheims American 1899",
-														"id"	=> "179568874c45066f-01",
-														),
-										"EMTV" 	=> array(
-														"name"	=> "English Majority Text Version",
-														"id"	=> "55ec700d9e0d77ea-01",
-														),
-										"GNV" 	=> array(
-														"name"	=> "Geneva Bible",
-														"id"	=> "c315fa9f71d4af3a-01",
-														),
-										"OJPS" 	=> array(
-														"name"	=> "JPS TaNaKH 1917 (Old Testament only)",
-														"id"	=> "bf8f1c7f3f9045a5-01",
-														),
-										"KJV-E" 	=> array(
-														"name"	=> "King James (Authorised) Version, Ecumenical",
-														"id"	=> "de4e12af7f28f599-01",
-														),
-										"KJV-P" 	=> array(
-														"name"	=> "King James (Authorised) Version, Protestant",
-														"id"	=> "de4e12af7f28f599-02",
-														),
-										"RV" 	=> array(
-														"name"	=> "Revised Version 1885",
-														"id"	=> "40072c4a5aba4022-01",
-														),
-										"T4T" 	=> array(
-														"name"	=> "Translation for Translators",
-														"id"	=> "66c22495370cdfc0-01",
-														),
-										"WEBBE-C" 	=> array(
-														"name"	=> "World English Bible British Edition, Catholic",
-														"id"	=> "7142879509583d59-02",
-														),
-										"WEBBE-E" 	=> array(
-														"name"	=> "World English Bible British Edition, Ecumenical",
-														"id"	=> "7142879509583d59-01",
-														),
-										"WEBBE-O" 	=> array(
-														"name"	=> "World English Bible British Edition, Orthodox",
-														"id"	=> "7142879509583d59-03",
-														),
-										"WEBBE-P" 	=> array(
-														"name"	=> "World English Bible British Edition, Protestant",
-														"id"	=> "7142879509583d59-04",
-														),
-										"WEB-C" 	=> array(
-														"name"	=> "World English Bible, Catholic",
-														"id"	=> "9879dbb7cfe39e4d-02",
-														),
-										"WEB-E" 	=> array(
-														"name"	=> "World English Bible, Ecumenical",
-														"id"	=> "9879dbb7cfe39e4d-01",
-														),
-										"WEB-O" 	=> array(
-														"name"	=> "World English Bible, Orthodox",
-														"id"	=> "9879dbb7cfe39e4d-03",
-														),
-										"WEB-P" 	=> array(
-														"name"	=> "World English Bible, Protestant",
-														"id"	=> "9879dbb7cfe39e4d-04",
-														),
-										"WMB" 	=> array(
-														"name"	=> "World Messianic Bible",
-														"id"	=> "f72b840c855f362c-04",
-														),
-										"WMBBE" 	=> array(
-														"name"	=> "World Messianic Bible British Edition",
-														"id"	=> "04da588535d2f823-04",
-														),
-										"LXXup" 	=> array(
-														"name"	=> "Brenton English 
-											Septuagint (Updated Spelling and Formatting)",
-														"id"	=> "6bab4d6c61b31b80-01",
-														),
-										"Brenton" 	=> array(
-														"name"	=> "Brenton English translation of the Septuagint",
-														"id"	=> "65bfdebd704a8324-01",
-														),
-										"KJVCPB" 	=> array(
-														"name"	=> "Cambridge Paragraph Bible of the KJV",
-														"id"	=> "55212e3cf5d04d49-01",
-														),
-										"FBV" 	=> array(
-														"name"	=> "Free Bible Version",
-														"id"	=> "65eec8e0b60e656b-01",
-														),
-										"F35" 	=> array(
-														"name"	=> "The English New Testament According to Family 35",
-														"id"	=> "2f0fd81d7b85b923-01",
-														),
-										); 
+	protected $abs_language_ids	 	= array();
+	protected $abs_sctr_src_url	 	= '';
+	protected $abs_url_base		 	= '';
+	protected $abs_vers_default  	= array(); 
 	protected $abs_versions		 	= array();
 	protected $ajax_url          	= '';
 	protected $api_request_err	 	= '';
 	protected $bible_id		 		= '';
 	// DBP v4 book_codes are the same as the abs_codes.
-	protected $book_codes_names		= array('GEN' => 'Genesis',
-											'EXO' => 'Exodus',
-											'LEV' => 'Leviticus',
-											'NUM' => 'Numbers',
-											'DEU' => 'Deuteronomy',
-											'JOS' => 'Joshua',
-											'JDG' => 'Judges',
-											'RUT' => 'Ruth',
-											'1SA' => '1 Samuel',
-											'2SA' => '2 Samuel',
-											'1KI' => '1 Kings',
-											'2KI' => '2 Kings',
-											'1CH' => '1 Chronicles',
-											'2CH' => '2 Chronicles',
-											'EZR' => 'Ezra',
-											'NEH' => 'Nehemiah',
-											'EST' => 'Esther',
-											'JOB' => 'Job',
-											'PSA' => 'Psalms',
-											'PRO' => 'Proverbs',
-											'ECC' => 'Ecclesiastes',
-											'SNG' => 'Song of Solomon',
-											'ISA' => 'Isaiah',
-											'JER' => 'Jeremiah',
-											'LAM' => 'Lamentations',
-											'EZK' => 'Ezekiel',
-											'DAN' => 'Daniel',
-											'HOS' => 'Hosea',
-											'JOL' => 'Joel',
-											'AMO' => 'Amos',
-											'OBA' => 'Obadiah',
-											'JON' => 'Jonah',
-											'MIC' => 'Micah',
-											'NAM' => 'Nahum',
-											'HAB' => 'Habakkuk',
-											'ZEP' => 'Zephaniah',
-											'HAG' => 'Haggai',
-											'ZEC' => 'Zechariah',
-											'MAL' => 'Malachi',
-											'1ES' => '1 Esdras',
-											'2ES' => '2 Esdras',
-											'TOB' => 'Tobit',
-											'JDT' => 'Judith',
-											'ESG' => 'Esther (Greek)',
-											'WIS' => 'Wisdom',
-											'SIR' => 'Ecclesiasticus',
-											'BAR' => 'Baruch',
-											'S3Y' => 'Song of the Three',
-											'SUS' => 'Susanna',
-											'BEL' => 'Bel and the Dragon',
-											'MAN' => 'Manasseh',
-											'1MA' => '1 Maccabees',
-											'2MA' => '2 Maccabees',
-											'MAT' => 'Matthew',
-											'MRK' => 'Mark',
-											'LUK' => 'Luke',
-											'JHN' => 'John',
-											'ACT' => 'Acts',
-											'ROM' => 'Romans',
-											'1CO' => '1 Corinthians',
-											'2CO' => '2 Corinthians',
-											'GAL' => 'Galatians',
-											'EPH' => 'Ephesians',
-											'PHP' => 'Philippians',
-											'COL' => 'Colossians',
-											'1TH' => '1 Thessalonians',
-											'2TH' => '2 Thessalonians',
-											'1TI' => '1 Timothy',
-											'2TI' => '2 Timothy',
-											'TIT' => 'Titus',
-											'PHM' => 'Philemon',
-											'HEB' => 'Hebrews',
-											'JAS' => 'James',
-											'1PE' => '1 Peter',
-											'2PE' => '2 Peter',
-											'1JN' => '1 John',
-											'2JN' => '2 John',
-											'3JN' => '3 John',
-											'JUD' => 'Jude',
-											'REV' => 'Revelation',
-											);
-	protected $book_codes_names_ap	= array(// Apocrypha
-											'1ES' => '1 Esdras',
-											'2ES' => '2 Esdras',
-											'TOB' => 'Tobit',
-											'JDT' => 'Judith',
-											'ESG' => 'Esther (Greek)',
-											'WIS' => 'Wisdom',
-											'SIR' => 'Ecclesiasticus',
-											'BAR' => 'Baruch',
-											'S3Y' => 'Song of the Three',
-											'SUS' => 'Susanna',
-											'BEL' => 'Bel and the Dragon',
-											'MAN' => 'Manasseh',
-											'1MA' => '1 Maccabees',
-											'2MA' => '2 Maccabees',
-											);
-	protected $bk_cds_dpp2_to_dbp4	= array('Gen'	 => 'GEN',
-											'Exod'	 => 'EXO',
-											'Lev'	 => 'LEV',
-											'Num'	 => 'NUM',
-											'Deut'	 => 'DEU',
-											'Josh'	 => 'JOS',
-											'Judg'	 => 'JDG',
-											'Ruth'	 => 'RUT',
-											'1Sam'	 => '1SA',
-											'2Sam'	 => '2SA',
-											'1Kgs'	 => '1KI',
-											'2Kgs'	 => '2KI',
-											'1Chr'	 => '1CH',
-											'2Chr'	 => '2CH',
-											'Ezra'	 => 'EZR',
-											'Neh'	 => 'NEH',
-											'Esth'	 => 'EST',
-											'Job'	 => 'JOB',
-											'Ps'	 => 'PSA',
-											'Prov'	 => 'PRO',
-											'Eccl'	 => 'ECC',
-											'Song'	 => 'SNG',
-											'Isa'	 => 'ISA',
-											'Jer'	 => 'JER',
-											'Lam'	 => 'LAM',
-											'Ezek'	 => 'EZK',
-											'Dan'	 => 'DAN',
-											'Hos'	 => 'HOS',
-											'Joel'	 => 'JOL',
-											'Amos'	 => 'AMO',
-											'Obad'	 => 'OBA',
-											'Jonah'	 => 'JON',
-											'Mic'	 => 'MIC',
-											'Nah'	 => 'NAM',
-											'Hab'	 => 'HAB',
-											'Zeph'	 => 'ZEP',
-											'Hag'	 => 'HAG',
-											'Zech'	 => 'ZEC',
-											'Mal'	 => 'MAL',
-											'1Es'	 => '1ES',
-											'2Es'	 => '2ES',
-											'Tob'	 => 'TOB',
-											'Jdt'	 => 'JDT',
-											'EsG'	 => 'ESG',
-											'Wis'	 => 'WIS',
-											'Sir'	 => 'SIR',
-											'Bar'	 => 'BAR',
-											'S3Y'	 => 'S3Y',
-											'Sus'	 => 'SUS',
-											'Bel'	 => 'BEL',
-											'Man'	 => 'MAN',
-											'1Ma'	 => '1MA',
-											'2Ma'	 => '2MA',
-											'Matt'	 => 'MAT',
-											'Mark'	 => 'MRK',
-											'Luke'	 => 'LUK',
-											'John'	 => 'JHN',
-											'Acts'	 => 'ACT',
-											'Rom'	 => 'ROM',
-											'1Cor'	 => '1CO',
-											'2Cor'	 => '2CO',
-											'Gal'	 => 'GAL',
-											'Eph'	 => 'EPH',
-											'Phil'	 => 'PHP',
-											'Col'	 => 'COL',
-											'1Thess' => '1TH',
-											'2Thess' => '2TH',
-											'1Tim'	 => '1TI',
-											'2Tim'	 => '2TI',
-											'Titus'	 => 'TIT',
-											'Phlm'	 => 'PHM',
-											'Heb'	 => 'HEB',
-											'Jas'	 => 'JAS',
-											'1Pet'	 => '1PE',
-											'2Pet'	 => '2PE',
-											'1John'	 => '1JN',
-											'2John'	 => '2JN',
-											'3John'	 => '3JN',
-											'Jude'	 => 'JUD',
-											'Rev'	 => 'REV',
-											);
+	protected $book_codes_names		= array();
+	protected $book_codes_names_ap	= array();
+	protected $bk_cds_dpp2_to_dbp4	= array();
 	protected $book_names_ap	 	= array(); // Apocrypha
-	protected $brp_prefix		 	= 'brp_';
-	protected $calendar_in_text	 	= true;
-	protected $cbrp_prefix		 	= 'cbrp_';
+	protected $brp_prefix		 	= '';
+	protected $calendar_in_text	 	= '';
+	protected $cbrp_prefix		 	= '';
 	protected $dam_id			 	= ''; 
-	protected $date_format_js	 	= 'DD d MM yy';
-	protected $date_format_php	 	= 'l j F Y';
+	protected $date_format_js	 	= '';
+	protected $date_format_php	 	= '';
 	protected $dbp_api_key		 	= '';
-	protected $dbp_default_bible_id	= array('ENG' => array('ENGNAS' => 'New American Standard Bible'),); // Overrides dynamic value.
-	protected $dbp_exclude_media	= array('Dramatized Audio'				=> 'audio_drama',
-											'Audio'							=> 'audio',
-											'Video'							=> 'video_stream',
-											'Audio HLS stream'				=> 'audio_stream',
-											'Dramatized Audio HLS Stream'	=> 'audio_drama_stream',
-											'USX Text Files'				=> 'text_usx',
-											);
-	protected $dbp_key_length_max	= 36;
-	protected $dbp_key_length_min	= 36;
-	protected $dbp_language_id	 	= 'ENG';
+	protected $dbp_default_bible_id	= array();
+	protected $dbp_exclude_media	= array();
+	protected $dbp_key_length_max	= '';
+	protected $dbp_key_length_min	= '';
+	protected $dbp_language_id	 	= '';
 	protected $dbp_language_ids	 	= array();
-	protected $dbp_language_iso	 	= 'eng';
+	protected $dbp_language_iso	 	= '';
 	protected $dbp_lang_id2iso_alt 	= array();
-	protected $dbp_lang_codes_excpt	= array('DEU' => 'GER', 'FRA' => 'FRN', 'TUR' => 'TRK',);
-	protected $dbp_media_types	 	= array('Dramatized Audio'				=> 'audio_drama',
-											'Audio'							=> 'audio',
-											'Plain Text'					=> 'text_plain',
-											'Formatted Text'				=> 'text_format',
-											'Video'							=> 'video_stream',
-											'Audio HLS stream'				=> 'audio_stream',
-											'Dramatized Audio HLS Stream'	=> 'audio_drama_stream',
-											'USX Text Files'				=> 'text_usx',
-											'HTML Text Files'				=> 'text_html',
-											);
-	protected $dbp_query_string		= 'https://4.dbt.io/api/';
-	protected $dbp_query_base	 	= 'v=4';
-	protected $dbp_sctr_src_url	 	= '<a href="https://biblebrain.com/" target="_blank">Bible Brain (aka Digital Bible Platform) API</a>';
+	protected $dbp_lang_codes_excpt	= array();
+	protected $dbp_query_string		= '';
+	protected $dbp_query_base	 	= '';
+	protected $dbp_sctr_src_url	 	= '';
 	protected $dbp_size_to_portions	= array();
-	protected $dbp_vers_default	 	= array('ENG'  => array(
-															'NAS' => 'New American Standard Bible',
-															),
-											);
+	protected $dbp_vers_default	 	= array();
 	protected $dbp_versions		 	= array();
-	protected $dev_screen_width	 	= 999;
-	protected $display_plan_name 	= true;
-	protected $display_toc			= false;
-	protected $end_verse			= 999;
+	protected $dev_screen_width	 	= '';
+	protected $display_holy_days	= '';
+	protected $display_mvble_feasts	= '';
+	protected $display_plan_name 	= '';
+	protected $display_toc			= '';
+	protected $end_verse			= '';
 	protected $end_verse_name		= '';
 	protected $err_flag			 	= '';
 	protected $esv_api_key		 	= '';
-	protected $esv_copyright	 	= '<a href="https://www.esv.org/" target="_blank">ESV</a>';
-	protected $esv_key_length	 	= 40;
-	protected $esv_language_id	 	= 'ENG';
-	protected $esv_url_base		 	= 'https://api.esv.org/v3/passage/html/?include-headings=true&inline-styles=true&include-passage-references=true&include-chapter-numbers=true&include-first-verse-numbers=true&include-verse-numbers=true&include-audio-link=true&attach-audio-link-to=passage&include-short-copyright=false&include-footnotes=false&q=';
-	protected $esv_vers_default	 	= array('ESV' => 'English Standard Version'); // Only the ESV
-	protected $esv_sctr_src_url	 	= '<a href="https://api.esv.org/" target="_blank">ESV.org API</a>';
-	protected $js_date_format	 	= 'DD d MM yy';
-	protected $language				= 'ENG';
-	protected $language_code 		= 'ENG'; // Legacy. Only used in versions prior to 2.0.
-	protected $language_name		= 'English';
-	protected $lng_code_iso			= 'eng';
-	protected $lng_code_to_2_ltr_cd	= array('ENG' => 'en',);
-	protected $lng_name_to_2_ltr_cd	= array(// Derived from https://raw.githubusercontent.com/datasets/language-codes/master/data/language-codes.csv
-											'Afar'				=> 'aa',
-											'Abkhazian'			=> 'ab',
-											'Avestan'			=> 'ae',
-											'Afrikaans'			=> 'af',
-											'Akan'				=> 'ak',
-											'Amharic'			=> 'am',
-											'Aragonese'			=> 'an',
-											'Arabic'			=> 'ar',
-											'Assamese'			=> 'as',
-											'Avaric'			=> 'av',
-											'Aymara'			=> 'ay',
-											'Azerbaijani'		=> 'az',
-											'Bashkir'			=> 'ba',
-											'Belarusian'		=> 'be',
-											'Bulgarian'			=> 'bg',
-											'Bihari'			=> 'bh',
-											'Bislama'			=> 'bi',
-											'Bambara'			=> 'bm',
-											'Bengali'			=> 'bn',
-											'Tibetan'			=> 'bo',
-											'Breton'			=> 'br',
-											'Bosnian'			=> 'bs',
-											'Catalan'			=> 'ca',
-											'Chechen'			=> 'ce',
-											'Chamorro'			=> 'ch',
-											'Corsican'			=> 'co',
-											'Cree'				=> 'cr',
-											'Czech'				=> 'cs',
-											'Church Slavic'		=> 'cu',
-											'Chuvash'			=> 'cv',
-											'Welsh'				=> 'cy',
-											'Danish'			=> 'da',
-											'German'			=> 'de',
-											'Maldivian'			=> 'dv',
-											'Dzongkha'			=> 'dz',
-											'Ewe'				=> 'ee',
-											'Greek'				=> 'el',
-											'English'			=> 'en',
-											'Esperanto'			=> 'eo',
-											'Spanish'			=> 'es',
-											'Estonian'			=> 'et',
-											'Basque'			=> 'eu',
-											'Persian'			=> 'fa',
-											'Fulah'				=> 'ff',
-											'Finnish'			=> 'fi',
-											'Fijian'			=> 'fj',
-											'Faroese'			=> 'fo',
-											'French'			=> 'fr',
-											'Western Frisian'	=> 'fy',
-											'Irish'				=> 'ga',
-											'Gaelic'			=> 'gd',
-											'Galician'			=> 'gl',
-											'Guarani'			=> 'gn',
-											'Gujarati'			=> 'gu',
-											'Manx'				=> 'gv',
-											'Hausa'				=> 'ha',
-											'Hebrew'			=> 'he',
-											'Hindi'				=> 'hi',
-											'Hiri Motu'			=> 'ho',
-											'Croatian'			=> 'hr',
-											'Haitian'			=> 'ht',
-											'Hungarian'			=> 'hu',
-											'Armenian'			=> 'hy',
-											'Herero'			=> 'hz',
-											'Interlingua'		=> 'ia',
-											'Indonesian'		=> 'id',
-											'Interlingue'		=> 'ie',
-											'Igbo'				=> 'ig',
-											'Sichuan Yi'		=> 'ii',
-											'Inupiaq'			=> 'ik',
-											'Ido'				=> 'io',
-											'Icelandic'			=> 'is',
-											'Italian'			=> 'it',
-											'Inuktitut'			=> 'iu',
-											'Japanese'			=> 'ja',
-											'Javanese'			=> 'jv',
-											'Georgian'			=> 'ka',
-											'Kongo'				=> 'kg',
-											'Kikuyu'			=> 'ki',
-											'Kuanyama'			=> 'kj',
-											'Kazakh'			=> 'kk',
-											'Kalaallisut'		=> 'kl',
-											'Central Khmer'		=> 'km',
-											'Kannada'			=> 'kn',
-											'Korean'			=> 'ko',
-											'Kanuri'			=> 'kr',
-											'Kashmiri'			=> 'ks',
-											'Kurdish'			=> 'ku',
-											'Komi'				=> 'kv',
-											'Cornish'			=> 'kw',
-											'Kyrgyz'			=> 'ky',
-											'Latin'				=> 'la',
-											'Luxembourgish'		=> 'lb',
-											'Ganda'				=> 'lg',
-											'Limburgan'			=> 'li',
-											'Lingala'			=> 'ln',
-											'Lao'				=> 'lo',
-											'Lithuanian'		=> 'lt',
-											'Luba-Katanga'		=> 'lu',
-											'Latvian'			=> 'lv',
-											'Malagasy'			=> 'mg',
-											'Marshallese'		=> 'mh',
-											'Maori'				=> 'mi',
-											'Macedonian'		=> 'mk',
-											'Malayalam'			=> 'ml',
-											'Mongolian'			=> 'mn',
-											'Marathi'			=> 'mr',
-											'Malay'				=> 'ms',
-											'Maltese'			=> 'mt',
-											'Burmese'			=> 'my',
-											'Nauru'				=> 'na',
-											'Norwegian'			=> 'nb',
-											'Ndebele'			=> 'nd',
-											'Nepali'			=> 'ne',
-											'Ndonga'			=> 'ng',
-											'Dutch'				=> 'nl',
-											'Nynorsk'			=> 'nn',
-											'Norwegian'			=> 'no',
-											'Nouth Ndebele'		=> 'nr',
-											'Navaho'			=> 'nv',
-											'Chichewa'			=> 'ny',
-											'Provençal'			=> 'oc',
-											'Ojibwa'			=> 'oj',
-											'Oromo'				=> 'om',
-											'Oriya'				=> 'or',
-											'Ossetian'			=> 'os',
-											'Punjabi'			=> 'pa',
-											'Pali'				=> 'pi',
-											'Polish'			=> 'pl',
-											'Pashto'			=> 'ps',
-											'Portuguese'		=> 'pt',
-											'Quechua'			=> 'qu',
-											'Romansh'			=> 'rm',
-											'Rundi'				=> 'rn',
-											'Romanian'			=> 'ro',
-											'Russian'			=> 'ru',
-											'Kinyarwanda'		=> 'rw',
-											'Sanskrit'			=> 'sa',
-											'Sardinian'			=> 'sc',
-											'Sindhi'			=> 'sd',
-											'Northern Sami'		=> 'se',
-											'Sango'				=> 'sg',
-											'Sinhalese'			=> 'si',
-											'Slovak'			=> 'sk',
-											'Slovenian'			=> 'sl',
-											'Samoan'			=> 'sm',
-											'Shona'				=> 'sn',
-											'Somali'			=> 'so',
-											'Albanian'			=> 'sq',
-											'Serbian'			=> 'sr',
-											'Swati'				=> 'ss',
-											'Sotho, Southern'	=> 'st',
-											'Sundanese'			=> 'su',
-											'Swedish'			=> 'sv',
-											'Swahili'			=> 'sw',
-											'Tamil'				=> 'ta',
-											'Telugu'			=> 'te',
-											'Tajik'				=> 'tg',
-											'Thai'				=> 'th',
-											'Tigrinya'			=> 'ti',
-											'Turkmen'			=> 'tk',
-											'Tagalog'			=> 'tl',
-											'Tswana'			=> 'tn',
-											'Tonga'				=> 'to',
-											'Turkish'			=> 'tr',
-											'Tsonga'			=> 'ts',
-											'Tatar'				=> 'tt',
-											'Twi'				=> 'tw',
-											'Tahitian'			=> 'ty',
-											'Uyghur'			=> 'ug',
-											'Ukrainian'			=> 'uk',
-											'Urdu'				=> 'ur',
-											'Uzbek'				=> 'uz',
-											'Venda'				=> 've',
-											'Vietnamese'		=> 'vi',
-											'Volapük'			=> 'vo',
-											'Walloon'			=> 'wa',
-											'Wolof'				=> 'wo',
-											'Xhosa'				=> 'xh',
-											'Yiddish'			=> 'yi',
-											'Yoruba'			=> 'yo',
-											'Zhuang'			=> 'za',
-											'Chinese'			=> 'zh',
-											'Zulu'				=> 'zu',
-											);
+	protected $esv_copyright	 	= '';
+	protected $esv_key_length	 	= '';
+	protected $esv_language_id	 	= '';
+	protected $esv_url_base		 	= '';
+	protected $esv_vers_default	 	= array();
+	protected $esv_sctr_src_url	 	= '';
+	protected $holy_days			= array();
+	protected $js_date_format	 	= '';
+	protected $language				= '';
+	protected $language_code 		= ''; // Legacy. Only used in versions prior to 2.0.
+	protected $language_name		= '';
+	protected $lng_code_iso			= '';
+	protected $lng_code_to_2_ltr_cd	= array();
+	protected $lng_name_to_2_ltr_cd	= array();
 	protected $loading_image	 	= '';
-	protected $moveable_feasts	 	= array(
-											'Ash Wednesday',
-											'Maundy Thursday',
-											'Good Friday',
-											'Holy Saturday',
-											'Easter Sunday',
-											'Ascension Day',
-											'Pentecost',
-											);
-	protected $no_versns_found				= '';
-	protected $one_chapter_books 	= array('Obadiah',
-											'Prayer of Manasseh',
-											'Bel and the Dragon',
-											'Susanna',
-											'Prayer of Azariah',
-											'Letter of Jeremiah',
-											'Philemon',
-											'2 John',
-											'3 John',
-											'Jude',
-											); 
+	protected $moveable_feasts	 	= array();
+	protected $no_versns_found		= '';
+	protected $one_chapter_books 	= array();
 	protected $passage_header	 	= '';
-	protected $php_date_format	 	= 'l j F Y';
+	protected $php_date_format	 	= '';
 	protected $plugin_url			= '';
-	protected $poetic				= array('Job'				=> 'all', 
-											'Psalms'			=> 'all', 
-											'Proverbs'			=> 'all', 
-											'Psalm'				=> 'all', 
-											'Proverb'			=> 'all', 
-											'Ecclesiastes'		=> 'all', 
-											'Song of Solomon'	=> 'all',
-											'Joel'				=> 'all',
-											'Amos'				=> 'all',
-											'Obadiah'			=> 'all',
-											/*
-											'2 Samuel'	=> array('22'	=> '2-51'),
-											'2 Kings'	=> array('19'	=> '21b-28'),
-											'Jeremiah'	=> array('13'	=> '15-27'),
-											'Jeremiah'	=> array('12'	=> '1-13'),
-											'Jeremiah'	=> array('23'	=> '9-15'),
-											'Jeremiah'	=> array('23'	=> '18-22'),
-											'Jeremiah'	=> array('25'	=> '30-38'),
-											'Acts'		=> array('1'	=> '20'),
-											'Acts'		=> array('2'	=> '16-21'),
-											'Acts'		=> array('2'	=> '25-28'),
-											'Acts'		=> array('2'	=> '34-35'),
-											'Acts'		=> array('4'	=> '25b-26'),
-											'Acts'		=> array('7'	=> '42b-43'),
-											'Acts'		=> array('7'	=> '49-50'),
-											'Acts'		=> array('13'	=> '33b'),
-											'Acts'		=> array('13'	=> '34b'),
-											'Acts'		=> array('13'	=> '35b'),
-											'Acts'		=> array('13'	=> '41'),
-											'Acts'		=> array('15'	=> '16-17'),
-											'Acts'		=> array('17'	=> '28'),
-											'Ephesians'	=> array('5'	=> '14b'),
-											'Hebrews'	=> array('1'	=> '5-14'),
-											'Hebrews'	=> array('2'	=> '5-8a'),
-											'Hebrews'	=> array('2'	=> '12b-13'),
-											'Hebrews'	=> array('3'	=> '7-11'),
-											'Hebrews'	=> array('3'	=> '15b'),
-											'Hebrews'	=> array('4'	=> '3b'),
-											'Hebrews'	=> array('4'	=> '5b'), 
-											'Hebrews'	=> array('4'	=> '7b'), 
-											'Hebrews'	=> array('5'	=> '5-6'),
-											'Hebrews'	=> array('7'	=> '17b'),
-											'Hebrews'	=> array('7'	=> '21b'),
-											'Hebrews'	=> array('8'	=> '8b-12'),
-											'Hebrews'	=> array('10'	=> '5b-7'),
-											'Hebrews'	=> array('10'	=> '16-17'),
-											'Hebrews'	=> array('10'	=> '37b-38'),
-											'Hebrews'	=> array('13'	=> '6b'),
-											'1 Peter'	=> array('3'	=> '10-12'),
-											'1 Peter'	=> array('4'	=> '18'),
-											''	=> array(''	=> ''),
-											*/
-											);
-	protected $powered_by		 	= 'Powered by the <a href="https://wordpress.org/extend/plugins/bible-reading-plans
-	/" target="_blank" title="Bible Reading Plans">Bible Reading Plans</a> plugin for WordPress.';
+	protected $poetic				= array(); 
+	protected $powered_by		 	= '';
 	protected $reading_plan		 	= '';
 	protected $reading_plans		= array();
+	protected $readings_querys		= array();
 	protected $show_poweredby	 	= false;
-	protected $short_code_atts	 	= array(
-											'bible_id' 		=> 'ENGNAS',
-											'language_code'	=> 'ENG',
-										/*	'only_day' 		=> -1,*/
-											'reading_plan' 	=> 'mcheyne',
-											'source'		=> 'dbp',
-											'version'		=> 'NAS',
-											);
-	protected $site_lang_default	= 'English';
-	protected $site_language		= 'English';
-	protected $scptr_src_prefix	 	= 'dbp_'; // default.
-	protected $sources			 	= array(
-											'ABS' => 'American Bible Society (API.Bible)',
-											'DBP' => 'The Bible Brain aka Digital Bible Platform (DBP) version 4 (faithcomesbyhearing.com/bible-brain/developer-documentationfaithcomesbyhearing.com/audio-bible-resources/bible-brain)',
-											'ESV' => 'English Standard Version (esv.org)',
-											);
-	protected $switch_cal_width  	= 480;
+	protected $short_code_atts	 	= array();
+	protected $site_lang_default	= '';
+	protected $site_language		= '';
+	protected $scptr_src_prefix	 	= '';
+	protected $sources			 	= array();
+	protected $switch_cal_width  	= '';
 	protected $text_source		 	= '';
-	protected $use_calendar			= false;
+	protected $use_calendar			= '';
 	protected $version				= '';
 	
 	public function __construct () {
 		$this->plugin_url		= plugin_dir_url(__FILE__);
-		foreach ($this->book_codes_names_ap as $key => $name) {
-			$this->book_names_ap[] = $name;
-		}
 		$this->end_verse_name	= __('end', 'bible-reading-plans');
 		$this->err_flag			= __('ERROR', 'bible-reading-plans');
 		$this->api_request_err 	= __(' in request to API -- most probably due to a missing or incorrect API Key for ', 'bible-reading-plans');
 		$this->text_source		= '<br />'.__('Scriptures provided by the ', 'bible-reading-plans');
 		$this->no_versns_found	= __('No versions found.', 'bible-reading-plans');
+		$this->load_property_values();
 		$search_prefixes		= array();
 		$ary_key				= 0;
 		foreach ($this->sources as $abrv => $src) {
@@ -666,7 +115,7 @@ class BibleReadingPlans {
 			$search_prefixes[$ary_key++] = $this->cbrp_prefix.$source_prefix;
 			$search_prefixes[$ary_key++] = $this->brp_prefix.$source_prefix;
 		}
-		$this->move_readings_plans_arrays_to_database(); // If there are any reading plans arrays, move them to the database.
+		$this->add_readings_plans_arrays_to_database(); // If there are any reading plans arrays, add them to the database.
 		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
@@ -680,7 +129,7 @@ class BibleReadingPlans {
 				}
  			}
 		}
-		$this->loading_image = '<img title="Please wait until screen completes loading." class="brp_loading_img" src="'.$this->plugin_url.'images/ajax-loading.gif" />';
+		$this->loading_image = '<img title="'.__('Please wait until screen completes loading.', 'bible-reading-plans').'" class="brp_loading_img" src="'.$this->plugin_url.'images/ajax-loading.gif" />';
 		
 		$key = get_option('bible_reading_plans_abs_api_key');
 		if ($key && $this->abs_key_length == strlen(trim($key))) {
@@ -691,6 +140,7 @@ class BibleReadingPlans {
 			} else {
 				$this->abs_versions	= $this->abs_vers_default;
 			}
+			update_option('bible_reading_plans_abs_versions', $this->abs_versions);
 		} else {
 			$this->abs_api_key	= '';
 			$this->abs_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ABS', 'bible-reading-plans'));	
@@ -749,38 +199,36 @@ class BibleReadingPlans {
 			$this->display_plan_name = false;
 			update_option('bible_reading_plans_display_plan_name', $this->display_plan_name);
 		}
-		$this->use_calendar		 = get_option('bible_reading_plans_use_calendar');
+		$this->use_calendar	= get_option('bible_reading_plans_use_calendar');
 		if (false === $this->use_calendar) {
 			$this->use_calendar = false;
 			update_option('bible_reading_plans_use_calendar', $this->use_calendar);
 		}
-		$this->calendar_in_text	 = get_option('bible_reading_plans_calendar_in_text');
+		$this->calendar_in_text	= get_option('bible_reading_plans_calendar_in_text');
 		if (false === $this->calendar_in_text) {
 			$this->calendar_in_text = false;
 			update_option('bible_reading_plans_calendar_in_text', $this->calendar_in_text);
 		}
-		$this->display_toc	 = get_option('bible_reading_plans_display_toc');
+		$this-> display_holy_days = get_option('bible_reading_plans_display_holy_days');
+		if (false === $this->display_holy_days) {
+			$this->display_holy_days = false;
+			update_option('bible_reading_plans_display_holy_days', $this->display_holy_days);
+		}
+		$this->display_mvble_feasts = get_option('bible_reading_plans_display_mvble_feasts');
+		if (false === $this->display_mvble_feasts) {
+			$this->display_mvble_feasts = false;
+			update_option('bible_reading_plans_display_mvble_feasts', $this->display_mvble_feasts);
+		}
+		$this->display_toc = get_option('bible_reading_plans_display_toc');
 		if (false === $this->display_toc) {
 			$this->display_toc = false;
 			update_option('bible_reading_plans_display_toc', $this->display_toc);
 		}
-		$this->show_poweredby	 = get_option('bible_reading_plans_show_poweredby');
+		$this->show_poweredby = get_option('bible_reading_plans_show_poweredby');
 		if (false === $this->show_poweredby) {
 			$this->show_poweredby = false;
 			update_option('bible_reading_plans_show_poweredby', $this->show_poweredby);
 		}
-		$this->dbp_size_to_portions = array(
-											'C'			=> '',
-											'NT'		=> __('New Testament', 'bible-reading-plans'),
-											'NTOTP'		=> __('New Testament, Old Testament Portion', 'bible-reading-plans'),
-											'NTP'		=> __('New Testament Portion', 'bible-reading-plans'),
-											'NTPOTP'	=> __('New Testament Portion, Old Testament Portion', 'bible-reading-plans'),
-											'OT'		=> __('Old Testament', 'bible-reading-plans'),
-											'OTNTP'		=> __('Old Testament, New Testament Portion', 'bible-reading-plans'),
-											'OTP'		=> __('Old Testament Portion', 'bible-reading-plans'),
-											'P'			=> __('Portion', 'bible-reading-plans'),
-											'S'			=> __('Stories', 'bible-reading-plans'),
-											);
 		$this->ajax_url	= admin_url('admin-ajax.php', 'relative');
 		add_shortcode('bible-reading-plan', array(&$this, 'shortcodeAttributes'));
 	}
@@ -966,6 +414,24 @@ EOS;
 		echo '<input name="bible_reading_plans_display_plan_name" id="bible_reading_plans_display_plan_name_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_plan_name, false).' />';
 	}
 	
+	public function bibleReadingPlansDisplayMoveableFeasts () {
+		$moveable_feasts = '';
+		foreach ($this->moveable_feasts as $val) {
+			$moveable_feasts .= "$val\n";		
+		}
+		echo '<input title="'.$moveable_feasts.'" name="bible_reading_plans_display_mvble_feasts" id="bible_reading_plans_display_mvble_feasts_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_mvble_feasts, false).' />';
+		_e('These are days like Easter Sunday, Good Friday, Pentecost, etc., which are observed on the different dates every year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day. <span style="font-weight: bold; font-style: italic;">Note that this defaulted to "checked" in versions prior to 2.2 for the ACNA readings.</span>', 'bible-reading-plans');
+	}
+	
+	public function bibleReadingPlansDisplayHolyDays () {
+		$holy_days = '';
+		foreach ($this->holy_days as $val) {
+			$holy_days .= "$val\n";		
+		}
+		echo '<input title="'.$holy_days.'" name="bible_reading_plans_display_holy_days" id="bible_reading_plans_display_holy_days_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_holy_days, false).' />';
+		_e('These are r Christmas Day, All Saints\' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day.', 'bible-reading-plans');
+	}
+	
 	public function bibleReadingPlansDisplayToc () {
 		echo '<input name="bible_reading_plans_display_toc" id="bible_reading_plans_display_toc_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_toc, false).' />';
 		_e('You may alter the appearance and location of the Table of Contents by overriding the styles of the "Table of Contents" and "Mobile" sections of the "css/bible-reading-plans.css" stylesheet.', 'bible-reading-plans');
@@ -1020,20 +486,6 @@ EOS;
 		';
 	}
 	
-	protected function dbp_excluded_media_list () {
-		$media_exclude	= '&media_exclude=';
-		$nr_media_types	= count(array_keys($this->dbp_exclude_media));
-		$counter		= 1;
-		foreach ($this->dbp_exclude_media as $media_name => $media_code) {
-			if ($counter++ < $nr_media_types) {
-				$media_exclude .= $media_code.',';
-			} else {
-				$media_exclude .= $media_code.'&';
-			}
-		}
-		return $media_exclude;
-	}
-
 	public function getVersionsList () {
 		if (isset($_REQUEST['source']) && $_REQUEST['source']) {
 			$source = $_REQUEST['source'];
@@ -1230,6 +682,7 @@ EOS;
 			<div id="tabs-5">
 					'.$esv_versions_list.'
 				<p>	';
+		_e('This API has been made available separately (even though the ESV is also available from the DBP) because it is the only API for which a link to audio for the text is supplied directly with the text. Additionally, at present, the ability to format the text from the ESV API is better than that from the DBP API.', 'bible-reading-plans');
 		echo '</p>
 				<div style="font-style: italic; margin-top: 12px;">';
 		_e('Note that, in order to use this API, you must obtain an Access Key from Crossway/ESV.org. See instructions for obtaining that key and the field for entering it <a href="#instructions_below">below</a>.', 'bible-reading-plans');
@@ -1315,7 +768,7 @@ EOS;
 	jQuery("#c" ).tabs();
 </script>
 EOT;*/
-		echo '<div class="brp-donate">'.__('If you find this plugin of value, please contribute to the cost of its development:', 'bible-reading-plans').'<div class="brp-donate-form"><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"> <input type="hidden" name="cmd" value="_s-xclick" /> <input type="hidden" name="hosted_button_id" value="3GNC36MKM6ADC" /> <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" /> <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /> </form><div class="brp-muzzle-not ">'.__('"Do not muzzle an ox while it is treading out the grain." and "The worker deserves his wages."', 'bible-reading-plans').' <a href="http://www.biblegateway.com/passage/?search=1%20Timothy+5:18&version='.__('NIV', 'bible-reading-plans').'" target="_blank">'.__('1 Timothy 5:18', 'bible-reading-plans').'</a></div></div></div>';
+//		echo '<div class="brp-donate">'.__('If you find this plugin of value, please contribute to the cost of its development:', 'bible-reading-plans').'<div class="brp-donate-form"><form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top"> <input type="hidden" name="cmd" value="_s-xclick" /> <input type="hidden" name="hosted_button_id" value="3GNC36MKM6ADC" /> <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" title="PayPal - The safer, easier way to pay online!" alt="Donate with PayPal button" /> <img alt="" border="0" src="https://www.paypal.com/en_US/i/scr/pixel.gif" width="1" height="1" /> </form><div class="brp-muzzle-not ">'.__('"Do not muzzle an ox while it is treading out the grain." and "The worker deserves his wages."', 'bible-reading-plans').' <a href="http://www.biblegateway.com/passage/?search=1%20Timothy+5:18&version='.__('NIV', 'bible-reading-plans').'" target="_blank">'.__('1 Timothy 5:18', 'bible-reading-plans').'</a></div></div></div>';
 	}
 
 	public function initializeAdmin () {
@@ -1356,6 +809,8 @@ EOT;*/
 			add_settings_field('bible_reading_plans_dbp_api_key_id', __('Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDbpApiKeyValue'), $page_for_settings, $section_for_settings);
 			add_settings_field('bible_reading_plans_esv_api_key_id', __('English Standard Version<br />Access Key (API Version 3)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansEsvApiKeyValue'), $page_for_settings, $section_for_settings);
 			add_settings_field('bible_reading_plans_display_plan_name_calendar_id', __('Display Plan Name on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayPlanName'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_mvble_feasts', __('Display "Moveable Feasts" on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayMoveableFeasts'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_holy_days', __('Display "Holy Days" on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayHolyDays'), $page_for_settings, $section_for_settings);
 			add_settings_field('bible_reading_plans_use_calendar_id', __('Show Date Picker Calendar', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansUseCalendarValue'), $page_for_settings, $section_for_settings);
 			add_settings_field('bible_reading_plans_display_toc_id', __('Display Table of Contents on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayToc'), $page_for_settings, $section_for_settings);
 			add_settings_field('bible_reading_plans_show_powered_by_id', __('Show "Powered by" attribution at bottom of page', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansShowPoweredByValue'), $page_for_settings, $section_for_settings);
@@ -1363,10 +818,11 @@ EOT;*/
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_dbp_api_key', 'wp_filter_nohtml_kses');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_esv_api_key', 'wp_filter_nohtml_kses');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_plan_name');
+			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_mvble_feasts',);
+			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_holy_days');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_toc');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_use_calendar');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_calendar_in_text');
-			register_setting('bible_reading_plans_settings', 'bible_reading_plans_display_toc');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_show_poweredby');
 		}
 	}
@@ -1616,6 +1072,7 @@ EOS;
 		}
 		$dbp_versions_list .= __(' language versions available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id" in the shortcode currently are:', 'bible-reading-plans');
 		$dbp_versions_list .= "\t\t".'<ul class="brp-plans">'."\n";
+		require_once('includes/properties/dbp_size_to_portions.inc.php');
 		if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
 			$bible_ids = array();
 			if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
@@ -1630,6 +1087,8 @@ EOS;
 						}
 						$dbp_versions_list .= "</li>\n";
 					}
+					$dbp_versions_list .= "</li>\n";
+					// $dbp_versions_list .= " [{$vers_data['type']}]</li>\n";
 				}
 			}
 			if ('eng' == $lng_code_iso) {
@@ -1767,7 +1226,7 @@ EOS;
 
 	protected function date_picker () {
 		// Datepicker to load Scriptures for dates other than today
-		$rtn_str  = $this->add_date_picker_ui();
+		$rtn_str = $this->add_date_picker_ui();
 		$rtn_str .= "
 <script type=\"text/javascript\"> 
 	/* <![CDATA[ */
@@ -1805,6 +1264,20 @@ EOS;
 		} else {
 			echo $rtn_str;
 		}
+	}
+
+	protected function dbp_excluded_media_list () {
+		$media_exclude	= '&media_exclude=';
+		$nr_media_types	= count(array_keys($this->dbp_exclude_media));
+		$counter		= 1;
+		foreach ($this->dbp_exclude_media as $media_name => $media_code) {
+			if ($counter++ < $nr_media_types) {
+				$media_exclude .= $media_code.',';
+			} else {
+				$media_exclude .= $media_code.'&';
+			}
+		}
+		return $media_exclude;
 	}
 
 	protected function default_language () {
@@ -1952,10 +1425,15 @@ EOS;
 				$intl_scriptures_date	= IntlDateFormatter::formatObject($cal, "EEEE d MMMM yyyy", $this->lng_code_iso);
 				echo "<h3>$intl_scriptures_date</h3>";
 			}
-			if ('bcp19-acna-morning' == $this->reading_plan_shortcode || 'bcp19-acna-evening' == $this->reading_plan_shortcode) {
+			if ($this->display_holy_days) {
+				if (in_array($date_key, array_keys($this->holy_days))) {
+					echo "<h2 class=\"brp-holy-days\">{$this->holy_days[$date_key]}</h2>";
+				}
+			}
+			if ($this->display_mvble_feasts) {
 				$date_key = $this->moveable_feasts_dates($date_key, $scriptures_date);
 				if (in_array($date_key, $this->moveable_feasts)) {
-					echo "<h2>$date_key</h2>";
+					echo "<h2 class=\"brp-moveable-feasts\">$date_key</h2>";
 				}
 			}
 			if (array_key_exists($date_key, $reading_plan)) {
@@ -1972,6 +1450,7 @@ EOS;
 					$this->text_source	= '<br />'.$this->text_source.' '.$this->esv_sctr_src_url.'.';
 				}
 				$texts = $this->remote_get_scriptures($urls_ary, $date_key);
+				$rtn_str = '';
 				if (is_array($texts)) {
 					$rtn_str = "";
 					if ($this->use_calendar) {
@@ -1980,8 +1459,10 @@ EOS;
 					if ($this->display_toc) {
 						$toc = "\n".'<div class="brp-toc"><div class="brp-toc-header"><span class="brp-toc-title">'.__('Table of Contents', 'bible-reading-plans').'</span></div><ul>'."\n";
 					}
+					$apocrypha_copyright	= '';
 					$i						= 0;
 					$n						= 0;
+					$passage_nr				= 0;
 					$passage_prev			= '';
 					$prgrph_nr				= -1;
 					$apocrypha_copyright	= '';
@@ -1998,7 +1479,7 @@ EOS;
 								$rtn_str .= '<div class="brp-passage">'.$passage_header.'</div>';
 							}
 						} elseif ('dbp_' == $this->scptr_src_prefix) {
-							if (is_array($txt_ary[0]) && 'Not Found' == $txt_ary[0]['error']) {
+							if (is_array($txt_ary[0]) && isset($txt_ary[0]['error']) && 'Not Found' == $txt_ary[0]['error']) {
 								$txt_ary = array();
 							} else {
 								if (isset($readings_querys[$n]['passage'])) {
@@ -2025,6 +1506,7 @@ EOS;
 									}
 									$passage_header	= '<div class="brp-passage"> </div>';
 								}
+								$passage_header	= '<div class="brp-passage"> </div>';
 							}
 						} elseif ('esv_' == $this->scptr_src_prefix) {
 							if (isset($readings_querys[$n]['passage'])) {
@@ -2043,25 +1525,17 @@ EOS;
 						}
 						$n++;	
 						if (is_array($txt_ary)) {
+							$write_tags = true;
 							foreach ($txt_ary as $key => $txt) {
 								$passage1 = preg_replace('| 1$|', '', $passage);
 								if (!isset($use_abs4apocrypha[$passage])) {
 									$use_abs4apocrypha[$passage] = false;
 								}
 								if ($use_abs4apocrypha[$passage] || in_array($passage1, $this->one_chapter_books) && in_array($passage1, $this->book_names_ap)) {
-									$txt					= str_replace('apocrypha', '', $txt);
-									if ('dbp_' == $this->scptr_src_prefix) {
-										$passage_header	 = $this->transform_header($passage_index);
-										if ($this->display_toc) {
-											$this->toc_list($passage_header, $rtn_str, $toc);
-										}
-										$rtn_str 		.= "<div class=\"brp-passage\">$passage_header</div>";
+									if (!isset($fumsIDs_array)) {
+										$fumsIDs_array = '';
 									}
-									$rtn_str			    = $this->put_verses_abs($rtn_str, $txt, $fumsIDs_array, true);
-									$apocrypha_copyright   .= __('Portions from the Apocrypha are from the ', 'bible-reading-plans');
-									$apocrypha_copyright   .= $this->abs_vers_default['KJV-E']['name'].', '.__('Source: ', 'bible-reading-plans').$this->abs_sctr_src_url.', ';
-									$apocrypha_copyright   .= __('Copyright: ', 'bible-reading-plans');
-									$apocrypha_copyright   .= $this->abs_copyright.'.';
+									$this->put_verses_apocrypha($rtn_str, $txt, $passage, $passage_index, $fumsIDs_array, $toc);
 								} elseif ('abs_' == $this->scptr_src_prefix) {
 									if (0 == $passage_index) {
 										$get_abs_meta = true;
@@ -2362,9 +1836,26 @@ EOS;
 		return $reading_plan;
 	}
 	
-	protected function move_readings_plans_arrays_to_database () {
-		// If there are any new reading plans arrays, move them to the database.
-		$path_to_plans = plugin_dir_path(__FILE__).'plans';
+	protected function load_property_values () {
+		require_once('includes/properties/abs.inc.php');
+		require_once('includes/properties/book-codes.inc.php');
+		foreach ($this->book_codes_names_ap as $key => $name) {
+			$this->book_names_ap[] = $name;
+		}
+		require_once('includes/properties/dbp.inc.php');
+		require_once('includes/properties/esv.inc.php');
+		require_once('includes/properties/holydays-moveablefeasts.inc.php');
+		require_once('includes/properties/language-name-to-2-letter-code.inc.php');
+		require_once('includes/properties/miscellaneous.inc.php');
+		require_once('includes/properties/one-chapter-books.inc.php');
+		require_once('includes/properties/poetic-passages.inc.php');
+		require_once('includes/properties/short_code_atts.inc.php');
+		require_once('includes/properties/sources.inc.php');
+	}
+	
+	protected function add_readings_plans_arrays_to_database () {
+		// If there are any new reading plans arrays, add them to the database.
+		$path_to_plans = plugin_dir_path(__FILE__).'includes/plans';
 		if (is_dir($path_to_plans)) {
 			if ($handle = opendir($path_to_plans)) {
 				$reading_plans_list = array();
@@ -2395,11 +1886,11 @@ EOS;
 										}
 									}
 								} else {
-									_e("ERROR: Cannot move ".$reading_plan[0]['plan_name']." to database.<br />", 'bible-reading-plans');
+									_e("ERROR: Cannot add ".$reading_plan[0]['plan_name']." to database.<br />", 'bible-reading-plans');
 								}
 							}
 						} else {
-							_e("ERROR: Cannot retrieve ".$reading_plan[0]['plan_name']." for moving to database.<br />", 'bible-reading-plans');
+							_e("ERROR: Cannot retrieve ".$reading_plan[0]['plan_name']." for adding to database.<br />", 'bible-reading-plans');
 						}
 					}
 				}
@@ -2415,9 +1906,9 @@ EOS;
 					$reading_plans_list	= array_merge ($reading_plans_list_0, $reading_plans_list);
 				}
 				update_option('brp_reading_plans_list', $reading_plans_list);
-				if (!rmdir($path_to_plans)) {
+				/*if (!rmdir($path_to_plans)) {
 					_e("ERROR: Cannot remove $path_to_plans.<br />", 'bible-reading-plans');								
-				}
+				}*/
 			}
 		}
 	}
@@ -2468,6 +1959,13 @@ EOS;
 		return array($book, $chapter_and_verses);
 	}
 	
+	protected function poetic_passage ($text = '') {
+		//This may need more work...
+		$search  = array("|([a-zA-Z -]+)([,;:.?!])\s+|", "|([,;:.?!”'\"])$|", "|[ ]*Selah[ ]*|");
+		$replace = array('$1$2<br /><span class="brp-poetic-span">&nbsp;</span>', '$1<br />', '<span class="brp-selah">Selah</span><br />');
+		return preg_replace($search, $replace, $text);
+	}
+
 	protected function put_verses_abs ($rtn_str, $txt, &$fumsIDs_array, $get_abs_meta = false) {
 		$decoded_text = json_decode($txt);
 		$tmp_ary	  = array('',);
@@ -2498,15 +1996,30 @@ EOS;
 		}
 		if (isset($decoded_text->meta) && isset($decoded_text->meta->fumsId)) {
 			$fumsIDs_array	.= '"'.$decoded_text->meta->fumsId.'", ';
+		} else {
+			$fumsIDs_array	.= '';
 		}
 		return $rtn_str;
 	}
 	
-	protected function poetic_passage ($text = '') {
-		//This may need more work...
-		$search  = array("|([a-zA-Z -]+)([,;:.?!])\s+|", "|([,;:.?!”'\"])$|", "|[ ]*Selah[ ]*|");
-		$replace = array('$1$2<br /><span class="brp-poetic-span">&nbsp;</span>', '$1<br />', '<span class="brp-selah">Selah</span><br />');
-		return preg_replace($search, $replace, $text);
+	protected function put_verses_apocrypha (&$rtn_str, $txt, $passage, $passage_index, $fumsIDs_array, $toc) {
+		$txt = str_replace('apocrypha', '', $txt);
+		if ('dbp_' == $this->scptr_src_prefix) {
+			$passage_header	 = $this->transform_header($passage_index);
+			if ($this->display_toc) {
+				$this->toc_list($passage_header, $rtn_str, $toc);
+			}
+			$rtn_str 		.= "<div class=\"brp-passage\">$passage_header</div>";
+		} else {
+			if ($this->display_toc) {
+				$this->toc_list($passage, $rtn_str, $toc);
+			}
+		}
+		$rtn_str			    = $this->put_verses_abs($rtn_str, $txt, $fumsIDs_array, true);
+		$apocrypha_copyright    = __('Portions from the Apocrypha are from the ', 'bible-reading-plans');
+		$apocrypha_copyright   .= $this->abs_vers_default['KJV-E']['name'].', '.__('Source: ', 'bible-reading-plans').$this->abs_sctr_src_url.', ';
+		$apocrypha_copyright   .= __('Copyright: ', 'bible-reading-plans');
+		$apocrypha_copyright   .= $this->abs_copyright.'.';
 	}
 
 	protected function transform_passage_dbp ($passage, $decoded_text) {
@@ -2588,6 +2101,8 @@ EOS;
 			}
 			foreach ($decoded_text as $data) {
 				if (is_array($data)) {
+					$verse_count = 1;
+					$n			 = 1;
 					foreach ($data as $ary) {						
 						if ($is_poetic) {
 							if (isset($ary['verse_text'])) {
@@ -2621,14 +2136,18 @@ EOS;
 								$rtn_str .= '&nbsp;'.$this->poetic_passage($ary['verse_text']);
 							} else {
 								if (isset($ary['verse_start'])) {
-									$rtn_str .=  '<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;';						
+									$verse_start = '&nbsp;<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;'.$ary['verse_text'];
+									// This is a hack, after all attempts to get rid of the `` failed.
+									$rtn_str .= str_replace("``", '', $verse_start);
+								} else {
+									$rtn_str .= '&nbsp;'.$ary['verse_text'];
 								}
-								$rtn_str .= '&nbsp;'.$ary['verse_text'];
 							}
 							$rtn_str .= ' ';
 						} else {
-							$rtn_str .=  ' ';
+							$rtn_str .= ' ';
 						}
+
 					}
 					if ($is_poetic) {
 						$rtn_str .=  '</div>';
@@ -2840,7 +2359,7 @@ EOS;
 			$book = $this->book_codes_names[$book];
 		} else {
 			// This was an attempt to separate book numbers from their names (e.g. 1John -> 1 John for as many languages as possible.
-//			$book = preg_replace("/^([^\p{Lu}\p{Lt}]+)([\p{Lu}\p{Lt}]]?)/", "$1 $2", $book);
+
 /*			if (false !== preg_match("|^[0-9]+[a-z-A-Z]+|", $book)) {
 				$book = preg_replace("/^([0-9.]+)/", "$1 ", $book);
 			}*/

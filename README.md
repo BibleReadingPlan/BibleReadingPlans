@@ -7,7 +7,7 @@ Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digita
 
 Requires at least: 2.8
 
-Tested up to: 6.2
+Tested up to: 6.2.2
 
 Requires PHP: 5.6
 
@@ -157,6 +157,20 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 ## Upgrade Notice
+
+## 2.2
+
+This version:
+
+1. Added options to display "Holy Days" and/or "Moveable Feasts" on pages above readings.
+
+1. Changes file loading and storage to ensure plugin works with multi-sites.
+
+1. Partial code reorganization to improve readability.
+
+1. Bug fix: Removed `` that was appearing in some texts.
+
+1. Bug fix: Corrected certain filenames.
 
 ## 2.1.5
 
@@ -472,13 +486,27 @@ Initial release.
 
 ## Changelog
 
+## 2.2
+
+This version:
+
+1. Options to display "Holy Days" and/or "Moveable Feasts" on pages above readingsare added.
+
+1. File loading is changed to ensure plugin works with multi-sites.
+
+1. Code is partially reorganized to improve readability.
+
+1. Bug fix: `` that was appearing in some texts is removed.
+
+1. Bug fix: Certain filenames are corrected.
+
 ## 2.1.5
 
 This version:
 
-11. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+1. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
 
-. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
 1. Corrects the following bugs:
 

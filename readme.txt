@@ -3,7 +3,7 @@ Contributors: drmikegreen, sophoservices
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.2
+Tested up to: 6.2.2
 Requires PHP: 5.6
 Tested up to PHP: 8.2
 Stable tag: trunk
@@ -149,22 +149,28 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
-= 2.1.5 =
+= 2.2 =
 
 This version:
 
-1. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+1. Added options to display "Holy Days" and/or "Moveable Feasts" on pages above readings.
 
-1. Changes the default version for the Bible Brain (aka the Digital Bible Platform) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
+1. Changes file loading and storage to ensure plugin works with multi-sites.
 
-1. Fixes the following bugs: 
+1. Partial code reorganization to improve readability.
 
-	1. Corrects code incompatible with PHP 8.2.
+1. Bug fix: Removed `` that was appearing in some texts.
+
+1. Bug fix: Corrected certain filenames.
+
+= 2.1.5 =
+
+Bug fixes: 
 
 	1. Corrects DBP headers to include verse numbers.
-
+	
 	1. Re-corrects Table of Contents so that it again displays in the language of the page. (This waa lost along the way.)
-
+	
 	1. Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
 
 = 2.1.4 =
@@ -464,23 +470,29 @@ Initial release.
 
 == Changelog ==
 
-= 2.1.5 =
+= 2.2 =
 
 This version:
 
-1. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+1. Options to display "Holy Days" and/or "Moveable Feasts" on pages above readingsare added.
 
-1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
+1. File loading is changed to ensure plugin works with multi-sites.
 
-1. Corrects the following bugs:
+1. Code is partially reorganized to improve readability.
 
-	1. Corrects code incompatible with PHP 8.2.
+1. Bug fix: `` that was appearing in some texts is removed.
 
-	1. Corrects DBP headers to include verse numbers.
+1. Bug fix: Certain filenames are corrected.
 
-	1. Re-corrects Table of Contents so that it again displays in the language of the page. (This waa lost along the way.)
+= 2.1.5 =
 
-	1. Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
+Bug fixes: 
+
+	1. DBP headers are corrected to include verse numbers.
+	
+	1. Table of Contents is re-corrected so that it again displays in the language of the page. (This waa lost along the way.)
+	
+	1. Scripture references are corrected for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
 
 = 2.1.4 =
 
