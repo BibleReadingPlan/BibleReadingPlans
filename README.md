@@ -158,6 +158,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
+## 2.2.1
+
+Bug fix: Corrected 16 places where there were contiguous passages in Book of Common Prayer, 2019, Anglican Church in North America reading plans which were be presented as separate ones. They are each now continuous passages.
+
 ## 2.2
 
 This version:
@@ -485,6 +489,10 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+## 2.2.1
+
+Bug fix: 16 places where there were contiguous passages in Book of Common Prayer, 2019, Anglican Church in North America reading plans which were be presented as separate ones are corrected. They are each now continuous passages.
 
 ## 2.2
 
