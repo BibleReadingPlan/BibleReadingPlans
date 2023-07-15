@@ -478,11 +478,11 @@ Initial release.
 
 == Changelog ==
 
-= 2.2.2 =
+== 2.2.2 =
 
 Bug fix: Problem where both English and other language passage names were displayed when the language is not English fixed.
 
-= 2.2.1 =
+ 2.2.1 =
 
 Bug fix: 16 places where there were contiguous passages in Book of Common Prayer, 2019, Anglican Church in North America reading plans which were be presented as separate ones are corrected. They are each now continuous passages.
 

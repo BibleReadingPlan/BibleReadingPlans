@@ -2033,16 +2033,21 @@ EOS;
 			// Only English name is present in database
 			$book = $book_english;
 		}
+// $this->debug_print('$book', $book);
 		$parts = explode(' ', $passage);
+// $this->debug_print('$parts', $parts);
 		if (isset($parts[1]) && isset($book)) {
 			if (false !== strpos($book_english, $parts[1])) {
 				$language_passage = $book;
+// $this->debug_print('$language_passage a', $language_passage);
 			} else {
 				$language_passage = $book.' '.$parts[1];
+// $this->debug_print('$language_passage b', $language_passage);
 			}
 			if (isset($parts[2])) {
 				$language_passage .= ' '.$parts[2];
 			}
+// $this->debug_print('$language_passage 1', $language_passage);
 		} else {
 			if (isset($book)) {
 				$language_passage  = $book;
@@ -2054,6 +2059,7 @@ EOS;
 		if (!isset($language_passage)) {
 			$language_passage = '';
 		}
+// $this->debug_print('$language_passage 2', $language_passage);
 		return $language_passage;
 	}
 
