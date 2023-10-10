@@ -1088,7 +1088,6 @@ EOS;
 						$dbp_versions_list .= "</li>\n";
 					}
 					$dbp_versions_list .= "</li>\n";
-					// $dbp_versions_list .= " [{$vers_data['type']}]</li>\n";
 				}
 			}
 			if ('eng' == $lng_code_iso) {
@@ -1545,7 +1544,7 @@ EOS;
 									$rtn_str = $this->put_verses_abs($rtn_str, $txt, $fumsIDs_array, $get_abs_meta);
 								} elseif ('esv_' == $this->scptr_src_prefix && !$use_abs4apocrypha[$passage]) {
 									$rtn_str = $this->put_verses_esv($rtn_str, $txt);
-								} elseif ('dbp_' == $this->scptr_src_prefix) {
+								} elseif ('dbp_' == $this->scptr_src_prefix && 'metadata' != $passage_index) {
 									$rtn_str = $this->put_verses_dbp($rtn_str, $txt, $passage_index, $prgrph_nr, $toc);
 								}
 							}
@@ -1803,7 +1802,6 @@ EOS;
 		foreach ($dbp_versions as $iso => $ary) {
 			$this->dbp_versions[$iso] = array_unique($ary, SORT_REGULAR);
 		}
-		//$dbp_versions['iso']
 		$this->dbp_lang_id2iso_alt = array_unique($dbp_lang_id2iso_alt);
 		update_option('bible_reading_plans_dbp_bible_id_to_iso', $this->dbp_bible_id_to_iso);
 		update_option('bible_reading_plans_dbp_lang_id2iso_alt', $this->dbp_lang_id2iso_alt);
@@ -2022,17 +2020,36 @@ EOS;
 		$apocrypha_copyright   .= $this->abs_copyright.'.';
 	}
 
+	protected function get_book_name_for_language_being_used_dbp ($decoded_text, $book_english) {
+		// This function transforms the header from English to whatever language is being used.
+		// Get book name for the language being used.
+		$book_id = $decoded_text['data'][0]['book_id'];
+		if ($this->book_codes_names[$book_id] != $book_english) {
+			// Use localized names if they exist.
+			$book = $this->book_codes_names[$book_id];
+		} elseif (isset($decoded_text['data'][0]['book_name_alt']) && $decoded_text['data'][0]['book_name_alt']) {
+			// Next check for a book name in the decoded text array.
+			$book = $decoded_text['data'][0]['book_name_alt'];
+		} else {
+			// Finally, try searching the bibles.
+			$args			= array('headers' => array("Authorization" => "Bearer $this->dbp_api_key", "v" => "4", "accept" => "application/json"));
+			$url			= $this->dbp_query_string.'bibles/'.$this->dam_id.'/book?book_id='.$book_id.'&verify_content=true&'.$this->dbp_query_base;
+			$response_ary	= wp_remote_get($url, $args);
+			$response	= json_decode($response_ary['body']);
+			$book		= $response->data[0]->name_short;
+			if (!$book) {
+				// Give up...
+				return $book_english;
+			}
+		}
+		return $book;
+	}
+	
 	protected function transform_passage_dbp ($passage, $decoded_text) {
 		// This function transforms the header from English to whatever language is being used.
 		// Get book name for the language being used.
-		$book_english = $decoded_text['data'][0]['book_name'];
-		if (isset($decoded_text['data'][0]['book_name_alt']) && $decoded_text['data'][0]['book_name_alt']) {
-			$book = $decoded_text['data'][0]['book_name_alt'];
-			// Use whatever formatting the database has for the language passage.
-		} elseif(is_array($decoded_text) && isset($decoded_text['data'])) {
-			// Only English name is present in database
-			$book = $book_english;
-		}
+		$book_english	= $decoded_text['data'][0]['book_name'];
+		$book			= $this->get_book_name_for_language_being_used_dbp($decoded_text, $book_english);
 		$parts = explode(' ', $passage);
 		if (isset($parts[1]) && isset($book)) {
 			if (false !== strpos($book_english, $parts[1])) {

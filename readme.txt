@@ -3,7 +3,7 @@ Contributors: drmikegreen, sophoservices
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.2.2
+Tested up to: 6.3.1
 Requires PHP: 5.6
 Tested up to PHP: 8.2
 Stable tag: trunk
@@ -148,6 +148,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 == Upgrade Notice ==
+
+= 2.2.3 =
+
+Get Bible book name in language being used in cases where that is not already available, giving priority to the name used in localization.
 
 = 2.2.2 =
 
@@ -477,6 +481,10 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
+
+= 2.2.3 =
+
+Bible book name in language being used in cases where that is not already available is now used, giving priority to the name used in localization.
 
 = 2.2.2 =
 

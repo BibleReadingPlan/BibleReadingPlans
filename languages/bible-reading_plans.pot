@@ -2,20 +2,21 @@
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Bible Reading Plans 2.2\n"
-"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/2.2\n"
+"Project-Id-Version: Bible Reading Plans 2.2.3\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/2.2.3\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2023-06-16T16:19:50-04:00\n"
+"POT-Creation-Date: 2023-10-10T17:14:10-04:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"X-Generator: WP-CLI 2.5.0\n"
+"X-Generator: WP-CLI 2.8.1\n"
 "X-Domain: bible-reading-plans\n"
 
 #. Plugin Name of the plugin
 #: bible-reading-plans-class.inc.php:386
+#: bkp_bible-reading-plans-class.inc.php:391
 #: css/bible-reading-plans-class.inc.php:937
 msgid "Bible Reading Plans"
 msgstr ""
@@ -29,36 +30,44 @@ msgid "This plugin provides the ability to embed Bible reading plans into a post
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:105
+#: bkp_bible-reading-plans-class.inc.php:110
 #: css/bible-reading-plans-class.inc.php:656
 msgid "end"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:106
+#: bkp_bible-reading-plans-class.inc.php:111
 #: css/bible-reading-plans-class.inc.php:657
 msgid "ERROR"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:107
+#: bkp_bible-reading-plans-class.inc.php:112
 #: css/bible-reading-plans-class.inc.php:658
 msgid " in request to API -- most probably due to a missing or incorrect API Key for "
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:108
+#: bkp_bible-reading-plans-class.inc.php:113
 #: css/bible-reading-plans-class.inc.php:659
 msgid "Scriptures provided by the "
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:109
+#: bkp_bible-reading-plans-class.inc.php:114
 #: css/bible-reading-plans-class.inc.php:660
 msgid "No versions found."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:132
+#: bkp_bible-reading-plans-class.inc.php:137
 msgid "Please wait until screen completes loading."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:146
 #: bible-reading-plans-class.inc.php:551
+#: bkp_bible-reading-plans-class.inc.php:151
+#: bkp_bible-reading-plans-class.inc.php:556
 #: css/bible-reading-plans-class.inc.php:695
 #: css/bible-reading-plans-class.inc.php:1098
 msgid ": Missing API Key for ABS"
@@ -66,6 +75,8 @@ msgstr ""
 
 #: bible-reading-plans-class.inc.php:183
 #: bible-reading-plans-class.inc.php:570
+#: bkp_bible-reading-plans-class.inc.php:188
+#: bkp_bible-reading-plans-class.inc.php:575
 #: css/bible-reading-plans-class.inc.php:732
 #: css/bible-reading-plans-class.inc.php:1117
 msgid ": Missing API Key for DBP"
@@ -73,144 +84,175 @@ msgstr ""
 
 #: bible-reading-plans-class.inc.php:192
 #: bible-reading-plans-class.inc.php:577
+#: bkp_bible-reading-plans-class.inc.php:197
+#: bkp_bible-reading-plans-class.inc.php:582
 #: css/bible-reading-plans-class.inc.php:741
 #: css/bible-reading-plans-class.inc.php:1124
 msgid ": Missing API Key for ESV"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:255
+#: bkp_bible-reading-plans-class.inc.php:260
 #: css/bible-reading-plans-class.inc.php:806
 msgid "ERROR: Could not retrieve list of versions from the Bible Brain (aka the Digital Bible Platform) API"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:256
+#: bkp_bible-reading-plans-class.inc.php:261
 #: css/bible-reading-plans-class.inc.php:807
 msgid "It takes a short while to load and process all of the required data from the Bible Brain (aka the Digital Bible Platform) API. Please wait."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:386
 #: bible-reading-plans-class.inc.php:807
+#: bkp_bible-reading-plans-class.inc.php:391
+#: bkp_bible-reading-plans-class.inc.php:812
 #: css/bible-reading-plans-class.inc.php:937
 #: css/bible-reading-plans-class.inc.php:1349
 msgid "Bible Reading Plans Settings"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:393
+#: bkp_bible-reading-plans-class.inc.php:398
 #: css/bible-reading-plans-class.inc.php:944
 msgid "To request an Access Key fill out the form at <a href=\"https://scripture.api.bible/signup/\" target=\"_blank\" title=\"API.Bible Registration\">API.Bible Registration</a>. Then go to"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:396
+#: bkp_bible-reading-plans-class.inc.php:401
 #: css/bible-reading-plans-class.inc.php:947
 msgid "Enter \"Bible Reading Plans plugin for WordPress (https://wordpress.org/plugins/bible-reading-plans/) on our website\" in the \"Application Name\" field and the other information the form requests."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:398
+#: bkp_bible-reading-plans-class.inc.php:403
 #: css/bible-reading-plans-class.inc.php:949
 msgid "[The \"DBL Token\" is optional. It allows connection to the <a href=\"https://thedigitalbiblelibrary.org/\" target=\"_blank\" title=\"Digital Bible Library\">Digital Bible Library (DBL)</a>. The DBl does, however, provide the potential for acquiring licenses for additional versions.]"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:405
+#: bkp_bible-reading-plans-class.inc.php:410
 #: css/bible-reading-plans-class.inc.php:956
 msgid "To request an Access Key fill out the form at <a href=\"https://4.dbt.io/api_key/request?\" target=\"_blank\" title=\"Request Your API Key\">Request Your API Key</a>."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:407
 #: bible-reading-plans-class.inc.php:445
+#: bkp_bible-reading-plans-class.inc.php:412
+#: bkp_bible-reading-plans-class.inc.php:450
 #: css/bible-reading-plans-class.inc.php:958
 #: css/bible-reading-plans-class.inc.php:978
 msgid "Enter"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:409
+#: bkp_bible-reading-plans-class.inc.php:414
 #: css/bible-reading-plans-class.inc.php:960
 msgid "(and any other information you feel is appropriate) in the \"How will you use the key?\" field."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:423
+#: bkp_bible-reading-plans-class.inc.php:428
 msgid "These are days like Easter Sunday, Good Friday, Pentecost, etc., which are observed on the different dates every year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day. <span style=\"font-weight: bold; font-style: italic;\">Note that this defaulted to \"checked\" in versions prior to 2.2 for the ACNA readings.</span>"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:432
+#: bkp_bible-reading-plans-class.inc.php:437
 msgid "These are r Christmas Day, All Saints' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:437
+#: bkp_bible-reading-plans-class.inc.php:442
 #: css/bible-reading-plans-class.inc.php:970
 msgid "You may alter the appearance and location of the Table of Contents by overriding the styles of the \"Table of Contents\" and \"Mobile\" sections of the \"css/bible-reading-plans.css\" stylesheet."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:443
+#: bkp_bible-reading-plans-class.inc.php:448
 #: css/bible-reading-plans-class.inc.php:976
 msgid "To request an Access Key <a href=\"https://my.crossway.org/account/register/\" target=\"_blank\" title=\"Create an Account\">Create an Account</a> at Crossway. Then go to <a href=\"https://api.esv.org/account/create-application/\" target=\"_blank\" title=\"API.Bible Registration\">Create an API Application</a>."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:447
+#: bkp_bible-reading-plans-class.inc.php:452
 #: css/bible-reading-plans-class.inc.php:980
 msgid "in the \"Application Name\" field and select the \"Intended Use\" in the dropdown field."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:463
+#: bkp_bible-reading-plans-class.inc.php:468
 #: css/bible-reading-plans-class.inc.php:996
 msgid "inline"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:465
+#: bkp_bible-reading-plans-class.inc.php:470
 #: css/bible-reading-plans-class.inc.php:998
 msgid "none"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:471
+#: bkp_bible-reading-plans-class.inc.php:476
 #: css/bible-reading-plans-class.inc.php:1004
 msgid "at top of Bible text, with text wrapped"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:475
+#: bkp_bible-reading-plans-class.inc.php:480
 #: css/bible-reading-plans-class.inc.php:1008
 msgid "above text"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:475
+#: bkp_bible-reading-plans-class.inc.php:480
 #: css/bible-reading-plans-class.inc.php:1008
 msgid "(Calendar will always be above the text for screens less than "
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:475
+#: bkp_bible-reading-plans-class.inc.php:480
 #: css/bible-reading-plans-class.inc.php:1008
 msgid "px wide"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:567
+#: bkp_bible-reading-plans-class.inc.php:572
 #: css/bible-reading-plans-class.inc.php:1114
 msgid ": Missing Language ID for DBP"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:601
+#: bkp_bible-reading-plans-class.inc.php:606
 #: css/bible-reading-plans-class.inc.php:1148
 msgid "(uses Morning Prayer readings for odd numbered years and Evening Prayer readings for even numbered years)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:607
+#: bkp_bible-reading-plans-class.inc.php:612
 #: css/bible-reading-plans-class.inc.php:1154
 msgid "(The mcheyne and one-year-tract are the same. The latter is available for compatibility with the Embed Bible Passages plugin.)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:608
+#: bkp_bible-reading-plans-class.inc.php:613
 #: css/bible-reading-plans-class.inc.php:1155
 msgid "Note that, if a plan has Scripture portions that are not available in the Bible version being used, those portions will be skipped. If instead, however, you would prefer a \"no Scriptures available\" message to appear, override or comment out the \"display: none;\" statement in the brp-no-scriptures-available class in the bible-reading-plans.css file."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:619
+#: bkp_bible-reading-plans-class.inc.php:624
 #: css/bible-reading-plans-class.inc.php:1166
 msgid "Naturally, the only version available from from the ESV API is the "
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:628
+#: bkp_bible-reading-plans-class.inc.php:633
 #: css/bible-reading-plans-class.inc.php:1175
 msgid "Bible Reading Plans Options"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:629
+#: bkp_bible-reading-plans-class.inc.php:634
 msgid ""
 "<h3>Shortcode Format</h3>\n"
 "\t\t\t<p>This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the forms: \n"
@@ -225,6 +267,7 @@ msgid ""
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:642
+#: bkp_bible-reading-plans-class.inc.php:647
 #: css/bible-reading-plans-class.inc.php:1189
 msgid ""
 "\t<ul>\n"
@@ -237,6 +280,7 @@ msgid ""
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:668
+#: bkp_bible-reading-plans-class.inc.php:673
 #: css/bible-reading-plans-class.inc.php:1215
 msgid ""
 "\t\tThe English language versions available from API.Bible (ABS) and the corresponding codes to be used for \"version\" in the shortcode currently are:\n"
@@ -244,160 +288,194 @@ msgid ""
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:672
+#: bkp_bible-reading-plans-class.inc.php:677
 #: css/bible-reading-plans-class.inc.php:1219
 msgid "Note that, in order to use this API, you must obtain an Access Key from the American Bible Society. See instructions for obtaining that key and the field for entering it <a href=\"#instructions_below\">below</a>."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:679
+#: bkp_bible-reading-plans-class.inc.php:684
 #: css/bible-reading-plans-class.inc.php:1226
 msgid "Note that, in order to use this API, you must obtain an Access Key from the Bible Brain (aka Digital Bible Platform -- DBP), Version 4 of their API. See instructions for obtaining that key and the field for entering it <a href=\"#instructions_below\">below</a>."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:685
+#: bkp_bible-reading-plans-class.inc.php:690
 #: css/bible-reading-plans-class.inc.php:1232
 msgid "This API has been made available separately (even though the ESV is also available from the DBP) because it is the only API for which a link to audio for the text is supplied directly with the text. Additionally, at present, the ability to format the text from the ESV API is better than that from the DBP API."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:688
+#: bkp_bible-reading-plans-class.inc.php:693
 #: css/bible-reading-plans-class.inc.php:1235
 msgid "Note that, in order to use this API, you must obtain an Access Key from Crossway/ESV.org. See instructions for obtaining that key and the field for entering it <a href=\"#instructions_below\">below</a>."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:699
+#: bkp_bible-reading-plans-class.inc.php:704
 #: css/bible-reading-plans-class.inc.php:1246
 msgid "The page opens with the plan reading for the current date. A date picker calendar is available (see option below) to enable users to choose readings for other dates.<br /><br />This plugin requires JavaScript to be active."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:702
+#: bkp_bible-reading-plans-class.inc.php:707
 #: css/bible-reading-plans-class.inc.php:1249
 msgid "Create your own Bible reading plans to use with this plugin. Purchase the "
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:709
+#: bkp_bible-reading-plans-class.inc.php:714
 msgid "Further questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:715
+#: bkp_bible-reading-plans-class.inc.php:720
 #: css/bible-reading-plans-class.inc.php:1257
 msgid "Save Changes"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:808
+#: bkp_bible-reading-plans-class.inc.php:813
 #: css/bible-reading-plans-class.inc.php:1350
 msgid "American Bible Society<br />Access Key (API Version 1)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:809
+#: bkp_bible-reading-plans-class.inc.php:814
 #: css/bible-reading-plans-class.inc.php:1351
 msgid "Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:810
+#: bkp_bible-reading-plans-class.inc.php:815
 #: css/bible-reading-plans-class.inc.php:1352
 msgid "English Standard Version<br />Access Key (API Version 3)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:811
+#: bkp_bible-reading-plans-class.inc.php:816
 #: css/bible-reading-plans-class.inc.php:1353
 msgid "Display Plan Name on Pages"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:812
+#: bkp_bible-reading-plans-class.inc.php:817
 msgid "Display \"Moveable Feasts\" on Pages"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:813
+#: bkp_bible-reading-plans-class.inc.php:818
 msgid "Display \"Holy Days\" on Pages"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:814
+#: bkp_bible-reading-plans-class.inc.php:819
 #: css/bible-reading-plans-class.inc.php:1354
 msgid "Show Date Picker Calendar"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:815
+#: bkp_bible-reading-plans-class.inc.php:820
 #: css/bible-reading-plans-class.inc.php:1355
 msgid "Display Table of Contents on Pages"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:816
+#: bkp_bible-reading-plans-class.inc.php:821
 #: css/bible-reading-plans-class.inc.php:1356
 msgid "Show \"Powered by\" attribution at bottom of page"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1000
+#: bkp_bible-reading-plans-class.inc.php:1005
 #: css/bible-reading-plans-class.inc.php:1534
 msgid "Versions are loading..."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1034
+#: bkp_bible-reading-plans-class.inc.php:1039
 #: css/bible-reading-plans-class.inc.php:1568
 msgid "Select another language to get a list of the versions available in that language:"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1051
 #: bible-reading-plans-class.inc.php:1052
+#: bkp_bible-reading-plans-class.inc.php:1056
+#: bkp_bible-reading-plans-class.inc.php:1057
 #: css/bible-reading-plans-class.inc.php:1585
 #: css/bible-reading-plans-class.inc.php:1586
 msgid "English"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1055
+#: bkp_bible-reading-plans-class.inc.php:1060
 #: css/bible-reading-plans-class.inc.php:1589
 msgid "Languages are sorted by their ISO code. (If different from the native name, English or alternate names for a language are in parentheses.)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1056
+#: bkp_bible-reading-plans-class.inc.php:1061
 #: css/bible-reading-plans-class.inc.php:1590
 msgid "NOTES:"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1057
+#: bkp_bible-reading-plans-class.inc.php:1062
 #: css/bible-reading-plans-class.inc.php:1591
 msgid "There are ~90 more languages available, but which have had to be excluded from this version of the plugin because of the format in which they are available. It is hoped that the next version will be able to include these languages.)"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1058
+#: bkp_bible-reading-plans-class.inc.php:1063
 #: css/bible-reading-plans-class.inc.php:1592
 msgid "There are likely formatting issues with some languages. It is hoped that the users of those languages will work with us to resolve these issues"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1065
+#: bkp_bible-reading-plans-class.inc.php:1070
 #: css/bible-reading-plans-class.inc.php:1599
 msgid "The "
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:1073
+#: bkp_bible-reading-plans-class.inc.php:1078
 #: css/bible-reading-plans-class.inc.php:1607
 msgid " language versions available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for \"bible_id\" in the shortcode currently are:"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1095
+#: bible-reading-plans-class.inc.php:1094
+#: bkp_bible-reading-plans-class.inc.php:1100
 #: css/bible-reading-plans-class.inc.php:1624
 msgid "The default version is "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1096
+#: bible-reading-plans-class.inc.php:1095
+#: bkp_bible-reading-plans-class.inc.php:1101
 msgid "Note that this changed from "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1096
+#: bible-reading-plans-class.inc.php:1095
+#: bkp_bible-reading-plans-class.inc.php:1101
 msgid " at Version 2.1.5 of this plugin, since for a period of time prior to the release of this version the ESV was not available to the DBP."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1099
+#: bible-reading-plans-class.inc.php:1098
+#: bkp_bible-reading-plans-class.inc.php:1104
 #: css/bible-reading-plans-class.inc.php:1627
 msgid "(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1263
-#: bible-reading-plans-class.inc.php:1588
+#: bible-reading-plans-class.inc.php:1262
+#: bible-reading-plans-class.inc.php:1587
+#: bkp_bible-reading-plans-class.inc.php:1270
+#: bkp_bible-reading-plans-class.inc.php:1595
 #: css/bible-reading-plans-class.inc.php:1788
 #: css/bible-reading-plans-class.inc.php:2165
 msgid "Click on a date to open the readings for that day."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1310
+#: bible-reading-plans-class.inc.php:1309
+#: bkp_bible-reading-plans-class.inc.php:1317
 #: css/bible-reading-plans-class.inc.php:1837
 #: css/bible-reading-plans-class.inc.php:1849
 #: css/bible-reading-plans-class.inc.php:2099
@@ -405,187 +483,225 @@ msgstr ""
 msgid "Scriptures copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1313
+#: bible-reading-plans-class.inc.php:1312
+#: bkp_bible-reading-plans-class.inc.php:1320
 #: css/bible-reading-plans-class.inc.php:1840
 #: css/bible-reading-plans-class.inc.php:2102
 msgid "Scriptures Copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1315
+#: bible-reading-plans-class.inc.php:1314
+#: bkp_bible-reading-plans-class.inc.php:1322
 #: css/bible-reading-plans-class.inc.php:1842
 #: css/bible-reading-plans-class.inc.php:2104
 msgid "Scriptures &copy; Copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1323
+#: bible-reading-plans-class.inc.php:1322
+#: bkp_bible-reading-plans-class.inc.php:1330
 msgid "Unavailable."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1326
+#: bible-reading-plans-class.inc.php:1325
+#: bkp_bible-reading-plans-class.inc.php:1333
 msgid "Scriptures Copyright: The ESV Bible® (The Holy Bible, English Standard Version®) Copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. ESV® Text Edition: 2007. All rights reserved. English Standard Version, ESV, and the ESV logo are registered trademarks of Good News Publishers. Used by permission."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1331
+#: bible-reading-plans-class.inc.php:1330
+#: bkp_bible-reading-plans-class.inc.php:1338
 msgid "Public Domain"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1336
+#: bible-reading-plans-class.inc.php:1335
+#: bkp_bible-reading-plans-class.inc.php:1343
 #: css/bible-reading-plans-class.inc.php:1860
 #: css/bible-reading-plans-class.inc.php:2122
 msgid "This Bible reading plan from "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1336
+#: bible-reading-plans-class.inc.php:1335
+#: bkp_bible-reading-plans-class.inc.php:1343
 #: css/bible-reading-plans-class.inc.php:1860
 #: css/bible-reading-plans-class.inc.php:2122
 msgid " is licensed under the <a target=\"_blank\" href=\"https://www.gnu.org/licenses/gpl-3.0.en.html\">GNU General Public License v.3</a> by Alan Hartless in a plugin written for Joomla: https://github.com/alanhartless/bibleplan, &copy; HartlessByDesign 2011. All rights reserved. Licensed under GNU General Public License v.3."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1340
+#: bible-reading-plans-class.inc.php:1339
+#: bkp_bible-reading-plans-class.inc.php:1347
 #: css/bible-reading-plans-class.inc.php:1864
 #: css/bible-reading-plans-class.inc.php:2126
 msgid "All not-for-profit reproduction of this Bible reading plan by churches and non-profit organizations is permitted (reference Copyright statement in <a href=\"https://bcp2019.anglicanchurch.net/\" target=\"_blank\">"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1340
+#: bible-reading-plans-class.inc.php:1339
+#: bkp_bible-reading-plans-class.inc.php:1347
 #: css/bible-reading-plans-class.inc.php:1864
 #: css/bible-reading-plans-class.inc.php:2126
 msgid "Many thanks to "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1340
+#: bible-reading-plans-class.inc.php:1339
+#: bkp_bible-reading-plans-class.inc.php:1347
 #: css/bible-reading-plans-class.inc.php:1864
 #: css/bible-reading-plans-class.inc.php:2126
 msgid "for supplying this plan in digital form."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1344
+#: bible-reading-plans-class.inc.php:1343
+#: bkp_bible-reading-plans-class.inc.php:1351
 #: css/bible-reading-plans-class.inc.php:1868
 #: css/bible-reading-plans-class.inc.php:2130
 msgid "This Bible reading plan by "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1344
+#: bible-reading-plans-class.inc.php:1343
+#: bkp_bible-reading-plans-class.inc.php:1351
 #: css/bible-reading-plans-class.inc.php:1868
 #: css/bible-reading-plans-class.inc.php:2130
 msgid " is in the Public Domain."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1460
+#: bible-reading-plans-class.inc.php:1459
+#: bkp_bible-reading-plans-class.inc.php:1467
 msgid "Table of Contents"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1573
+#: bible-reading-plans-class.inc.php:1572
+#: bkp_bible-reading-plans-class.inc.php:1580
 #: css/bible-reading-plans-class.inc.php:2150
 msgid "No readings for this date."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1618
-#: bible-reading-plans-class.inc.php:2254
-#: bible-reading-plans-class.inc.php:2292
+#: bible-reading-plans-class.inc.php:1617
+#: bible-reading-plans-class.inc.php:2272
+#: bible-reading-plans-class.inc.php:2310
+#: bkp_bible-reading-plans-class.inc.php:1625
+#: bkp_bible-reading-plans-class.inc.php:2281
+#: bkp_bible-reading-plans-class.inc.php:2319
 #: css/bible-reading-plans-class.inc.php:2732
 #: css/bible-reading-plans-class.inc.php:2766
 #: css/bible-reading-plans-class.inc.php:2790
 msgid "ERROR: Response to request for Scriptures yields an error."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1889
+#: bible-reading-plans-class.inc.php:1887
+#: bkp_bible-reading-plans-class.inc.php:1896
 msgid "ERROR: Cannot add "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:1893
+#: bible-reading-plans-class.inc.php:1891
+#: bkp_bible-reading-plans-class.inc.php:1900
 #: css/bible-reading-plans-class.inc.php:2419
 msgid "ERROR: Cannot retrieve "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2019
+#: bible-reading-plans-class.inc.php:2017
+#: bkp_bible-reading-plans-class.inc.php:2026
 #: css/bible-reading-plans-class.inc.php:2056
 msgid "Portions from the Apocrypha are from the "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2020
+#: bible-reading-plans-class.inc.php:2018
+#: bkp_bible-reading-plans-class.inc.php:2027
 #: css/bible-reading-plans-class.inc.php:2057
 msgid "Source: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2021
+#: bible-reading-plans-class.inc.php:2019
+#: bkp_bible-reading-plans-class.inc.php:2028
 #: css/bible-reading-plans-class.inc.php:2058
 msgid "Copyright: "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2067
+#: bible-reading-plans-class.inc.php:2085
+#: bkp_bible-reading-plans-class.inc.php:2078
 #: css/bible-reading-plans-class.inc.php:2554
 msgid "No Scriptures available in this version for "
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2294
+#: bible-reading-plans-class.inc.php:2312
+#: bkp_bible-reading-plans-class.inc.php:2321
 #: css/bible-reading-plans-class.inc.php:2792
 msgid "ERROR: Response to request for Scriptures is not an array."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2301
+#: bible-reading-plans-class.inc.php:2319
+#: bkp_bible-reading-plans-class.inc.php:2328
 #: css/bible-reading-plans-class.inc.php:2799
 msgid "ERROR: No URLs."
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2390
+#: bible-reading-plans-class.inc.php:2408
+#: bkp_bible-reading-plans-class.inc.php:2537
 #: css/bible-reading-plans-class.inc.php:2885
 msgid "Back to the Bible Chronological"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2391
+#: bible-reading-plans-class.inc.php:2409
+#: bkp_bible-reading-plans-class.inc.php:2538
 #: css/bible-reading-plans-class.inc.php:2886
 msgid "Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2392
+#: bible-reading-plans-class.inc.php:2410
+#: bkp_bible-reading-plans-class.inc.php:2539
 #: css/bible-reading-plans-class.inc.php:2887
 msgid "Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2393
+#: bible-reading-plans-class.inc.php:2411
+#: bkp_bible-reading-plans-class.inc.php:2540
 #: css/bible-reading-plans-class.inc.php:2888
 msgid "Book of Common Prayer, 2019, Anglican Church in North America -- Two Year Plan"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2394
+#: bible-reading-plans-class.inc.php:2412
+#: bkp_bible-reading-plans-class.inc.php:2541
 #: css/bible-reading-plans-class.inc.php:2889
 msgid "Daily Light on the Daily Path -- Evening"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2395
+#: bible-reading-plans-class.inc.php:2413
+#: bkp_bible-reading-plans-class.inc.php:2542
 #: css/bible-reading-plans-class.inc.php:2890
 msgid "Daily Light on the Daily Path -- Morning"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2396
+#: bible-reading-plans-class.inc.php:2414
+#: bkp_bible-reading-plans-class.inc.php:2543
 #: css/bible-reading-plans-class.inc.php:2891
 msgid "Every Day In the Word"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2397
+#: bible-reading-plans-class.inc.php:2415
+#: bkp_bible-reading-plans-class.inc.php:2544
 #: css/bible-reading-plans-class.inc.php:2892
 msgid "Heartlight Old and New Testament"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2398
+#: bible-reading-plans-class.inc.php:2416
+#: bkp_bible-reading-plans-class.inc.php:2545
 #: css/bible-reading-plans-class.inc.php:2893
 msgid "Literary Study Bible"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2399
-#: bible-reading-plans-class.inc.php:2401
+#: bible-reading-plans-class.inc.php:2417
+#: bible-reading-plans-class.inc.php:2419
+#: bkp_bible-reading-plans-class.inc.php:2546
+#: bkp_bible-reading-plans-class.inc.php:2548
 #: css/bible-reading-plans-class.inc.php:2894
 #: css/bible-reading-plans-class.inc.php:2896
 msgid "M&#039;Cheyne One-Year Reading Plan"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2400
+#: bible-reading-plans-class.inc.php:2418
+#: bkp_bible-reading-plans-class.inc.php:2547
 #: css/bible-reading-plans-class.inc.php:2895
 msgid "One Year Chronological"
 msgstr ""
 
-#: bible-reading-plans-class.inc.php:2402
+#: bible-reading-plans-class.inc.php:2420
+#: bkp_bible-reading-plans-class.inc.php:2549
 #: css/bible-reading-plans-class.inc.php:2897
 msgid "Through the Bible in a Year"
 msgstr ""

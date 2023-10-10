@@ -7,7 +7,7 @@ Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digita
 
 Requires at least: 2.8
 
-Tested up to: 6.2.2
+Tested up to: 6.3.1
 
 Requires PHP: 5.6
 
@@ -157,6 +157,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 ## Upgrade Notice
+
+## 2.2.3
+
+Get Bible book name in language being used in cases where that is not already available, giving priority to the name used in localization.
 
 ## 2.2.2
 
@@ -493,6 +497,10 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+## 2.2.3
+
+Bible book name in language being used in cases where that is not already available is now used, giving priority to the name used in localization.
 
 ## 2.2.2
 
