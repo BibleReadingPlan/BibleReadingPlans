@@ -158,6 +158,14 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
+## 3.0-alpha-2 ##
+
+This version:
+
+1. IN PROGRESS: Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+
+1. TO DO: Adds DocBlocks to (some) methods/functions.
+
 ## 2.2.3
 
 Get Bible book name in language being used in cases where that is not already available, giving priority to the name used in localization.

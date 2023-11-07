@@ -2950,14 +2950,6 @@ $reading_plan = array (
         1 => 'MAT/28?verse_start=1&verse_end=999',
       ),
     ),
-/*    3 => 
-    array (
-      'passage' => 'Matthew 28',
-      'verses' => 
-      array (
-        0 => 'MAT/28?verse_start=1&verse_end=999',
-      ),
-    ),*/
   ),
   '03-30' => 
   array (
@@ -5591,14 +5583,6 @@ $reading_plan = array (
         1 => '1TH/3?verse_start=1&verse_end=999',
      ),
     ),
-/*    3 => 
-    array (
-      'passage' => '1 Thessalonians 3',
-      'verses' => 
-      array (
-        0 => '1TH/3?verse_start=1&verse_end=999',
-      ),
-    ),*/
     4 => 
     array (
       'passage' => 'Matthew 14:1-13',
@@ -5947,14 +5931,6 @@ $reading_plan = array (
         1 => '1CO/5?verse_start=1&verse_end=999',
      ),
     ),
-/*   4 => 
-    array (
-      'passage' => '1 Corinthians 5',
-      'verses' => 
-      array (
-        0 => '1CO/5?verse_start=1&verse_end=999',
-      ),
-    ),*/
   ),
   '07-06' => 
   array (
@@ -6418,14 +6394,6 @@ $reading_plan = array (
         1 => '2CO/3?verse_start=1&verse_end=999',
      ),
     ),
-/*    3 => 
-    array (
-      'passage' => '2 Corinthians 3',
-      'verses' => 
-      array (
-        0 => '2CO/3?verse_start=1&verse_end=999',
-      ),
-    ),*/
   ),
   '07-21' => 
   array (
@@ -6738,14 +6706,6 @@ $reading_plan = array (
         1 => '2CO/13?verse_start=1&verse_end=999',
       ),
     ),
-/*    4 => 
-    array (
-      'passage' => '2 Corinthians 13',
-      'verses' => 
-      array (
-        0 => '2CO/13?verse_start=1&verse_end=999',
-      ),
-    ),*/
   ),
   '07-31' => 
   array (
@@ -8157,14 +8117,6 @@ $reading_plan = array (
         1 => 'HEB/6?verse_start=1&verse_end=999',
       ),
     ),
-/*    3 => 
-    array (
-      'passage' => 'Hebrews 6',
-      'verses' => 
-      array (
-        0 => 'HEB/6?verse_start=1&verse_end=999',
-      ),
-    ),*/
   ),
   '09-16' => 
   array (

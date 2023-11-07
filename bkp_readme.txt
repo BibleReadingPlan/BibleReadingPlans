@@ -3,7 +3,7 @@ Contributors: drmikegreen, sophoservices
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.3.1
+Tested up to: 6.2.2
 Requires PHP: 5.6
 Tested up to PHP: 8.2
 Stable tag: trunk
@@ -148,26 +148,6 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 6. Sample result for page of a reading plan in French.
 
 == Upgrade Notice ==
-
-= 3.0-alpha-2 =
-
-This version:
-
-1. IN PROGRESS: Adds ability to have audio for many of the languages and versions from the Bible Brain API.
-
-1. TO DO: Adds DocBlocks to (some) methods/functions.
-
-= 2.2.3 =
-
-Get Bible book name in language being used in cases where that is not already available, giving priority to the name used in localization.
-
-= 2.2.2 =
-
-Bug fix: Fixed problem where both English and other language passage names were displayed when the language is not English.
-
-= 2.2.1 =
-
-Bug fix: Corrected 16 places where there were contiguous passages in Book of Common Prayer, 2019, Anglican Church in North America reading plans which were be presented as separate ones. They are each now continuous passages.
 
 = 2.2 =
 
@@ -489,18 +469,6 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
-
-= 2.2.3 =
-
-Bible book name in language being used in cases where that is not already available is now used, giving priority to the name used in localization.
-
-= 2.2.2 =
-
-Bug fix: Problem where both English and other language passage names were displayed when the language is not English fixed.
-
-= 2.2.1 =
-
-Bug fix: 16 places where there were contiguous passages in Book of Common Prayer, 2019, Anglican Church in North America reading plans which were be presented as separate ones are corrected. They are each now continuous passages.
 
 = 2.2 =
 
