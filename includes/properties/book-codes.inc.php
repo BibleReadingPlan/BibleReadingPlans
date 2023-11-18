@@ -82,22 +82,6 @@
 										'JUD' => __('Jude', 'bible-reading-plans'),
 										'REV' => __('Revelation', 'bible-reading-plans'),
 										);
-	$this->book_codes_names_ap	= array(// Apocrypha
-										'1ES' => __('1 Esdras', 'bible-reading-plans'),
-										'2ES' => __('2 Esdras', 'bible-reading-plans'),
-										'TOB' => __('Tobit', 'bible-reading-plans'),
-										'JDT' => __('Judith', 'bible-reading-plans'),
-										'ESG' => __('Esther (Greek)', 'bible-reading-plans'),
-										'WIS' => __('Wisdom', 'bible-reading-plans'),
-										'SIR' => __('Ecclesiasticus', 'bible-reading-plans'),
-										'BAR' => __('Baruch', 'bible-reading-plans'),
-										'S3Y' => __('Song of the Three', 'bible-reading-plans'),
-										'SUS' => __('Susanna', 'bible-reading-plans'),
-										'BEL' => __('Bel and the Dragon', 'bible-reading-plans'),
-										'MAN' => __('Manasseh', 'bible-reading-plans'),
-										'1MA' => __('1 Maccabees', 'bible-reading-plans'),
-										'2MA' => __('2 Maccabees', 'bible-reading-plans'),
-										);
 	$this->book_codes_ot		= array( // Old Testament
 										'GEN',
 										'EXO',
@@ -138,6 +122,22 @@
 										'HAG',
 										'ZEC',
 										'MAL',
+										);
+	$this->book_codes_ap		= array(// Apocrypha
+										'1ES',
+										'2ES',
+										'TOB',
+										'JDT',
+										'ESG',
+										'WIS',
+										'SIR',
+										'BAR',
+										'S3Y',
+										'SUS',
+										'BEL',
+										'MAN',
+										'1MA',
+										'2MA',
 										);
 	$this->book_codes_nt		= array(// New Testament
 										'MAT',

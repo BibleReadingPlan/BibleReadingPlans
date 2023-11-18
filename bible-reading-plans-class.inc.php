@@ -38,13 +38,15 @@ class BibleReadingPlans {
 	protected $abs_versions		 	= array();
 	protected $ajax_url          	= '';
 	protected $api_request_err	 	= '';
+	protected $audio_link		 	= array();
+	protected $chapter_start	 	= array();
 	protected $bible_id		 		= '';
     protected $bible_all_audio_id	= ''; 
 	protected $bible_nt_audio_id	= ''; 
 	protected $bible_ot_audio_id	= ''; 
 	// DBP v4 book_codes are the same as the abs_codes.
 	protected $book_codes_names		= array();
-	protected $book_codes_names_ap	= array();
+	protected $book_codes_ap	= array();
 	protected $book_codes_nt		= array();
 	protected $book_codes_ot		= array();
 	protected $bk_cds_dpp2_to_dbp4	= array();
@@ -1446,13 +1448,21 @@ EOS;
 		$urls_ary = array();
 		foreach ($readings_querys as $val) {
 			$i			= 0;
-//$this->debug_print('$val[passage]',$val['passage'] );
 			$nr_colons	= count(explode(':', $val['passage'])) - 1;
-$nr_colons	= 0;
+// ?????????????????????
+//$nr_colons	= 0;
 			foreach ($val['verses'] as $qry_str) {
 				$url				= $this->dbp_query_string.'bibles/filesets/';
 				list($book_code, )	= explode('/', $qry_str);
 				if ($this->dbp_use_audio_all) {
+					$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_all_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
+				} elseif ($this->dbp_use_audio_ot && in_array($book_code, $this->book_codes_nt)) {						
+					$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_nt_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
+				} elseif ($this->dbp_use_audio_nt && in_array($book_code, $this->book_codes_ot)) {
+					$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_ot_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
+				}
+// !!! Need to figure out what is awry here... !!!
+			/*	if ($this->dbp_use_audio_all) {
 					if ($nr_colons > 0) {
 						$urls_ary[$val['passage']]['audio'][$i][] = $url.$this->bible_all_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					} else {
@@ -1470,11 +1480,10 @@ $nr_colons	= 0;
 					} else {
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_ot_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
-				}
+				}*/
 				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 			}
 		}
-$this->debug_print('$urls_ary', $urls_ary);
 		$this->dbp_language_iso = $this->lng_code_iso;
 		$urls_ary['metadata']	= $this->dbp_query_string.'bibles/';
 		$bible_abbr				= '';
@@ -2087,7 +2096,7 @@ $this->debug_print('$urls_ary', $urls_ary);
 		$chapter_and_verses		 = $book_chapter_and_verses[1];
 		$passage				 = $decoded_body->query;
 		if (in_array($book, $this->book_names_ap)) {
-			$book_id	= array_search($book, $this->book_codes_names_ap);
+			$book_id	= array_search($book, $this->book_codes_ap);
 			$args		= array('book' => $book_id, 'chapter_and_verses' => $chapter_and_verses);
 			$response	= $this->get_from_default_apocrypha($args);
 			if (is_wp_error($response)) {
@@ -2353,9 +2362,6 @@ $this->debug_print('$urls_ary', $urls_ary);
 	protected function load_property_values () {
 		require_once('includes/properties/abs.inc.php');
 		require_once('includes/properties/book-codes.inc.php');
-		foreach ($this->book_codes_names_ap as $key => $name) {
-			$this->book_names_ap[] = $name;
-		}
 		require_once('includes/properties/dbp.inc.php');
 		require_once('includes/properties/esv.inc.php');
 		require_once('includes/properties/holydays-moveablefeasts.inc.php');
@@ -2611,7 +2617,11 @@ $this->debug_print('$urls_ary', $urls_ary);
 	protected function get_book_name_for_language_being_used_dbp ($decoded_text, $book_english) {
 		// This function transforms the header from English to whatever language is being used.
 		// Get book name for the language being used.
-		$book_id = $decoded_text['data'][0]['book_id'];
+		if (isset($decoded_text['data'][0]['book_id'])) {
+			$book_id = $decoded_text['data'][0]['book_id'];			
+		} else {
+			return $book_english;
+		}
 		if ($this->book_codes_names[$book_id] != $book_english) {
 			// Use localized names if they exist.
 			$book = $this->book_codes_names[$book_id];
@@ -2643,10 +2653,14 @@ $this->debug_print('$urls_ary', $urls_ary);
  * @return Datatype description to be added here
  *
  */
-protected function transform_passage_dbp ($passage, $decoded_text) {
+	protected function transform_passage_dbp ($passage, $decoded_text) {
 		// This function transforms the header from English to whatever language is being used.
 		// Get book name for the language being used.
-		$book_english	= $decoded_text['data'][0]['book_name'];
+		if (isset($decoded_text['data']) && isset($decoded_text['data'][0]) && isset($decoded_text['data'][0]['book_name'])) {
+			$book_english = $decoded_text['data'][0]['book_name'];
+		} else {
+			$book_english = '';
+		}
 		$book			= $this->get_book_name_for_language_being_used_dbp($decoded_text, $book_english);
 		$parts = explode(' ', $passage);
 		if (isset($parts[1]) && isset($book)) {
@@ -2686,8 +2700,6 @@ protected function transform_passage_dbp ($passage, $decoded_text) {
  *
  */
 	protected function layout_passage_dbp ($rtn_str, $ary, $is_poetic) {
-//	protected function layout_passage_dbp ($rtn_str, $ary, &$chapter, $is_poetic, &$prgrph_nr) {
-//$this->debug_print('$ary', $ary);
 		if (!is_array($ary)) {
 			$ary = array();
 		}
@@ -2784,173 +2796,35 @@ protected function transform_passage_dbp ($passage, $decoded_text) {
 				$this->toc_list($passage_header, $rtn_str, $toc);
 			}
 			$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
+		/*	if ("audio" == $index) {
+				$audio_src = $decoded_text[0]['data'][0]['path'];
+				$rtn_str  .= '<audio controls="" src="'.$audio_src.'"></audio>';
+				if ($is_partial_chapter && isset($decoded_text[0]['data'][0]['path'])) {
+					$rtn_str .= '<div class="brp-audio-caveats">'.__('At present, only the full chapter of the audio is available for this passage in this version.', 'bible-reading-plans').'</div>';				
+					return $rtn_str;
+				}
+			} elseif ($this->dbp_use_audio_all || $this->dbp_use_audio_nt || $this->dbp_use_audio_ot) {
+					$rtn_str .= '<div class="brp-audio-caveats">'.__('There is no audio available for this passage in this version.', 'bible-reading-plans').'</div>';							
+			} */
 		}
 		if (array_key_exists($english_book, $this->poetic)) {
 			$is_poetic = true;
 		} else {
 			$is_poetic = false;
 		}
+		$m = 0;					
 		$n = 0;
 		foreach ($decoded_text as $key => $passage_ary) {
-			$chapter = -1;
-			foreach ($passage_ary as $data) {
-//$this->debug_print('$data[0][path]', $data[0]['path']);
-				//$ary = array();
-				if (isset($data[0]['path'])) {
-					$audio_link[] = $data[0]['path'];
-//$rtn_str  .= '<audio controls="" src="'.$audio_link[$n++].'"></audio>';					
-				}
-//$this->debug_print('$audio_link', $audio_link);
-				foreach ($data as $ary) {
-			//$this->debug_print('$ary', $ary);
-					if (!is_array($ary)) {
-						$ary = array();
-					}
-					if ($is_poetic) {
-						if (isset($ary['verse_text'])) { 
-							$text = $this->poetic_passage($ary['verse_text']);
-						} else {
-							$text = '';
-						}
-					} else {
-						if (isset($ary['verse_text'])) {
-							$text = $ary['verse_text'];
-						} else {
-							$text = '';
-						}
-					}
-/*if (isset($audio_link)) {
-	$this->debug_print('$n', $n);
-	$this->debug_print('$audio_link', $audio_link);
-	$rtn_str  .= '<audio controls="" src="'.$audio_link[$n++].'"></audio>';					
-}*/
-					if (isset($ary['chapter']) && isset($chapter) && $ary['chapter'] > $chapter) {
-						if ($prgrph_nr == -1) {
-							$rtn_str .=  '<p class="brp-paragraph">';
-						} else {
-							$rtn_str .=  '</p><p class="brp-paragraph">';
-						}
-/*if (isset($audio_link)) {
-	$this->debug_print('$n', $n);
-	$this->debug_print('$audio_link', $audio_link);
-	$rtn_str  .= '<audio controls="" src="'.$audio_link[$n++].'"></audio>';					
-}*/
-						if (isset($ary['paragraph_number'])) {
-							$prgrph_nr = $ary['paragraph_number'];
-						}
-						$chapter  = $ary['chapter'];
-						$rtn_str .= '<span class="brp-chapter-nr">'.$chapter.':'.$ary['verse_start'].'</span>&nbsp;'.$text.' ';
-					} elseif (isset($ary['verse_text'])) {
-						if ($is_poetic) {
-							if (isset($ary['verse_start'])) {
-								$rtn_str .=  '<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;';					
-							}
-							$rtn_str .= '&nbsp;'.$this->poetic_passage($ary['verse_text']);
-						} else {
-							if (isset($ary['verse_start'])) {
-								$verse_start = '&nbsp;<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;'.$ary['verse_text'];
-								// This is a hack, after all attempts to get rid of the `` failed.
-								$rtn_str .= str_replace("``", '', $verse_start);
-							} else {
-								$rtn_str .= '&nbsp;'.$ary['verse_text'];
-							}
-						}
-						$rtn_str .= ' ';
-					} else {
-						$rtn_str .= ' ';
-					}
-if (isset($audio_link)) {
-	$this->debug_print('$n', $n);
-	$this->debug_print('$audio_link', $audio_link);
-	$rtn_str  .= '<audio controls="" src="'.$audio_link[$n++].'"></audio>';					
-}
-				}
-			}
-		}
-		return $rtn_str;
-	}
-	
-/*	protected function put_verses_dbp ($rtn_str, $index, $txt, &$i, $passage, &$prgrph_nr, &$toc) {
-		global $passage_prev;
-		if (is_array($txt)) {
-			foreach ($txt as $txt_ary) {
-				if (is_array($txt_ary)) {	
-					$decoded_text[] = $txt_ary;
-				} else {
-					$decoded_text[] = json_decode($txt_ary, true);					
-				}
-			}	
-		} else {
-			$decoded_text[0] = json_decode($txt, true);
-		}
-		if (isset($decoded_text[0]['error']['message']) && 'No Fileset Chapters Found for the provided params' == $decoded_text[0]['error']['message']) {
-			$rtn_str .=  '<div class="brp-no-scriptures-available">'.__('No Scriptures available in this version for ', 'bible-reading-plans').$passage.'</div>';
-			return $rtn_str;
-		}
-		$book_chapter_and_verses = explode(' ', $passage);
-		if (is_numeric($book_chapter_and_verses[0])) {
-			$english_book = $book_chapter_and_verses[0].' '.$book_chapter_and_verses[1];
-		} else {
-			$english_book = $book_chapter_and_verses[0];
-		}
-		$is_partial_chapter = str_contains($passage, ':');	
-		if ($passage != $passage_prev) {
-			$passage_prev	 = $passage;
-			$passage		 = $this->transform_passage_dbp($passage, $decoded_text[0]);
-			$passage_header  = $this->transform_header($passage);
-			if ($this->display_toc && $passage_header) {
-				$this->toc_list($passage_header, $rtn_str, $toc);
-			}
-			$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
-		}
-		if (array_key_exists($english_book, $this->poetic)) {
-			$is_poetic = true;
-		} else {
-			$is_poetic = false;
-		}
-		if (is_array($decoded_text)) {
-			if ($prgrph_nr != -1) {
-				$rtn_str  .=  "</p><p>"; 
-				$prgrph_nr == -1;
-			} else {
-//				$rtn_str  .=  "<p> </p>";
-				$prgrph_nr == 1;
-			}
-			$chapter = -1;
-			if ($is_poetic) {
-				$rtn_str .=  '<div class="brp-poetic">';
-			}
-//			$i = 0;
-//$this->debug_print('$decoded_text', $decoded_text);
-			foreach ($decoded_text as $key => $passage_ary) {
-$this->debug_print('$key', $key);
-if ($key == 1) {
-	$this->debug_print('$decoded_text[1]', $decoded_text[1]);
-
-}
-//$this->debug_print('$passage_ary', $passage_ary);
-				if (!is_array($passage_ary)) {
-					$passage_ary[0] = $passage_ary;
-				}
+			if (isset($passage_ary) && is_array($passage_ary)) {
+				$chapter = -1;
 				foreach ($passage_ary as $data) {
-//$this->debug_print('$data', $data);
-					if (is_array($data)) {
-				if (isset($data[0]['path'])) {
-$this->debug_print('$data[0][path]',$data[0]['path'] );
-							$chapter_start = $data[0]['chapter_start'];
-							$audio_src['chapter_start'] = $data[0]['path'];
-//$this->debug_print("audio_src[$chapter_start]", $audio_src['chapter_start']);
-//							if ("audio" == $index && $audio_src) {
-								$rtn_str  .= '<audio controls="" src="'.$audio_src['chapter_start'].'"></audio>';
-// ??? The next line needs to be changed:
-								if ($is_partial_chapter && $audio_src) {
-									$rtn_str .= '<div class="brp-audio-caveats">'.__('At present, only the full chapter of the audio is available for this passage in this version.', 'bible-reading-plans').'</div>';				
-									return $rtn_str;
-								}
-				}
-						$verse_count = 1;
-						$n			 = 1;
-						foreach ($data as $ary) {						
+					if (isset($data[0]['path'])) {
+						$this->chapter_start[$n] = $data[0]['chapter_start'];
+						$this->audio_link[$n++]  = $data[0]['path'];
+						$no_audio				 = false;
+					} elseif (is_array($data)) {
+						$no_audio = true;
+						foreach ($data as $ary) {
 							if (!is_array($ary)) {
 								$ary = array();
 							}
@@ -2968,16 +2842,28 @@ $this->debug_print('$data[0][path]',$data[0]['path'] );
 								}
 							}
 							if (isset($ary['chapter']) && isset($chapter) && $ary['chapter'] > $chapter) {
-								if ($prgrph_nr == -1) {
-									$rtn_str .=  '<p class="brp-paragraph">';
-								} else {
-									$rtn_str .=  '</p><p class="brp-paragraph">';
+								if ($prgrph_nr > -1){
+									$rtn_str .=  '</p>';
 								}
+								if (isset($this->audio_link[$m]) && $this->audio_link[$m]) {
+									$audio_chapter = '';
+									$audio_caveat  = '';
+									if ($is_partial_chapter) {
+										$audio_chapter = '<div class="brp-audio-caveats"><br />'.__('Audio for Chapter ', 'bible-reading-plans').$this->chapter_start[$m].':</div>';
+										$audio_caveat = '<div class="brp-audio-caveats">'.__('At present, only the full chapter of the audio is available for this passage in this version.', 'bible-reading-plans').'</div>';		
+									}
+									$rtn_str .= $audio_chapter;
+									$rtn_str .= '<div><audio controls="" src="'.$this->audio_link[$m++].'"></audio><div>';
+									$rtn_str .= $audio_caveat;
+								} elseif ($no_audio && ($this->dbp_use_audio_all || $this->dbp_use_audio_nt || $this->dbp_use_audio_ot)) {
+									$rtn_str .= '<div class="brp-audio-caveats">'.__('There is no audio available for this passage in this version.', 'bible-reading-plans').'</div>';							
+								}
+								$rtn_str .=  '<p class="brp-paragraph">';
 								if (isset($ary['paragraph_number'])) {
 									$prgrph_nr = $ary['paragraph_number'];
 								}
-								$chapter = $ary['chapter'];
-								$rtn_str   .= '<span class="brp-chapter-nr">'.$chapter.':'.$ary['verse_start'].'</span>&nbsp;'.$text.' ';
+								$chapter  = $ary['chapter'];
+								$rtn_str .= '<span class="brp-chapter-nr">'.$chapter.':'.$ary['verse_start'].'</span>&nbsp;'.$text.' ';
 							} elseif (isset($ary['verse_text'])) {
 								if ($is_poetic) {
 									if (isset($ary['verse_start'])) {
@@ -2997,21 +2883,13 @@ $this->debug_print('$data[0][path]',$data[0]['path'] );
 							} else {
 								$rtn_str .= ' ';
 							}
-
 						}
-						if ($is_poetic) {
-							$rtn_str .=  '</div>';
-						}
-					} else {
-						$rtn_str .= $data;
 					}
 				}
 			}
-		} else {
-			$rtn_str .= '';
 		}
 		return $rtn_str;
-	} */
+	}
 
 /**
  * put_verses_esv
@@ -3070,7 +2948,7 @@ $this->debug_print('$data[0][path]',$data[0]['path'] );
 			foreach ($urls_ary as $passage => $url) {
 				$use_abs4apocrypha[$passage] = false;
 				if (is_array($url)) {
-					if (is_array($url['audio'])) {
+					if (isset($url['audio']) && is_array($url['audio'])) {
 						foreach ($url['audio'] as $url_str) {
 							$response_ary_1[$passage]['audio'][] = wp_remote_get($url_str, $args);
 						}
@@ -3105,7 +2983,9 @@ $this->debug_print('$data[0][path]',$data[0]['path'] );
 										}
 										unset($tmp_ary);
 									}
-									$url_end_abs  	= $this->convert_dbp4_url_to_abs_url_end($urls_ary[$passage][0]);
+									if (isset($urls_ary[$passage][0]) && $urls_ary[$passage][0]) {
+										$url_end_abs  	= $this->convert_dbp4_url_to_abs_url_end($urls_ary[$passage][0]);
+									}
 									$abs_passages	= array();
 									$urls_ary_abs	= $this->construct_urls_array_abs(array($url_end_abs,), $abs_passages, $this->abs_vers_default['KJV-E']['id']);
 									$args			= array('url' => $urls_ary_abs[0],);
@@ -3174,7 +3054,6 @@ $this->debug_print('$data[0][path]',$data[0]['path'] );
 		if (!empty($urls_ary)) {
 			foreach ($urls_ary as $passage => $url) {
 				$use_abs4apocrypha[$passage] = false;
-// !!!!!!!!!!!!! the following is quite likely not quite correct
 				if (is_array($url)) {
 					if ('dbp_' == $this->scptr_src_prefix) {
 						if (is_array($url['audio'])) {
