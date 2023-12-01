@@ -82,6 +82,22 @@
 										'JUD' => __('Jude', 'bible-reading-plans'),
 										'REV' => __('Revelation', 'bible-reading-plans'),
 										);
+/*	$this->book_names_ap	= array(// Apocrypha
+										__('1 Esdras', 'bible-reading-plans'),
+										__('2 Esdras', 'bible-reading-plans'),
+										__('Tobit', 'bible-reading-plans'),
+										__('Judith', 'bible-reading-plans'),
+										__('Esther (Greek)', 'bible-reading-plans'),
+										__('Wisdom', 'bible-reading-plans'),
+										__('Ecclesiasticus', 'bible-reading-plans'),
+										__('Baruch', 'bible-reading-plans'),
+										__('Song of the Three', 'bible-reading-plans'),
+										__('Susanna', 'bible-reading-plans'),
+										__('Bel and the Dragon', 'bible-reading-plans'),
+										__('Manasseh', 'bible-reading-plans'),
+										__('1 Maccabees', 'bible-reading-plans'),
+										__('2 Maccabees', 'bible-reading-plans'),
+										);*/
 	$this->book_codes_ot		= array( // Old Testament
 										'GEN',
 										'EXO',
