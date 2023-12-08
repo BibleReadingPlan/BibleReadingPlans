@@ -38,7 +38,9 @@ class BibleReadingPlans {
 	protected $abs_versions		 	= array();
 	protected $ajax_url          	= '';
 	protected $api_request_err	 	= '';
+	protected $audio_full_chap_note = '';
 	protected $audio_link		 	= array();
+	protected $audio_none_note		= '';
 	protected $chapter_start	 	= array();
 	protected $bible_id		 		= '';
     protected $bible_all_audio_id	= ''; 
@@ -802,7 +804,7 @@ EOS;
 			<p>This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the forms: 
 				<ul class="brp-plans">
 					<li>ABS:<code class="brp-plans">[bible-reading-plan source="ABS" reading_plan="mcheyne" version="KJV-P"]</code></li>
-					<li>DBP (<span style="color: red; font-style: italic; font-weight: bold;">New:</span> many languages): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS"]</code></li>
+					<li>DBP (many languages and <span style="color: red; font-style: italic; font-weight: bold;">New:</span> audio for many): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_nt_audio_id="" bible_ot_audio_id=""]</code></li>
 					<li>DBP (Legacy: English only):<code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" version="NAS"]</code></li>
 					<li>ESV:<code class="brp-plans">[bible-reading-plan source="ESV" reading_plan="mcheyne"]</code></li>
 				</ul>
@@ -1885,7 +1887,7 @@ EOS;
  *
  */
 	protected function get_bible_reading_plan ($scriptures_date = '', $error_message = 'ERROR: Could not retrieve readings') {
-		global $use_abs4apocrypha;
+		global $use_abs4apocrypha, $toc;
 		$this->reading_plan_shrtcd = $this->reading_plan;
 		if ($scriptures_date) {
 			$time = strtotime($scriptures_date);
@@ -1943,7 +1945,6 @@ EOS;
 					$this->text_source .= $this->abs_sctr_src_url.'.';					
 					$texts				= $this->remote_get_scriptures($urls_ary, $date_key);
 				} elseif ('dbp_' == $this->scptr_src_prefix) {
-//$this->debug_print('$readings_querys', $readings_querys);
 					$urls_ary			= $this->construct_urls_array_dbp($readings_querys);
 					$this->text_source	= '<br />'.$this->text_source.'the '.$this->dbp_sctr_src_url.'.';
 					$texts				= $this->remote_get_scriptures_dbp($urls_ary, $date_key);
@@ -1975,7 +1976,7 @@ EOS;
 								$passage_prev	 = $passage;
 								$passage_header  = $this->transform_header($passage);
 								if ($this->display_toc) {
-									$this->toc_list($passage_header, $rtn_str, $toc);
+									$this->toc_list($passage_header, $rtn_str);
 								}
 								$rtn_str .= '<div class="brp-passage">'.$passage_header.'</div>';
 							}
@@ -2019,7 +2020,7 @@ EOS;
 								$passage_prev	 = $passage;
 								$passage_header  = $this->transform_header($passage);
 								if ($this->display_toc) {
-									$this->toc_list($passage_header, $rtn_str, $toc);
+									$this->toc_list($passage_header, $rtn_str);
 								}
 								$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
 							}
@@ -2037,7 +2038,7 @@ EOS;
 									if (!isset($fumsIDs_array)) {
 										$fumsIDs_array = '';
 									}
-									$this->put_verses_apocrypha($rtn_str, $txt, $passage, $passage_index, $fumsIDs_array, $toc);
+									$this->put_verses_apocrypha($rtn_str, $txt, $passage, $passage_index, $fumsIDs_array);
 								} elseif ('abs_' == $this->scptr_src_prefix) {
 									if (0 == $passage_index) {
 										$get_abs_meta = true;
@@ -2048,7 +2049,7 @@ EOS;
 								} elseif ('esv_' == $this->scptr_src_prefix && !$use_abs4apocrypha[$passage]) {
 									$rtn_str = $this->put_verses_esv($rtn_str, $txt);
 								} elseif ('dbp_' == $this->scptr_src_prefix && $passage_index != 'metadata') {
-									$rtn_str = $this->put_verses_dbp($rtn_str, $key, $txt, $i, $passage_index, $prgrph_nr, $toc);
+									$rtn_str = $this->put_verses_dbp($rtn_str, $key, $txt, $i, $passage_index, $prgrph_nr);
 								}
 								$i++;
 							}
@@ -2058,7 +2059,6 @@ EOS;
 					}
 					if ($this->display_toc) {
 						$toc	 .= "</ul></div>\n";
-//$this->debug_print('zzzzz $toc', $toc);
 						$rtn_str  = $toc.$rtn_str;
 //						$rtn_str  = $rtn_str;
 					}
@@ -2129,7 +2129,6 @@ EOS;
  */
 	protected function decoded_body_passages_is_empty ($decoded_body, &$texts) {
 		global $use_abs4apocrypha, $book_id;
-//$this->debug_print('d $use_abs4apocrypha', $use_abs4apocrypha);
 		$book_chapter_and_verses = $this->parse_bk_chp_vrs($decoded_body->query);
 		$book    				 = $book_chapter_and_verses[0];
 		$chapter_and_verses		 = $book_chapter_and_verses[1];
@@ -2146,7 +2145,6 @@ EOS;
 			}
 			$texts[$passage][]				= $response['body'];
 			$use_abs4apocrypha[$passage]	= true;
-//$this->debug_print('b $use_abs4apocrypha', $use_abs4apocrypha);
 		} else {
 			$texts[$passage][]				= $response['body'];
 			$use_abs4apocrypha[$passage]	= false;
@@ -2200,9 +2198,7 @@ EOS;
 			$abs_url	= $this->abs_url_base.'/'.$version.'/verses/'.urlencode($passage);
 		}
 		$args		= array('headers' => array("api-key" => $this->abs_api_key, "accept" => "application/json"));
-//$this->debug_print('$abs_url', $abs_url);
 		$response	= wp_remote_get($abs_url, $args);
-//$this->debug_print('$response', $response);
 		return $response; 
 	}
 
@@ -2620,26 +2616,25 @@ EOS;
  * @param $passage
  * @param $passage_index
  * @param $fumsIDs_array
- * @param $toc
  *
  * @return Datatype description to be added here
  *
  */
-	protected function put_verses_apocrypha (&$rtn_str, $txt, $passage, $passage_index, $fumsIDs_array, $toc) {
+	protected function put_verses_apocrypha (&$rtn_str, $txt, $passage, $passage_index, $fumsIDs_array) {
+		global $toc;
 		$txt = str_replace('apocrypha', '', $txt);
 		if ('dbp_' == $this->scptr_src_prefix) {
 			$passage_header	 = $this->transform_header($passage_index);
-//$this->debug_print('!!!!! $passage_header', $passage_header);
 			if ($this->display_toc) {
-				$this->toc_list($passage_header, $rtn_str, $toc);
+				$this->toc_list($passage_header, $rtn_str);
 			}
-//$this->debug_print('$toc', $toc);
 			$rtn_str 		.= "<div class=\"brp-passage\">$passage_header</div>";
 		} else {
 			if ($this->display_toc) {
-				$this->toc_list($passage, $rtn_str, $toc);
+				$this->toc_list($passage, $rtn_str);
 			}
 		}
+		$rtn_str			   .= '<div class="brp-audio-caveats">'.$this->audio_none_note.'</div>';
 		$rtn_str			    = $this->put_verses_abs($rtn_str, $txt, $fumsIDs_array, true);
 		$apocrypha_copyright    = __('Portions from the Apocrypha are from the ', 'bible-reading-plans');
 		$apocrypha_copyright   .= $this->abs_vers_default['KJV-E']['name'].', '.__('Source: ', 'bible-reading-plans').$this->abs_sctr_src_url.', ';
@@ -2678,9 +2673,9 @@ EOS;
 			$args			= array('headers' => array("Authorization" => "Bearer $this->dbp_api_key", "v" => "4", "accept" => "application/json"));
 			$url			= $this->dbp_query_string.'bibles/'.$this->dam_id.'/book?book_id='.$book_code.'&verify_content=true&'.$this->dbp_query_base;
 			$response_ary	= wp_remote_get($url, $args);
-			$response		= json_decode($response_ary['body']);
-			if (json_last_error() === JSON_ERROR_NONE) {
-				$book = $response->data[0]->name_short;
+			if ($this->is_json($response_ary['body'])) {
+				$response	= json_decode($response_ary['body']);
+				$book 		= $response->data[0]->name_short;
 			}
 			if (!$book) {
 				// Give up...
@@ -2688,6 +2683,21 @@ EOS;
 			}
 		}
 		return $book;
+	}
+	
+/**
+ * is_json
+ * Description to be inserted here
+ *
+ * @param $string
+ *
+ * @return Boolean
+ *
+ */
+	protected function is_json ($string) {
+		// From https://stackoverflow.com/questions/6041741/fastest-way-to-check-if-a-string-is-json-in-php.
+		json_decode($string);
+		return json_last_error() === JSON_ERROR_NONE;
 	}
 	
 /**
@@ -2806,13 +2816,12 @@ EOS;
  * @param $i
  * @param $passage
  * @param $prgrph_nr
- * @param $toc
  *
  * @return Datatype description to be added here
  *
  */
-	protected function put_verses_dbp ($rtn_str, $index, $txt, &$i, $passage, &$prgrph_nr, &$toc) {
-		global $passage_prev;
+	protected function put_verses_dbp ($rtn_str, $index, $txt, &$i, $passage, &$prgrph_nr) {
+		global $passage_prev, $toc;
 		if (is_array($txt)) {
 			foreach ($txt as $txt_ary) {
 				if (is_array($txt_ary)) {	
@@ -2840,7 +2849,7 @@ EOS;
 			$passage		 = $this->transform_passage_dbp($passage, $decoded_text[0]);
 			$passage_header  = $this->transform_header($passage);
 			if ($this->display_toc && $passage_header) {
-				$this->toc_list($passage_header, $rtn_str, $toc);
+				$this->toc_list($passage_header, $rtn_str);
 			}
 			$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
 		/*	if ("audio" == $index) {
@@ -2898,13 +2907,13 @@ EOS;
 									$audio_caveat	= '';
 									if ($is_partial_chapter) {
 										$audio_chapter = '<div class="brp-audio-caveats"><br />'.__('Audio for Chapter ', 'bible-reading-plans').$this->chapter_start[$m].':</div>';
-										$audio_caveat = '<div class="brp-audio-caveats">'.__('At present, only the full chapter of the audio is available for this passage in this version.', 'bible-reading-plans').'</div>';		
+										$audio_caveat = '<div class="brp-audio-caveats">'.$this->audio_full_chap_note.'</div>';		
 									}
 									$rtn_str .= $audio_chapter;
 									$rtn_str .= '<div><audio controls="" src="'.$this->audio_link[$m++].'"></audio><div>';
 									$rtn_str .= $audio_caveat;
 								} else {
-									$rtn_str .= '<div class="brp-audio-caveats">'.__('There is no audio available for this passage in this version.', 'bible-reading-plans').'</div>';							
+									$rtn_str .= '<div class="brp-audio-caveats">'.$this->audio_none_note.'</div>';							
 								}
 								$rtn_str .=  '<p class="brp-paragraph">';
 								if (isset($ary['paragraph_number'])) {
@@ -2989,7 +2998,6 @@ EOS;
  */
 	protected function remote_get_scriptures_dbp ($urls_ary = array(), $date_key = '') {
 		global $use_abs4apocrypha, $book_id;
-//$this->debug_print('$urls_ary', $urls_ary);
 		$args  = array('headers' => array("Authorization" => "Bearer $this->dbp_api_key", "v" => "4", "accept" => "application/json"));
 		$texts				= array();
 		$use_abs4apocrypha	= array();
@@ -3009,13 +3017,11 @@ EOS;
 					$response_ary_1[$passage]['no_url_array'][0] = wp_remote_get($url, $args);
 				}
 			}
-//$this->debug_print('***$url', $url);
 			foreach ($response_ary_1 as $passage => $type_ary) { // $type_ary is audio or text
 				foreach ($type_ary as $type => $response_ary) {
 					foreach ($response_ary as $response) {
 						if (is_array($response) && !is_wp_error($response)) {
 							if (strpos($response['body'], "No Fileset Chapters Found for the provided params")) {
-//$this->debug_print('$passage', $passage);
 								$tmp_ary = explode(' ', $passage);
 								if (is_numeric($tmp_ary[0])) {
 									$book = $tmp_ary[0].' '.$tmp_ary[1];
@@ -3024,7 +3030,6 @@ EOS;
 								}
 								$book = trim($book);
 								unset($tmp_ary);
-//$this->debug_print('$book_id', $book_id);
 								if (in_array($book_id[$passage], $this->book_codes_ap) && $date_key) {
 									if (isset($readings_querys[$date_key]) and is_array($readings_querys[$date_key])) {
 										foreach ($readings_querys[$date_key] as $key => $tmp_ary) {
@@ -3050,7 +3055,6 @@ EOS;
 										} else {
 											$texts[$passage][]			 = $response['body'];
 											$use_abs4apocrypha[$passage] = true;
-//$this->debug_print('c $use_abs4apocrypha', $use_abs4apocrypha);
 										}
 									} else {
 										$texts[$passage][] = $response;
@@ -3078,7 +3082,6 @@ EOS;
 					}
 				}
 			}
-//$this->debug_print('$texts', $texts);
 			return $texts;
 		} else {
 			return __('ERROR: No URLs.', 'bible-reading-plans');
@@ -3174,7 +3177,6 @@ EOS;
 										} else {
 											$texts[$passage][]			 = $response['body'];
 											$use_abs4apocrypha[$passage] = true;
-//$this->debug_print('a $use_abs4apocrypha', $use_abs4apocrypha);
 										}
 									} else {
 										$texts[$passage][] = $response;
@@ -3243,17 +3245,14 @@ EOS;
  *
  * @param $passage
  * @param $rtn_str
- * @param $toc
  *
  * @return Datatype description to be added here
  *
  */
-	protected function toc_list ($passage, &$rtn_str, &$toc) {
-//$this->debug_print('toc_list >>>>> $passage', $passage);
+	protected function toc_list ($passage, &$rtn_str) {
+		global $toc;
 		$anc 	  = preg_replace("|[\W]+|", '_', $passage);
-//$this->debug_print('----- $toc', $toc);
 		$toc	 .= '<li><a href="#'.$anc.'">'.$passage.'</a></li>'."\n";
-//$this->debug_print('+++++ $toc', $toc);
 		$rtn_str .= '<a id="'.$anc.'"></a>'."\n";
 	}
 

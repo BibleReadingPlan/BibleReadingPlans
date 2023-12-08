@@ -158,11 +158,11 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
-## 3.0-alpha-4 ##
+## 3.0-alpha-5 ##
 
 This version:
 
-1. IN PROGRESS (Table of Contents drops Apocrypha readings. Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA. Also, a lot of work still needs doing on the settings pagge.): Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+1. IN PROGRESS (Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA. Also, work still needs doing on the settings pagge.): Adds ability to have audio for many of the languages and versions from the Bible Brain API.
 
 1. TO DO: Populate DocBlocks for methods/functions.
 

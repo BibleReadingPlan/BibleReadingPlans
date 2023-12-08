@@ -1,6 +1,6 @@
 <?php
 	$this->audio_full_chap_note	= __('At present, only the full chapter of the audio is available for this passage in this version.', 'bible-reading-plans');
-	$this->audio_none_note		= __('There is no audio available for this passage in this version.', 'bible-reading-plans');
+	$this->audio_none_note		= __('At present, only the full chapter of the audio is available for this passage in this version.', 'bible-reading-plans');
 	$this->brp_prefix		 	= 'brp_';
 	$this->calendar_in_text	 	= true;
 	$this->cbrp_prefix		 	= 'cbrp_';
