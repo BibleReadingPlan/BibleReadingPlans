@@ -24,5 +24,6 @@
 	$this->site_language		= 'English';
 	$this->scptr_src_prefix	 	= 'dbp_'; // default.
 	$this->switch_cal_width  	= 480;
+	$this->use_audio			= false;
 	$this->use_calendar			= false;
 ?>
