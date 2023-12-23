@@ -7,7 +7,7 @@ Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digita
 
 Requires at least: 2.8
 
-Tested up to: 6.4.1
+Tested up to: 6.4.2
 
 Requires PHP: 5.6
 
@@ -158,11 +158,11 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
-## 3.0-beta-1 ##
+## 3.0-beta-2 ##
 
 This version:
 
-1. IN PROGRESS (Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA. Some work still needs doing on the settings pagge.): Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+1. IN PROGRESS (Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA.): Adds ability to have audio for many of the languages and versions from the Bible Brain API.
 
 1. TO DO: Populate DocBlocks for methods/functions.
 

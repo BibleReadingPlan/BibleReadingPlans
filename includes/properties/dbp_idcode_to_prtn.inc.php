@@ -1,5 +1,5 @@
 <?php
-	$this->dbp_size_to_portions = array(
+	$this->dbp_idcode_to_prtn	= array(
 										'C'			=> '',
 										'NT'		=> __('New Testament', 'bible-reading-plans'),
 										'NTOTP'		=> __('New Testament, Old Testament Portion', 'bible-reading-plans'),

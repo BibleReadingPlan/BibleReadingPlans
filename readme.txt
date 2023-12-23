@@ -3,7 +3,7 @@ Contributors: drmikegreen, sophoservices
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
 Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.4.1
+Tested up to: 6.4.2
 Requires PHP: 5.6
 Tested up to PHP: 8.2
 Stable tag: trunk
@@ -149,13 +149,12 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
-= 3.0-beta-1 =
+= 3.0-beta-2 =
 
 This version:
 
 1. IN PROGRESS: 
 	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA.
-	Some work still needs doing on the settings page.
 Adds ability to have audio for many of the languages and versions from the Bible Brain API.
 
 1. TO DO: Populate DocBlocks for methods/functions.

@@ -74,7 +74,7 @@ class BibleReadingPlans {
 	protected $dbp_query_string		= '';
 	protected $dbp_query_base	 	= '';
 	protected $dbp_sctr_src_url	 	= '';
-	protected $dbp_size_to_portions	= array();
+	protected $dbp_idcode_to_prtn	= array();
 	protected $dbp_use_audio_all	= '';
 	protected $dbp_use_audio_nt		= '';
 	protected $dbp_use_audio_ot		= '';
@@ -805,7 +805,7 @@ EOS;
 			<p>This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the forms: 
 				<ul class="brp-plans">
 					<li>ABS:<code class="brp-plans">[bible-reading-plan source="ABS" reading_plan="mcheyne" version="KJV-P"]</code></li>
-					<li>DBP (many languages and <span style="color: red; font-style: italic; font-weight: bold;">New:</span> audio for many): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_nt_audio_id="" bible_ot_audio_id=""]</code></li>
+					<li>DBP (many languages and <span style="color: red; font-style: italic; font-weight: bold;">New:</span> audio for many of those): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code></li>
 					<li>DBP (Legacy: English only):<code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" version="NAS"]</code></li>
 					<li>ESV:<code class="brp-plans">[bible-reading-plan source="ESV" reading_plan="mcheyne"]</code></li>
 				</ul>
@@ -1350,6 +1350,8 @@ EOS;
 		$dbp_languages_list .= '</select>';
 		$dbp_languages_list .= '<div class="brp-languages-sort-note">'.__('Languages are sorted by their ISO code. (If different from the native name, English or alternate names for a language are in parentheses.)', 'bible-reading-plans').'</div><br /></div>';
 		$dbp_languages_list .= '<div class="brp-dbp-languages-notes">'.__('NOTES:', 'bible-reading-plans').'<ol>';
+		$dbp_languages_list .= '<li>'.__('At present audio is only available for whole chapters. A future plugin version providing only those verses which the particular Bible plan uses is planned for Bible versions for which access to specific verses is available.', 'bible-reading-plans').'</li>';
+		$dbp_languages_list .= '<li>'.__('Different codes for the same type of audio are indicative of different transmission bit-rates. Test to see which is best for you.', 'bible-reading-plans').'</li>';
 		$dbp_languages_list .= '<li>'.__('There are ~90 more languages available, but which have had to be excluded from this version of the plugin because of the format in which they are available. It is hoped that the next version will be able to include these languages.)', 'bible-reading-plans').'</li>';
 		$dbp_languages_list .= '<li>'.__('There are likely formatting issues with some languages. It is hoped that the users of those languages will work with us to resolve these issues', 'bible-reading-plans').'</li>';
 		$dbp_languages_list  .= '</ol>';
@@ -1365,7 +1367,9 @@ EOS;
  * @return Datatype description to be added here
  *
  */
-	protected function construct_dbp_versions_list ($lng_code_iso = 'eng') {
+	protected function construct_dbp_versions_list ($lng_code_iso = '') {
+//$this->debug_print('$lng_code_iso', $lng_code_iso);
+//if (!$lng_code_iso) return;
 		$dbp_versions_list  = '<div id="brp-dbp-versions">';
 		$dbp_versions_list .= __('The ', 'bible-reading-plans');
 		if (isset($this->dbp_versions[$lng_code_iso][0]['language_name']) && $this->dbp_versions[$lng_code_iso][0]['language_name']) {
@@ -1375,25 +1379,27 @@ EOS;
 		} else {
 			$dbp_versions_list .= $lng_code_iso;
 		}
-		$dbp_versions_list .= __(' language versions available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id" in the shortcode currently are:', 'bible-reading-plans');
+		$dbp_versions_list .= __(' language versions in text or audio (if there is audio for that version -- see also Note 1 below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id", "bible_ot_audio_id", and/or "bible_nt_audio_id" in the shortcode currently are:', 'bible-reading-plans');
 		$dbp_versions_list .= "\t\t".'<ul class="brp-plans">'."\n";
-		require_once('includes/properties/dbp_size_to_portions.inc.php');
+		require_once('includes/properties/dbp_idcode_to_prtn.inc.php');
+//$this->debug_print('$this->dbp_versions B', $this->dbp_versions);
 		if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
 			$bible_ids = array();
 			foreach ($this->dbp_versions[$lng_code_iso] as $vers_data) {
 				if (!in_array($vers_data['bible_id'], $bible_ids)) { // Eliminate duplicates.
 					if ($vers_data['type'] != 'text_json') {
 						if (!(strpos($vers_data['type'], 'audio') !== false  && $vers_data['container'] != 'mp3')) {
-							if (!(strpos($vers_data['dbp_version'], 'voices') !== false && strpos($vers_data['type'], 'text') !== false)) {
-								$bible_ids[] 		= $vers_data['bible_id'];
-								$size				= $vers_data['size'];
-								$portion			= $this->dbp_size_to_portions[$size];
-								$dbp_versions_list .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}\t\t\t- {$this->dbp_media_types[$vers_data['type']]}";
-								if ($portion) {
-									$dbp_versions_list .= " ($portion)";
-								}
-								$dbp_versions_list .= "</li>\n";
+//$this->debug_print('$vers_data', $vers_data); // problem is between here and next debug_print ?????
+							$bible_ids[] 		= $vers_data['bible_id'];
+							$size				= $vers_data['size'];
+							$portion			= $this->dbp_idcode_to_prtn[$size];
+//$this->debug_print('$vers_data[bible_id]', $vers_data['bible_id']);
+//$this->debug_print('$this->dbp_media_types[$vers_data[type]]', $this->dbp_media_types[$vers_data['type']]);
+							$dbp_versions_list .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}\t\t\t- {$this->dbp_media_types[$vers_data['type']]}";
+							if ($portion) {
+								$dbp_versions_list .= " ($portion)";
 							}
+							$dbp_versions_list .= "</li>\n";
 						}
 					}
 					$dbp_versions_list .= "</li>\n";
@@ -2359,6 +2365,7 @@ EOS;
 		foreach ($dbp_versions as $iso => $ary) {
 			$this->dbp_versions[$iso] = array_unique($ary, SORT_REGULAR);
 		}
+//$this->debug_print('$this->dbp_versions', $this->dbp_versions);
 		$this->dbp_lang_id2iso_alt = array_unique($dbp_lang_id2iso_alt);
 		update_option('bible_reading_plans_dbp_bible_id_to_iso', $this->dbp_bible_id_to_iso);
 		update_option('bible_reading_plans_dbp_lang_id2iso_alt', $this->dbp_lang_id2iso_alt);
