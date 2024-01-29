@@ -104,6 +104,7 @@ class BibleReadingPlans {
 	protected $lng_code_iso			= '';
 	protected $lng_code_to_2_ltr_cd	= array();
 	protected $lng_name_to_2_ltr_cd	= array();
+	protected $loading				= '';
 	protected $loading_image	 	= '';
 	protected $moveable_feasts	 	= array();
 	protected $no_versns_found		= '';
@@ -125,6 +126,7 @@ class BibleReadingPlans {
 	protected $sources			 	= array();
 	protected $switch_cal_width  	= '';
 	protected $text_source		 	= '';
+	protected $timeout_frontend  	= '';
 	protected $use_audio			= false;
 	protected $use_calendar			= '';
 	protected $version				= '';
@@ -164,7 +166,6 @@ class BibleReadingPlans {
 				}
  			}
 		}
-		$this->loading_image = '<img title="'.__('Please wait until screen completes loading.', 'bible-reading-plans').'" class="brp_loading_img" src="'.$this->plugin_url.'images/ajax-loading.gif" />';
 		
 		$key = get_option('bible_reading_plans_abs_api_key');
 		if ($key && $this->abs_key_length == strlen(trim($key))) {
@@ -304,17 +305,17 @@ class BibleReadingPlans {
  */
 	public function addLanguagesAndVersions () {
 		$err_msg		= __('ERROR: Could not retrieve list of versions from the Bible Brain (aka the Digital Bible Platform) API', 'bible-reading-plans');
-		$loading_image	= __('It takes a short while to load and process all of the required data from the Bible Brain (aka the Digital Bible Platform) API. Please wait.', 'bible-reading-plans').'<br />'.$this->loading_image;
+		$loading_image	= '<div class="brp-loading"><br />'.__('Please wait.', 'bible-reading-plans').'<br />'.$this->loading_image.'<br />'.__('It takes a short while to load and process all of the required data from the Bible Brain (aka the Digital Bible Platform) API.', 'bible-reading-plans').'<br /><br /></div>';
 		echo <<<EOS
 			<script type="text/javascript" defer> 
 				/* <![CDATA[ */
-					var ajaxurl			= '{$this->ajax_url}';
-					var err_msg 		= '{$err_msg}.';
-					var loading_image	= '{$loading_image}';
+					var ajaxurl	= '{$this->ajax_url}';
+					var err_msg = '{$err_msg}.';
+					var loading	= '{$loading_image}';
 					jQuery(document).ready(function($) {
-						$('#brp-dbp-languages-and-versions').html(loading_image);
+						$('#brp-dbp-languages-and-versions').html(loading);
 						$.ajax({
-							timeout:	300000, // sets timeout to 5 minutes
+							timeout:	300000, // sets backend timeout to 5 minutes
 							url:		ajaxurl,
 							data: {
 								action:	'put_languages_and_versions',
@@ -345,20 +346,23 @@ EOS;
 		echo '
 			<script src="https://cdn.scripture.api.bible/fums/fumsv2.min.js"></script>';
 		}
-		$err_msg = __("TIMEOUT ERROR: Could not retrieve Scriptures from ");
+		$err_msg		= __("TIMEOUT ERROR: Could not retrieve Scriptures from ");
 		echo '
 <script type="text/javascript" defer> 
 	/* <![CDATA[ */';
 		if ('abs_' == $this->scptr_src_prefix) {
 			$err_msg .= $this->abs_sctr_src_url;
 			echo "
-			var ajaxurl = '{$this->ajax_url}';
-			var err_msg = '{$err_msg}.';
+			var ajaxurl	= '{$this->ajax_url}';
+			var err_msg	= '{$err_msg}.';
+			var loading	= '{$this->loading}';
+			var tm_out	= '{$this->timeout_frontend}';
 			// Load Scriptures initially with the date set on the client's computer.
 			var brp_date_obj = new Date();
 			jQuery(document).ready(function($) {
+				$('#brp-scriptures').html(loading);
 				$.ajax({
-					timeout:	60000, // Sets timeout to one minute.
+					timeout:	tm_out,
 					url:		ajaxurl,
 					data: {
 						action:					'put_bible_reading_plan',
@@ -379,13 +383,16 @@ EOS;
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
  			$err_msg .= $this->dbp_sctr_src_url;
 			echo "
-			var ajaxurl = '{$this->ajax_url}';
-			var err_msg = '{$err_msg}.';
+			var ajaxurl	= '{$this->ajax_url}';
+			var err_msg	= '{$err_msg}.';
+			var tm_out	= '{$this->timeout_frontend}';
+			var loading	= '{$this->loading}';
 			// Load Scriptures initially with the date set on the client's computer.
 			var brp_date_obj = new Date();
 			jQuery(document).ready(function($) {
+				$('#brp-scriptures').html(loading);
 				$.ajax({
-					timeout:	50000, // sets timeout to 50 seconds
+					timeout:	tm_out,
 					url:		ajaxurl,
 					data: {
 						action:					'put_bible_reading_plan',
@@ -412,13 +419,16 @@ EOS;
 		} elseif ('esv_' == $this->scptr_src_prefix) {
  			$err_msg .= $this->esv_sctr_src_url;
 			echo "
-			var ajaxurl = '{$this->ajax_url}';
-			var err_msg = '{$err_msg}.';
+			var ajaxurl	= '{$this->ajax_url}';
+			var err_msg	= '{$err_msg}.';
+			var loading	= '{$this->loading}';
+			var tm_out	= '{$this->timeout_frontend}';
 			// Load Scriptures initially with the date set on the client's computer.
 			var brp_date_obj = new Date();
 			jQuery(document).ready(function($) {
+				$('#brp-scriptures').html(loading);
 				$.ajax({
-					timeout:	50000, // sets timeout to 50 seconds
+					timeout:	tm_out,
 					url:		ajaxurl,
 					data: {
 						action:					'put_bible_reading_plan',
@@ -804,8 +814,8 @@ EOS;
 			<p>This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the forms: 
 				<ul class="brp-plans">
 					<li>ABS:<code class="brp-plans">[bible-reading-plan source="ABS" reading_plan="mcheyne" version="KJV-P"]</code></li>
-					<li>DBP (many languages and <span style="color: red; font-style: italic; font-weight: bold;">(New)</span> audio for many of those): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code></li>
-					<li>DBP (Legacy: English only):<code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" version="NAS"]</code></li>
+					<li>DBP (text and <span style="color: red; font-style: italic; font-weight: bold;">(New)</span> audio for many languages): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code></li>
+					<li style="color: #999;">DBP (<span style="font-style: italic;">Legacy, English only</span>):<code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" version="NAS"]</code></li>
 					<li>ESV:<code class="brp-plans">[bible-reading-plan source="ESV" reading_plan="mcheyne"]</code></li>
 				</ul>
 			</p>
@@ -843,6 +853,7 @@ EOS;
 					<ul class="brp-plans">'.$abs_versions_list.'</ul>
 					The default verson is', 'bible-reading-plans');
 		echo '			 KJV-P.<div style="font-style: italic; margin-top: 12px;">';
+		_e('There are no Languages other than English presently available via the American Bible Society API for this plugin. There are, however, text and audio versions for over 1500 other languages, available via the Bible Brain (aka Digital Bible Platform -- DBP) API. In the future we hope to also offer more languages via the American Bible Society API.', 'bible-reading-plans');
 		_e('Note that, in order to use this API, you must obtain an Access Key from the American Bible Society. See instructions for obtaining that key and the field for entering it <a href="#instructions_below">below</a>.', 'bible-reading-plans');
 		echo '	</div>
 			</div>
@@ -1045,6 +1056,7 @@ EOT;*/
 		} else {
 			$this->bible_all_audio_id = $this->short_code_atts['bible_all_audio_id'];
 		}
+//$this->debug_print('$_REQUEST[bible_nt_audio_id])', $_REQUEST['bible_nt_audio_id']);
 		if (isset($_REQUEST['bible_nt_audio_id'])) {
 			$this->bible_nt_audio_id = sanitize_text_field($_REQUEST['bible_nt_audio_id']);
 		} else {
@@ -1055,7 +1067,7 @@ EOT;*/
 		} else {
 			$this->bible_ot_audio_id = $this->short_code_atts['bible_ot_id_audio'];
 		}
-		$this->audio_check ();
+		$this->audio_check();
 		if (isset($_REQUEST['lng_code_iso'])) {
 			$this->lng_code_iso = sanitize_text_field($_REQUEST['lng_code_iso']);
 		}
@@ -1121,6 +1133,7 @@ EOT;*/
  */
 	public function shortcodeAttributes ($atts) {
 		$combined_atts = shortcode_atts($this->short_code_atts, $atts);
+//$this->debug_print('$combined_atts', $combined_atts);
 		if (!array_key_exists($combined_atts['reading_plan'], $this->reading_plans)) {
 			$reading_plan = $this->short_code_atts['reading_plan']; // default
 		} else {
@@ -1161,6 +1174,7 @@ EOT;*/
 				}
 				$this->bible_all_audio_id	= $combined_atts['bible_all_audio_id'];
 				$this->bible_nt_audio_id	= $combined_atts['bible_nt_audio_id'];
+//$this->debug_print('$this->bible_nt_audio_id -- shortcodeAttributes', $this->bible_nt_audio_id);
 				$this->bible_ot_audio_id	= $combined_atts['bible_ot_audio_id'];
 				$this->audio_check();
 				$split_bible_id 		= str_split($this->bible_id, 3);
@@ -1284,6 +1298,7 @@ EOS;
 		} else {
 			$this->dbp_use_audio_nt = false;
 		}
+//$this->debug_print('$this->dbp_use_audio_nt', $this->dbp_use_audio_nt);
 		if ($this->bible_ot_audio_id) {
 			$this->dbp_use_audio_ot = true;
 		} else {
@@ -1294,6 +1309,7 @@ EOS;
 		} else {
 			$this->use_audio = false;
 		}
+//$this->debug_print('$this->use_audio', $this->use_audio);
 	}
 
 /**
@@ -1350,6 +1366,7 @@ EOS;
 		$dbp_languages_list .= '<div class="brp-languages-sort-note">'.__('Languages are sorted by their ISO code. (If different from the native name, English or alternate names for a language are in parentheses.)', 'bible-reading-plans').'</div><br /></div>';
 		$dbp_languages_list .= '<div class="brp-dbp-languages-notes">'.__('NOTES:', 'bible-reading-plans').'<ol>';
 		$dbp_languages_list .= '<li>'.__('At present audio is only available for whole chapters. A future plugin version providing only those verses which the particular Bible plan uses is planned for Bible versions for which access to specific verses is available.', 'bible-reading-plans').'</li>';
+		$dbp_languages_list .= '<li>'.__('For some languages only text is available, for some only audio, and for some both text and audio are available.', 'bible-reading-plans').'</li>';
 		$dbp_languages_list .= '<li>'.__('Different codes for the same type of audio are indicative of different transmission bit-rates. Test to see which is best for you.', 'bible-reading-plans').'</li>';
 		$dbp_languages_list .= '<li>'.__('There are ~90 more languages available, but which have had to be excluded from this version of the plugin because of the format in which they are available. It is hoped that the next version will be able to include these languages.)', 'bible-reading-plans').'</li>';
 		$dbp_languages_list .= '<li>'.__('There are likely formatting issues with some languages. It is hoped that the users of those languages will work with us to resolve these issues', 'bible-reading-plans').'</li>';
@@ -1376,7 +1393,7 @@ EOS;
 		} else {
 			$dbp_versions_list .= $lng_code_iso;
 		}
-		$dbp_versions_list .= __(' language versions in text or audio (if there is audio for that version -- see also Notes 1 and 2 below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id" (Old and New Testaments), "bible_ot_audio_id" (Old Testament), and/or "bible_nt_audio_id" (New Testament) in the shortcode currently are:', 'bible-reading-plans');
+		$dbp_versions_list .= __(' language versions in text or audio (if there is text or audio for that version -- see also Notes 1 through 3, below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id" (Old and New Testaments), "bible_ot_audio_id" (Old Testament), and/or "bible_nt_audio_id" (New Testament) in the shortcode currently are:', 'bible-reading-plans');
 		$dbp_versions_list .= "\t\t".'<ul class="brp-plans">'."\n";
 		require_once('includes/properties/dbp_idcode_to_prtn.inc.php');
 		if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
@@ -1689,7 +1706,7 @@ EOS;
 					autoSize:	true,
 					dateFormat: 'mm/dd/y',
 					onSelect:	function(dateText) {
-									$('#brp-scriptures').html('$this->loading_image');
+									$('#brp-scriptures').html('$this->loading');
 									$.get(ajaxurl + encodeURI(dateText), function(data) {
 										$('#brp-scriptures').html(data);
 									});

@@ -162,14 +162,20 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
-## 3.0-beta-2 ##
+## 3.0-beta-4
 
 This version:
 
-1. IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA.
+IN PROGRESS: 
+	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
 
 1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+
+1. Adds text to make wait time tor Scriptures to load more understandable.
+
+1. Increases time before time-out to one-minute, since having to load and process information about audio can take longer.
+
+1. Updates explanations.
 
 1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
 
@@ -514,6 +520,25 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
+
+= 3.0-beta-4 =
+
+This version:
+
+1. IN PROGRESS: 
+	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
+
+1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+
+1. Adds text to make wait time tor Scriptures to load more understandable.
+
+1. Increases time before time-out to one-minute, since having to load and process information about audio can take longer.
+
+1. Updates explanations.
+
+1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
+
+1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
 
 ## 3.0-beta-2 ##
 

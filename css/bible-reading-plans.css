@@ -137,9 +137,16 @@ b.verse-num .woc{
 	line-height: 0.7em;"
 }
 
-.brp-loading-img {
+.brp-loading {
+	text-align: center;
+	margin: 0 auto;
+	width: 95%;
+}
+
+brp-loading-img {
 	display: block;
-	margin: 10% auto;
+	margin-left: auto;
+	margin-right: auto;
 	height: 25%;
 	width: 25%;
 }

@@ -16,7 +16,7 @@ Provides the ability to embed Bible Reading Plans into a post or page using a sh
 
 This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="ESV"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGESV"]</code>. **The latter form is new in this version, applies only to the DBP source, and *provides access to over 1700 Bible versions in more than 1500 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin. 
 
-This plugin is a fork of the Embed Bible Passages plugin (https://wordpress.org/plugins/embed-bible-passages/) made necessary by changes in the ESV Bible Web Service API. (Version 2 included Bible reading plans, but is deprecated and was terminate completely on 15 April 2021. Version 3 is the only version available to new users, but does not include Bible reading plans.) Since the American Bible Society API provides more than 20 English language versions (with the potential for more via the Digital Bible Library to acquire the necessary licenses) and over 1600 languages and the Bible Brain API provides 10 English versions and access to over 1700 Bible versions in more than 1500 languages. In addition it has the potential for audio and video for many of the versions. We hope this fork promises a much broader future than did the Embed Bible Passages plugin. The ESV Bible Web Service API, Version 3, however, has also been included in this plugin because it provides audio directly with the texts as well as better formatting control, even though it naturally provides only the English Standard Version.
+This plugin is a fork of the Embed Bible Passages plugin (https://wordpress.org/plugins/embed-bible-passages/) made necessary by changes in the ESV Bible Web Service API. (Version 2 included Bible reading plans, but was terminated 15 April 2021. Version 3 is the only version now available. It does not include Bible reading plans.) Since the American Bible Society API provides more than 20 English language versions (with the potential for more via the Digital Bible Library to acquire the necessary licenses) and the potential of over 1600 languages in a future version of this plugin and the Bible Brain API provides 10 English versions and access to over 1700 Bible versions in more than 1500 languages. In addition it has the potential for audio and video for many of the versions. We hope this fork promises a much broader future than did the Embed Bible Passages plugin. The ESV Bible Web Service API, Version 3, however, has also been included in this plugin because it provides audio directly with the texts as well as better formatting control, even though it naturally provides only the English Standard Version.
 
 If the "Display Plan Name on Pages" on the settings page is unchecked, the page displayed to the public will all be in the language of the bible_id used in the shortcode, with the exception of the copyright information and potentially the calendar.
 
@@ -105,7 +105,7 @@ If the source is ESV, the value of the version naturally can only be ESV.
 
 The page opens with the plan reading for the current date, as set on the client computer. An optional date picker calendar is available to enable users to choose readings for other dates.
 
-See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site For SaeSolved:: Software](https://test.sitewidgets.com/) for example implementations of this plugin.
+See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site For SaeSolved:: Software](https://test-bcp.saesolved.com/) for example implementations of this plugin.
 
 This plugin requires JavaScript to be active.
 
@@ -149,14 +149,20 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
-= 3.0-beta-3 =
+= 3.0-beta-4 =
 
 This version:
 
-1. IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA.
+IN PROGRESS: 
+	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
 
 1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+
+1. Adds text to make wait time tor Scriptures to load more understandable.
+
+1. Increases time before time-out to one-minute, since having to load and process information about audio can take longer.
+
+1. Updates explanations.
 
 1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
 
@@ -500,9 +506,15 @@ Initial release.
 This version:
 
 1. IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA.
+	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
 
 1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+
+1. Adds text to make wait time tor Scriptures to load more understandable.
+
+1. Increases time before time-out to one-minute, since having to load and process information about audio can take longer.
+
+1. Updates explanations.
 
 1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
 
