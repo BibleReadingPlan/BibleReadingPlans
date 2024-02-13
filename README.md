@@ -7,11 +7,11 @@ Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digita
 
 Requires at least: 2.8
 
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 
 Requires PHP: 5.6
 
-Tested up to PHP: 8.2
+Tested up to PHP: 8.3
 
 Stable tag: trunk
 
@@ -162,12 +162,9 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
-## 3.0-beta-4
+## 3.0-beta-5
 
 This version:
-
-IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
 
 1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
 
@@ -177,7 +174,7 @@ IN PROGRESS:
 
 1. Updates explanations.
 
-1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
+1. Bug fix: Corrects problem with books having multi-word names causing parts of names being lost.
 
 1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
 
@@ -521,37 +518,21 @@ Initial release.
 
 ## Changelog
 
-= 3.0-beta-4 =
+= 3.0-beta-5 =
 
-This version:
+In this version:
 
-1. IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
+1. Ability to have audio for many of the languages and versions from the Bible Brain API is added.
 
-1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+1. Text to make wait time tor Scriptures to load more understandable is added.
 
-1. Adds text to make wait time tor Scriptures to load more understandable.
+1. Time before time-out to one-minute, since having to load and process information about audio can take longer, is increased.
 
-1. Increases time before time-out to one-minute, since having to load and process information about audio can take longer.
+1. Explanations are updated.
 
-1. Updates explanations.
+1. Bug fix: Problem with books having multi-word names causing parts of names being lost is corrected.
 
-1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
-
-1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
-
-## 3.0-beta-2 ##
-
-This version:
-
-1. IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those of the ACNA.
-
-1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
-
-1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
-
-1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
+1. Bug fix: Problems with passage headers for non-English languages -- sometimes header would contain both English and other language --  are corrected.
 
 ## 2.2.3
 

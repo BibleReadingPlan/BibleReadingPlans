@@ -1,11 +1,10 @@
 === Bible Reading Plans ===
 Contributors: drmikegreen, sophoservices
-Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=3GNC36MKM6ADC&source=url
-Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
+Tags: Bible reading plans, shortcode, Bible, audio Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 Requires at least: 2.8
-Tested up to: 6.4.2
+Tested up to: 6.4.3
 Requires PHP: 5.6
-Tested up to PHP: 8.2
+Tested up to PHP: 8.3
 Stable tag: trunk
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -14,11 +13,9 @@ Provides the ability to embed Bible Reading Plans into a post or page using a sh
 
 == Description ==
 
-This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="ESV"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGESV"]</code>. **The latter form is new in this version, applies only to the DBP source, and *provides access to over 1700 Bible versions in more than 1500 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin. 
+This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code>. **The last three parameters are new in this version and provide access to audio versions of the Scriptures, this shortcode applies only to the DBP source and *provides access to over 2000 Bible versions in nearly 1900 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin. 
 
-This plugin is a fork of the Embed Bible Passages plugin (https://wordpress.org/plugins/embed-bible-passages/) made necessary by changes in the ESV Bible Web Service API. (Version 2 included Bible reading plans, but was terminated 15 April 2021. Version 3 is the only version now available. It does not include Bible reading plans.) Since the American Bible Society API provides more than 20 English language versions (with the potential for more via the Digital Bible Library to acquire the necessary licenses) and the potential of over 1600 languages in a future version of this plugin and the Bible Brain API provides 10 English versions and access to over 1700 Bible versions in more than 1500 languages. In addition it has the potential for audio and video for many of the versions. We hope this fork promises a much broader future than did the Embed Bible Passages plugin. The ESV Bible Web Service API, Version 3, however, has also been included in this plugin because it provides audio directly with the texts as well as better formatting control, even though it naturally provides only the English Standard Version.
-
-If the "Display Plan Name on Pages" on the settings page is unchecked, the page displayed to the public will all be in the language of the bible_id used in the shortcode, with the exception of the copyright information and potentially the calendar.
+The American Bible Society API provides more than 20 English language versions (with the potential for more via the Digital Bible Library to acquire the necessary licenses) and the potential of over 1600 languages in a future version of this plugin The Bible Brain API provides 10 English versions and access to over 2000 Bible versions in nearly 1900 languages. In addition, it has audio versions and the potential for video for many of the versions. The ESV Bible Web Service API, Version 3 also provides audio as well as better formatting control. Naturally it provides only the English Standard Version.
 
 It is hoped that persons with skills in other languages will come forward to localize this plugin for the available languages. (I.e., Translate things like the instructions on the "Settings" page, the reading plan names, and copyright statements.)
 
@@ -86,26 +83,39 @@ The default verson is KJV-P.
 
 If the source is DBP, the English language values of the version can, at present, be:
 
-    ENGASV - American Standard Bible
-	ENGESV - English Standard Version®
-	ENGEVD - English Version for the Deaf
-	ENGKJV - King James Version
-	ENGNAS - New American Standard Bible (NASB)
-	ENGNLV - New Life Version (Easy to Read) (New Testament)
-	ENGREV - Revised Version 1885
-	ENGWEB - World English Bible
-	ENGWM1 - World Messianic Version
-	ENGWMV - Wycliffe Modern
+ENGESH - English Standard Version® - Hear the Word Audio Bible - Formatted Text
+ENGESHN1DA - English Standard Version® - Hear the Word Audio Bible - Audio (New Testament)
+ENGESHN1SA - English Standard Version® - Hear the Word Audio Bible - Audio HLS stream (New Testament)
+ENGASV - American Standard Bible - Plain Text
+ENGESVN2DA - English Standard Version® - Dramatized Audio (New Testament)
+ENGESVO2DA - English Standard Version® - Dramatized Audio (Old Testament)
+ENGESVO_ET - English Standard Version® - Plain Text (Old Testament)
+ENGESVO1DA - English Standard Version® - Audio (Old Testament)
+ENGESVN_ET - English Standard Version® - Plain Text (New Testament)
+ENGESVN1SA - English Standard Version® - Audio HLS stream (New Testament)
+ENGESVN1DA - English Standard Version® - Audio (New Testament)
+ENGEVD - English Version for the Deaf - Plain Text
+ENGNAS - New American Standard Bible (NASB) - Plain Text
+ENGNLHO1DA - New Living Translation® - her.BIBLE (women’s voices) - Audio (Old Testament)
+ENGNLHO_ET - New Living Translation® - her.BIBLE (women’s voices) - Plain Text (Old Testament)
+ENGNLHN_ET - New Living Translation® - her.BIBLE (women’s voices) - Plain Text (New Testament)
+ENGNLTO_ET - New Living Translation®, Holy Sanctuary version - Plain Text (Old Testament)
+ENGNLV - New Life Version (Easy to Read) - Plain Text (New Testament)
+ENGNRSN1DA - New Revised Standard Version - Audio (New Testament)
+ENGNRSN2DA - New Revised Standard Version - Dramatized Audio (New Testament)
+ENGNRSN2DA16 - New Revised Standard Version - Dramatized Audio (New Testament)
+ENGNRSO2DA - New Revised Standard Version - Dramatized Audio (Old Testament)
+ENGWM1 - World Messianic Version - Plain Text
+ENGWMV - Wycliffe Modern - Plain Text
+EN1WEB - - Formatted Text
 
 The default version is ENGNAS.
-
-In addition DBP source provides over 1700 Bible versions in more than 1500 languages, with more versions and languages being added regularly.
 
 If the source is ESV, the value of the version naturally can only be ESV.
 
 The page opens with the plan reading for the current date, as set on the client computer. An optional date picker calendar is available to enable users to choose readings for other dates.
 
-See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site For SaeSolved:: Software](https://test-bcp.saesolved.com/) for example implementations of this plugin.
+See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site for the Bible Reading Plans Plugin](https://test-bcp.saesolved.com/) for example implementations of this plugin.
 
 This plugin requires JavaScript to be active.
 
@@ -129,7 +139,7 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 1. Select whether or not to optionally show a "Powered by" attribution at the bottom of pages.
 
-1. Create pages and/or posts containing the shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="ESV"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGESV"]</code>. (It is recommended that the shortcode be placed in a shortcode block when using the WordPress Gutenberg Editor.)
+1. Create pages and/or posts containing the shortcode of the form <code>[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGESV"]</code>. (It is recommended that the shortcode be placed in a shortcode block when using the WordPress Gutenberg Editor.)
 
 NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE PAGE.
 
@@ -149,12 +159,11 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
-= 3.0-beta-4 =
+= 3.0-beta-5 =
+
+Still has bug which makes Create Bible Reading Plans plugin to no longer work. POT file still has to be updated.
 
 This version:
-
-IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
 
 1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
 
@@ -164,7 +173,7 @@ IN PROGRESS:
 
 1. Updates explanations.
 
-1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
+1. Bug fix: Corrects problem with books having multi-word names causing parts of names being lost.
 
 1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
 
@@ -269,7 +278,7 @@ This version:
 
 This version:
 
-1. Adds access to over 1700 versions in more than 1500 languages via the Bible Brain (aka the Digital Bible Platform) API.
+1. Adds access to over 1700 versions in nearly 1900 languages via the Bible Brain (aka the Digital Bible Platform) API.
 
 1. Provides on-the-fly conversion of plans created by the Create Bible Reading Plans plugins to Version 4 of the Bible Brain (aka Digital Bible Platform) API.
 
@@ -501,24 +510,21 @@ Initial release.
 
 == Changelog ==
 
-= 3.0-beta-3 =
+= 3.0-beta-5 =
 
-This version:
+In this version:
 
-1. IN PROGRESS: 
-	Readings using other than the Bible Brain API need to be tested, as well as reading plans other than those already tested.
+1. Ability to have audio for many of the languages and versions from the Bible Brain API is added.
 
-1. Adds ability to have audio for many of the languages and versions from the Bible Brain API.
+1. Text to make wait time tor Scriptures to load more understandable is added.
 
-1. Adds text to make wait time tor Scriptures to load more understandable.
+1. Time before time-out to one-minute, since having to load and process information about audio can take longer, is increased.
 
-1. Increases time before time-out to one-minute, since having to load and process information about audio can take longer.
+1. Explanations are updated.
 
-1. Updates explanations.
+1. Bug fix: Problem with books having multi-word names causing parts of names being lost is corrected.
 
-1. Bug fix: Corrects problem with books having multi-word names causing parts names being lost.
-
-1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
+1. Bug fix: Problems with passage headers for non-English languages -- sometimes header would contain both English and other language --  are corrected.
 
 = 2.2.3 =
 

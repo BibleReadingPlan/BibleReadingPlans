@@ -1060,12 +1060,12 @@ EOT;*/
 		if (isset($_REQUEST['bible_nt_audio_id'])) {
 			$this->bible_nt_audio_id = sanitize_text_field($_REQUEST['bible_nt_audio_id']);
 		} else {
-			$this->bible_nt_audio_id = $this->short_code_atts['bible_nt_id_audio'];
+			$this->bible_nt_audio_id = $this->short_code_atts['bible_nt_audio_id'];
 		}
 		if (isset($_REQUEST['bible_ot_audio_id'])) {
 			$this->bible_ot_audio_id = sanitize_text_field($_REQUEST['bible_ot_audio_id']);
 		} else {
-			$this->bible_ot_audio_id = $this->short_code_atts['bible_ot_id_audio'];
+			$this->bible_ot_audio_id = $this->short_code_atts['bible_ot_audio_id'];
 		}
 		$this->audio_check();
 		if (isset($_REQUEST['lng_code_iso'])) {
@@ -1347,6 +1347,7 @@ EOS;
 		$lang_name			 = '';
 		if (is_array($this->dbp_language_ids) && count($this->dbp_language_ids)) {
 			array_multisort(array_column($this->dbp_language_ids, 'lng_code_iso'), SORT_ASC, $this->dbp_language_ids);
+//			$count = 0; // for counting the current number of languages
 			foreach ($this->dbp_language_ids as $language => $language_parms) {
 				$dbp_languages_list .= "<option value=\"{$language_parms['lng_code_iso']}\"";
 				if ($language_parms['lng_code_iso'] == $lng_code_iso) {
@@ -1357,12 +1358,14 @@ EOS;
 					$dbp_languages_list .= " ($language)";
 				}
 				$dbp_languages_list .= "</option>\n\t";
+//				$count++; // for counting the current number of languages
 			}
 		} else {
 			$lang_name			 = __('English', 'bible-reading-plans');
 			$dbp_languages_list .= '<option value="eng">'._e('English', 'bible-reading-plans')."</option>\n\t";
 		}	
 		$dbp_languages_list .= '</select>';
+//		$dbp_languages_list .= $count; // for displaying the current number of languages
 		$dbp_languages_list .= '<div class="brp-languages-sort-note">'.__('Languages are sorted by their ISO code. (If different from the native name, English or alternate names for a language are in parentheses.)', 'bible-reading-plans').'</div><br /></div>';
 		$dbp_languages_list .= '<div class="brp-dbp-languages-notes">'.__('NOTES:', 'bible-reading-plans').'<ol>';
 		$dbp_languages_list .= '<li>'.__('At present audio is only available for whole chapters. A future plugin version providing only those verses which the particular Bible plan uses is planned for Bible versions for which access to specific verses is available.', 'bible-reading-plans').'</li>';
@@ -1891,7 +1894,18 @@ EOS;
 		$reading_plan = get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan_shrtcd);
 		if (!$reading_plan) {
 			$reading_plan = get_option($this->cbrp_prefix.$scptr_src_prefix.$this->reading_plan_shrtcd);
+//$this->debug_print('$reading_plan 1', $reading_plan);
+/* shouldn't need this...
+ 			foreach ($reading_plan as $plan_date => $date_parms) {
+				foreach ($date_parms as $key => $val) {
+					if (isset($val['qry_str'])) {
+						$reading_plan[$plan_date][$key]['verses'] = $val['qry_str'];
+						unset($reading_plan[$plan_date][$key]['qry_str']);
+					}
+				}
+			}*/
 		}
+//$this->debug_print('$reading_plan', $reading_plan);
 		if (!$reading_plan) {
 			// Use default, if plan can't be found.
 			$reading_plan = get_option($this->brp_prefix.$scptr_src_prefix.$this->short_code_atts['reading_plan']);
@@ -3304,14 +3318,19 @@ EOS;
 		}
 		$tmp_ary = array();
 		$tmp_ary = explode(' ', $book_and_chapter);
-		// get full book name.
-		$book = $tmp_ary[0].' ';
-		array_shift($tmp_ary);
-		while (!is_numeric($tmp_ary[0])) {
-			$book .= $tmp_ary[0].' ';
+		if (is_array($tmp_ary)) {
+			// get full book name.
+			$book = $tmp_ary[0].' ';
 			array_shift($tmp_ary);
+			$count = 0;
+			while (isset($tmp_ary[0]) && !is_numeric($tmp_ary[0] && $count++ < 25)) { // avoid infinite loop
+				$book .= $tmp_ary[0].' ';
+				array_shift($tmp_ary);
+			}
+			if (isset($tmp_ary[0])) {
+				$chapter = $tmp_ary[0];
+			}
 		}
-		$chapter = $tmp_ary[0];
 		if (in_array($english_book, $this->one_chapter_books)) {
 			// This comparison with the English book names.
 			return $book;
