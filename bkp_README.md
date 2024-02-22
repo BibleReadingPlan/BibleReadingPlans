@@ -162,7 +162,7 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
-## 3.0
+## 3.0-beta-5
 
 This version:
 
@@ -518,7 +518,7 @@ Initial release.
 
 ## Changelog
 
-= 3.0 =
+= 3.0-beta-5 =
 
 In this version:
 

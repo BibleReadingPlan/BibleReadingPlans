@@ -1,26 +1,25 @@
 <?php
 /**
- *Plugin Name
- *
  * @package				BibleReadingPlans
- * @version				3.0
+ * @version				3.0-beta-5
  * @license				GPLv3 or later
  *
  * @wordpress-plugin
  * Plugin Name:			Bible Reading Plans
  * Plugin URI:			https://www.sitewidgets.com/bible-reading-plans/
  * Description:			This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="NAS"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGNAS"]</code>. The latter form is new in this version, applies only to the DBP source, and  provides access to over 1700 Bible versions in more than 1500 languages, with more versions and languages being added regularly. Three sources for the Scriptures displayed for each plan are available: the American Bible Society API, Version 1 (API.Bible), the Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). There are now 16 different Bible reading plans available with the plugin, plus the ability to create ones own reading plan using an auxiliary, premium plugin.
- * Version:				3.0
+
+ * Version:				3.0-beta-5
  * Requires at least:	2.8
- * Tested up to:		6.2.2
+ * Tested up to:		6.4.3
  * Requires PHP: 		5.6
- * Tested up to PHP:	8.2
+ * Tested up to PHP:	8.3
  * Contributors: 		drmikegreen, sophoservices
  * Contributors URI: 	https://www.saesolved.com/, https://sophoservices.com/
  * Text Domain: 		bible-reading-plans
  * License: 			GPLv3 or later
  * License URI:			http://www.gnu.org/licenses/gpl-3.0.html
- * Plugin URI: 			https://www.sitewidgets.com/bible-reading-plans/
+ * Plugin URI: 			https://www.saesolved.com/bible-reading-plans/
  */
 
 /*

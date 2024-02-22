@@ -1056,7 +1056,6 @@ EOT;*/
 		} else {
 			$this->bible_all_audio_id = $this->short_code_atts['bible_all_audio_id'];
 		}
-//$this->debug_print('$_REQUEST[bible_nt_audio_id])', $_REQUEST['bible_nt_audio_id']);
 		if (isset($_REQUEST['bible_nt_audio_id'])) {
 			$this->bible_nt_audio_id = sanitize_text_field($_REQUEST['bible_nt_audio_id']);
 		} else {
@@ -1133,7 +1132,6 @@ EOT;*/
  */
 	public function shortcodeAttributes ($atts) {
 		$combined_atts = shortcode_atts($this->short_code_atts, $atts);
-//$this->debug_print('$combined_atts', $combined_atts);
 		if (!array_key_exists($combined_atts['reading_plan'], $this->reading_plans)) {
 			$reading_plan = $this->short_code_atts['reading_plan']; // default
 		} else {
@@ -1174,7 +1172,6 @@ EOT;*/
 				}
 				$this->bible_all_audio_id	= $combined_atts['bible_all_audio_id'];
 				$this->bible_nt_audio_id	= $combined_atts['bible_nt_audio_id'];
-//$this->debug_print('$this->bible_nt_audio_id -- shortcodeAttributes', $this->bible_nt_audio_id);
 				$this->bible_ot_audio_id	= $combined_atts['bible_ot_audio_id'];
 				$this->audio_check();
 				$split_bible_id 		= str_split($this->bible_id, 3);
@@ -1298,7 +1295,6 @@ EOS;
 		} else {
 			$this->dbp_use_audio_nt = false;
 		}
-//$this->debug_print('$this->dbp_use_audio_nt', $this->dbp_use_audio_nt);
 		if ($this->bible_ot_audio_id) {
 			$this->dbp_use_audio_ot = true;
 		} else {
@@ -1309,7 +1305,6 @@ EOS;
 		} else {
 			$this->use_audio = false;
 		}
-//$this->debug_print('$this->use_audio', $this->use_audio);
 	}
 
 /**
@@ -1894,7 +1889,6 @@ EOS;
 		$reading_plan = get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan_shrtcd);
 		if (!$reading_plan) {
 			$reading_plan = get_option($this->cbrp_prefix.$scptr_src_prefix.$this->reading_plan_shrtcd);
-//$this->debug_print('$reading_plan 1', $reading_plan);
 /* shouldn't need this...
  			foreach ($reading_plan as $plan_date => $date_parms) {
 				foreach ($date_parms as $key => $val) {
@@ -1905,7 +1899,6 @@ EOS;
 				}
 			}*/
 		}
-//$this->debug_print('$reading_plan', $reading_plan);
 		if (!$reading_plan) {
 			// Use default, if plan can't be found.
 			$reading_plan = get_option($this->brp_prefix.$scptr_src_prefix.$this->short_code_atts['reading_plan']);
@@ -2884,9 +2877,7 @@ EOS;
 		if ($passage_index != $passage_prev) {
 			$passage_prev	 = $passage_index;
 			$passage		 = $this->transform_passage_dbp($passage_index, $decoded_text[0]);
-//$this->debug_print('$passage', $passage);
 			$passage_header  = $this->transform_header($passage);
-//$this->debug_print('$passage_header', $passage_header);
 			if ($this->display_toc && $passage_header) {
 				$this->toc_list($passage_header, $rtn_str);
 			}

@@ -159,7 +159,7 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
-= 3.0-beta-5 =
+= 3.0 =
 
 Still has bug which makes Create Bible Reading Plans plugin to no longer work. POT file still has to be updated.
 
@@ -510,7 +510,7 @@ Initial release.
 
 == Changelog ==
 
-= 3.0-beta-5 =
+= 3.0 =
 
 In this version:
 
