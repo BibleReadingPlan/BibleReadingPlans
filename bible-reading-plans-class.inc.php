@@ -153,7 +153,28 @@ class BibleReadingPlans {
 			$search_prefixes[$ary_key++] = $this->brp_prefix.$source_prefix;
 		}
 		$this->add_readings_plans_arrays_to_database(); // If there are any reading plans arrays, add them to the database.
+		// Deal with plans created by the Create Bible Reading Plans plugin.
 		$reading_plans_list = get_option('brp_reading_plans_list');
+		$plan_options = array_keys($reading_plans_list);
+		foreach ($plan_options as $plan_key) {
+			if (strpos($plan_key, $this->cbrp_prefix) !== false) {
+				$reading_plan	= get_option($plan_key);
+				if (isset($reading_plan[0]['copyright']) && 'Public Domain' == $reading_plan[0]['copyright']) {
+					$reading_plan[0]['copy_type'] = 'Public Domain';
+					$reading_plan[0]['copyright'] = 'standardized'; 
+				}
+				if (strpos($plan_key, 'dbp') !== false) {
+					// Only plans from the Create Bible Reading Plans plugin created for the Digital Bible Platform need conversion.
+					$reading_plan = $this->if_necessary_convert_dbp2_plan_to_dbp4_plan($reading_plan, $plan_converted);
+					if (!is_array($reading_plan)) {
+						echo $reading_plan;
+					} else {
+						update_option($plan_key, $reading_plan);
+					}
+				}
+			}
+		}
+//		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
 				// Remove prefixes.
@@ -965,29 +986,6 @@ EOT;*/
  *
  */
 	public function initializeAdmin () {
-		if ((isset($_REQUEST['page']) && ('bible_reading_plans_plugin' == $_REQUEST['page'] || 'bible_reading_plans_plugin' == $_REQUEST['page'])) || (isset($_REQUEST['option_page']) && 'bible_reading_plans_settings' == $_REQUEST['option_page'])) {
-			// Deal with plans created by the Create Bible Reading Plans plugin.
-			$reading_plans_list = get_option('brp_reading_plans_list');
-			$plan_options = array_keys($reading_plans_list);
-			foreach ($plan_options as $plan_key) {
-				if (strpos($plan_key, $this->cbrp_prefix) !== false) {
-					$reading_plan	= get_option($plan_key);
-					if (isset($reading_plan[0]['copyright']) && 'Public Domain' == $reading_plan[0]['copyright']) {
-						$reading_plan[0]['copy_type'] = 'Public Domain';
-						$reading_plan[0]['copyright'] = 'standardized'; 
-					}
-					if (strpos($plan_key, 'dbp') !== false) {
-						// Only plans from the Create Bible Reading Plans plugin created for the Digital Bible Platform need conversion.
-						$reading_plan = $this->if_necessary_convert_dbp2_plan_to_dbp4_plan($reading_plan, $plan_converted);
-						if (!is_array($reading_plan)) {
-							echo $reading_plan;
-						} else {
-							update_option($plan_key, $reading_plan);
-						}
-					}
-				}
-			}
-		}
 		if ($this->abs_api_key) {
 			$this->abs_versions = get_option('bible_reading_plans_abs_versions');
 		}

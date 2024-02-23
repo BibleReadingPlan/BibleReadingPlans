@@ -178,6 +178,8 @@ This version:
 
 1. Bug fix: Corrects problems with passage headers for non-English languages -- sometimes header would contain both English and other language.
 
+1. Bug fix: Fixed error which was causing Create Bible Reading Plans plugin to not work.
+
 ## 2.2.3
 
 Get Bible book name in language being used in cases where that is not already available, giving priority to the name used in localization.
@@ -533,6 +535,8 @@ In this version:
 1. Bug fix: Problem with books having multi-word names causing parts of names being lost is corrected.
 
 1. Bug fix: Problems with passage headers for non-English languages -- sometimes header would contain both English and other language --  are corrected.
+
+1. Bug fix: Error which was causing Create Bible Reading Plans plugin to not work fixed.
 
 ## 2.2.3
 
