@@ -356,10 +356,7 @@ EOS;
 	
 /**
  * addScriptureLoader
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Adds the javascript scripture loader to the footer of the page. Compares scptr_arc_prefix to see what javascript it should use
  *
  */
 	public function addScriptureLoader () {
@@ -476,11 +473,7 @@ EOS;
 		
 /**
  * adminAddPage
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Adds our admin page to the Settings menu in wordpress
  */
 	public function adminAddPage () {
 		if (current_user_can('manage_options')) {
@@ -490,11 +483,7 @@ EOS;
 
 /**
  * bibleReadingPlansAbsApiKeyValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Building the admin settings page, we display HTML to ask for the value of the ABS api key
  */
 	public function bibleReadingPlansAbsApiKeyValue () {
 		echo '<input id="bible_reading_plans_abs_api_key_input" name="bible_reading_plans_abs_api_key" size="'.$this->abs_key_length.'" minlength="'.$this->abs_key_length.'" maxlength="'.$this->abs_key_length.'" type="text" value="'.$this->abs_api_key.'" />';
@@ -510,11 +499,7 @@ EOS;
 
 /**
  * bibleReadingPlansDbpApiKeyValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Building the admin settings page, we display HTML to ask for the value of the DBP api key
  */
 	public function bibleReadingPlansDbpApiKeyValue () {
 		echo '<input id="bible_reading_plans_dbp_api_key_input" name="bible_reading_plans_dbp_api_key" size="'.$this->dbp_key_length_max.'" minlength="'.$this->dbp_key_length_min.'" maxlength="'.$this->dbp_key_length_max.'" type="text" value="'.$this->dbp_api_key.'" />';
@@ -529,10 +514,7 @@ EOS;
 
 /**
  * bibleReadingPlansDisplayPlanName
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask for the value of the plan name
  *
  */
 	public function bibleReadingPlansDisplayPlanName () {
@@ -541,10 +523,7 @@ EOS;
 	
 /**
  * bibleReadingPlansDisplayMoveableFeasts
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if special readings for moveable feasts should be shown
  *
  */
 	public function bibleReadingPlansDisplayMoveableFeasts () {
@@ -558,10 +537,7 @@ EOS;
 	
 /**
  * bibleReadingPlansDisplayHolyDays
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if special readings for holy days should be shown
  *
  */
 	public function bibleReadingPlansDisplayHolyDays () {
@@ -575,10 +551,7 @@ EOS;
 	
 /**
  * bibleReadingPlansDisplayToc
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if TOC should be shown
  *
  */
 	public function bibleReadingPlansDisplayToc () {
@@ -588,10 +561,7 @@ EOS;
 	
 /**
  * bibleReadingPlansEsvApiKeyValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask for the ESV API key
  *
  */
 	public function bibleReadingPlansEsvApiKeyValue () {
@@ -607,10 +577,7 @@ EOS;
 
 /**
  * bibleReadingPlansSectionHeading
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display the Section Heading, which is currently blank
  *
  */
 	public function bibleReadingPlansSectionHeading () {
@@ -619,10 +586,7 @@ EOS;
 
 /**
  * bibleReadingPlansShowPoweredByValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if the powered by value should be shown
  *
  */
 	public function bibleReadingPlansShowPoweredByValue () {
@@ -631,10 +595,7 @@ EOS;
 	
 /**
  * bibleReadingPlansUseCalendarValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if the calendar should be shown
  *
  */
 	public function bibleReadingPlansUseCalendarValue () {
