@@ -1341,18 +1341,18 @@ EOS;
  * @return string HTML of the tab to be displayed in admin backend
  *
  */
-	protected function construct_dbp_versions_list ($lng_code_iso = '') {
-		$dbp_versions_list  = '<div id="brp-dbp-versions">';
-		$dbp_versions_list .= __('The ', 'bible-reading-plans');
+	protected function construct_dbp_versions_list ($lng_code_iso = '', $opts = []) {
+		$ret  = '<div id="brp-dbp-versions">';
+		$ret .= __('The ', 'bible-reading-plans');
 		if (isset($this->dbp_versions[$lng_code_iso][0]['language_name']) && $this->dbp_versions[$lng_code_iso][0]['language_name']) {
-			$dbp_versions_list .= $this->dbp_versions[$lng_code_iso][0]['language_name'];
+			$ret .= $this->dbp_versions[$lng_code_iso][0]['language_name'];
 		} elseif (isset($this->dbp_versions[$lng_code_iso][0]['native_name']) && $this->dbp_versions[$lng_code_iso][0]['native_name']) {
-			$dbp_versions_list .= $this->dbp_versions[$lng_code_iso][0]['native_name'];
+			$ret .= $this->dbp_versions[$lng_code_iso][0]['native_name'];
 		} else {
-			$dbp_versions_list .= $lng_code_iso;
+			$ret .= $lng_code_iso;
 		}
-		$dbp_versions_list .= __(' language versions in text or audio (if there is text or audio for that version -- see also Notes 1 through 3, below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id" (Old and New Testaments), "bible_ot_audio_id" (Old Testament), and/or "bible_nt_audio_id" (New Testament) in the shortcode currently are:', 'bible-reading-plans');
-		$dbp_versions_list .= "\t\t".'<ul class="brp-plans">'."\n";
+		$ret .= __(' language versions in text or audio (if there is text or audio for that version -- see also Notes 1 through 3, below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id" (Old and New Testaments), "bible_ot_audio_id" (Old Testament), and/or "bible_nt_audio_id" (New Testament) in the shortcode currently are:', 'bible-reading-plans');
+		$ret .= "\t\t".'<ul class="brp-plans">'."\n";
 		require_once('includes/properties/dbp_idcode_to_prtn.inc.php');
 		if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
 			$bible_ids = array();
@@ -1363,28 +1363,28 @@ EOS;
 							$bible_ids[] 		= $vers_data['bible_id'];
 							$size				= $vers_data['size'];
 							$portion			= $this->dbp_idcode_to_prtn[$size];
-							$dbp_versions_list .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}\t\t\t- {$this->dbp_media_types[$vers_data['type']]}";
+							$ret .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}\t\t\t- {$this->dbp_media_types[$vers_data['type']]}";
 							if ($portion) {
-								$dbp_versions_list .= " ($portion)";
+								$ret .= " ($portion)";
 							}
-							$dbp_versions_list .= "</li>\n";
+							$ret .= "</li>\n";
 						}
 					}
-					$dbp_versions_list .= "</li>\n";
+					$ret .= "</li>\n";
 				}
-				$dbp_versions_list .= "</li>\n";
+				$ret .= "</li>\n";
 			}
 			if ('eng' == $lng_code_iso) {
-				$dbp_versions_list .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS.';
-				$dbp_versions_list .= '<div class="brp-available-versons-note">'.__('Note that this changed from ', 'bible-reading-plans').'ENGESV'.__(' at Version 2.1.5 of this plugin, since for a period of time prior to the release of this version the ESV was not available to the DBP.', 'bible-reading-plans').'</div>';
+				$ret .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS.';
+				$ret .= '<div class="brp-available-versons-note">'.__('Note that this changed from ', 'bible-reading-plans').'ENGESV'.__(' at Version 2.1.5 of this plugin, since for a period of time prior to the release of this version the ESV was not available to the DBP.', 'bible-reading-plans').'</div>';
 			}
-			$dbp_versions_list .= "\t\t</ul>\n";
-			$dbp_versions_list .= "\t<span class=\"brp-available-versons-note\">".__('(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)', 'bible-reading-plans')."</span></div>\n";
+			$ret .= "\t\t</ul>\n";
+			$ret .= "\t<span class=\"brp-available-versons-note\">".__('(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)', 'bible-reading-plans')."</span></div>\n";
 		} else {
-			$dbp_versions_list .= "\t\t\t<li>{$this->no_versns_found}</li>\n";
-			$dbp_versions_list .= "\t\t</ul></div>\n";
+			$ret .= "\t\t\t<li>{$this->no_versns_found}</li>\n";
+			$ret .= "\t\t</ul></div>\n";
 		}
-		return $dbp_versions_list;
+		return $ret;
 	}
 	
 /**
