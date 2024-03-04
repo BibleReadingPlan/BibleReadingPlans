@@ -356,7 +356,8 @@ EOS;
 	
 /**
  * addScriptureLoader
- * Adds the javascript scripture loader to the footer of the page. Compares scptr_arc_prefix to see what javascript it should use
+ * Adds the javascript scripture loader to the footer of the page. Compares scptr_arc_prefix to see what javascript it should use. IT's used 
+ * for the front end
  *
  */
 	public function addScriptureLoader () {
@@ -1082,11 +1083,11 @@ EOT;*/
 
 /**
  * shortcodeAttributes
- * Description to be inserted here
+ * called by WordPress when the shortcode "bible-reading-plan" is used
  *
- * @param $atts
+ * @param $atts attributes associated with the shortcode that the web dev used
  *
- * @return Datatype description to be added here
+ * @return string HTML to be displayed
  *
  */
 	public function shortcodeAttributes ($atts) {
@@ -1205,7 +1206,7 @@ EOT;*/
 
 /**
  * add_versions
- * Description to be inserted here
+ * Add jQuery code to retrieve the current versions via ajax
  *
  * @param $source
  *
@@ -1333,11 +1334,11 @@ EOS;
 
 /**
  * construct_dbp_versions_list
- * Description to be inserted here
+ * Display the DigitalBrainPlatform versions to the admin screen. They appear in the "Versions available from the Bible Brain API (DBP) tab
  *
  * @param $lng_code_iso
  *
- * @return Datatype description to be added here
+ * @return string HTML of the tab to be displayed in admin backend
  *
  */
 	protected function construct_dbp_versions_list ($lng_code_iso = '') {
@@ -1867,7 +1868,7 @@ EOS;
 
 /**
  * get_bible_reading_plan
- * Description to be inserted here
+ * Main UI function that builds the display for the end user
  *
  * @param $scriptures_date
  * @param $error_message
@@ -2192,7 +2193,7 @@ EOS;
 
 /**
  * putLanguagesAndVersions
- * Description to be inserted here
+ * Get the list of languages and bible versions from the internet
  *
  *
  * @return Datatype description to be added here
