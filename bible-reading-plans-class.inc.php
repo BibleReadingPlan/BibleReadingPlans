@@ -1093,14 +1093,14 @@ EOT;*/
 	public function shortcodeAttributes ($atts) {
 		$combined_atts = shortcode_atts($this->short_code_atts, $atts);
 		if (!array_key_exists($combined_atts['reading_plan'], $this->reading_plans)) {
-			$reading_plan = $this->short_code_atts['reading_plan']; // default
+			// if the passed reading_plan is not part of the approved list, we choose our default
+			$this->reading_plan = $this->short_code_atts['reading_plan']; // default
 		} else {
-			$reading_plan = $combined_atts['reading_plan'];
+			$this->reading_plan = $combined_atts['reading_plan'];
 		}
-		if ('one-year-tract' == $reading_plan) {
-			$reading_plan = $this->short_code_atts['reading_plan']; // for compatibility with the Embed Bible Passages plugin
+		if ('one-year-tract' == $this->reading_plan) {
+			$this->reading_plan = $this->short_code_atts['reading_plan']; // for compatibility with the Embed Bible Passages plugin
 		}
-		$this->reading_plan = $reading_plan;
 		if (!array_key_exists($combined_atts['source'], $this->sources)) {
 			$this->source = $this->short_code_atts['source']; // default
 		} else {
@@ -1877,6 +1877,7 @@ EOS;
  *
  */
 	protected function get_bible_reading_plan ($scriptures_date = '', $error_message = 'ERROR: Could not retrieve readings') {
+		// TODO: move use_abs4apocrypha and toc to the class, avoid global
 		global $use_abs4apocrypha, $toc;
 		$this->reading_plan_shrtcd = $this->reading_plan;
 		if ($scriptures_date) {
