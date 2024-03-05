@@ -174,7 +174,6 @@ class BibleReadingPlans {
 				}
 			}
 		}
-//		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
 				// Remove prefixes.
@@ -1656,9 +1655,12 @@ EOS;
 	protected function datekey ($reading_plan, $time) {
 		$date_key = date('m-d', $time);
 		if ($date_key == '02-29') {
+			$ary_kys = array_keys($reading_plan);
+			if (in_array($date_key, $ary_kys)) {
+				return $date_key;
+			}
 			// If 29 February is not in the reading plan, use the last day in the plan on that day.
-			$ary_kys		= array_keys($reading_plan);
-			$days_in_plan	= count($ary_kys) - 1;
+			$days_in_plan = count($ary_kys) - 1;
 			if ($days_in_plan < 366) {
 				$date_key = array_pop($ary_kys);
 			}
@@ -1931,15 +1933,7 @@ EOS;
 				$scptr_src_prefix = $this->scptr_src_prefix;
 			}
 			$reading_plan	= $this->get_reading_plan_for_source($scptr_src_prefix);
-			$date_key		= date('m-d', $time);
-			if ($date_key == '02-29') {
-				// If 29 February is not in the reading plan, use the last day in the plan on that day.
-				$ary_kys		= array_keys($reading_plan);
-				$days_in_plan	= count($ary_kys) - 1;
-				if ($days_in_plan < 366) {
-					$date_key = array_pop($ary_kys);
-				}
-			}
+			$date_key		= $this->datekey($reading_plan, $time);
 			if ($this->display_plan_name) {
 				if ('bcp19-acna-twoyear' == $this->reading_plan) {
 					$acna_twoyear_reading_plan	= get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan);

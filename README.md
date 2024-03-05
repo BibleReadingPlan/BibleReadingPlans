@@ -13,7 +13,7 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0
+Stable branch: 3.0.1
 
 License: GPLv3 or later
 
@@ -163,6 +163,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 1. Populate DocBlocks for methods/functions.
 
 ## Upgrade Notice
+
+## 3.0.1
+
+Bug fix: Corrects handling of Scriptures on Leap Day (29 Feb).
 
 ## 3.0
 
@@ -521,7 +525,5 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
-
-= 3.0 =
 
 See "Upgrade Notice" above.
