@@ -516,6 +516,4 @@ Initial release.
 
 == Changelog ==
 
-= 3.0 =
-
 See "Upgrade Notice" above.
