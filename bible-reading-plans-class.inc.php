@@ -222,7 +222,7 @@ class BibleReadingPlans {
 			if (isset($dbp_vers_default) && is_array($dbp_vers_default) && count($dbp_vers_default)) {
 				$this->dbp_vers_default = $dbp_vers_default;
 			} else {
-				$this->dbp_vers_default	= $this->no_versns_found;
+				$this->dbp_vers_default	= array($this->no_versns_found);
 			}
 			$dbp_versions = get_option('bible_reading_plans_dbp_versions');
 			if (isset($dbp_versions) && is_array($dbp_versions) && count($dbp_versions)) {
@@ -236,7 +236,7 @@ class BibleReadingPlans {
 			$this->dbp_lang_id2iso_alt	= get_option('bible_reading_plans_dbp_lang_id2iso_alt');
 		} else {
 			$this->dbp_api_key	= '';
-			$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
+			$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans')));
 		}
 		
 		$key = get_option('bible_reading_plans_esv_api_key');
@@ -752,10 +752,10 @@ EOS;
 						$dbp_versions[$lng_code_iso] = $this->dbp_vers_default[$lng_code_iso];
 					}
 				} else {
-					$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing Language ID for DBP', 'bible-reading-plans'));
+					$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing Language ID for DBP', 'bible-reading-plans')));
 				}
 			} else {
-				$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
+				$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans')));
 			}
 			return $this->dbp_versions;
 		} elseif ('esv' == $source) {
