@@ -174,7 +174,6 @@ class BibleReadingPlans {
 				}
 			}
 		}
-//		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
 				// Remove prefixes.
@@ -223,7 +222,7 @@ class BibleReadingPlans {
 			if (isset($dbp_vers_default) && is_array($dbp_vers_default) && count($dbp_vers_default)) {
 				$this->dbp_vers_default = $dbp_vers_default;
 			} else {
-				$this->dbp_vers_default	= $this->no_versns_found;
+				$this->dbp_vers_default	= array($this->no_versns_found);
 			}
 			$dbp_versions = get_option('bible_reading_plans_dbp_versions');
 			if (isset($dbp_versions) && is_array($dbp_versions) && count($dbp_versions)) {
@@ -237,7 +236,7 @@ class BibleReadingPlans {
 			$this->dbp_lang_id2iso_alt	= get_option('bible_reading_plans_dbp_lang_id2iso_alt');
 		} else {
 			$this->dbp_api_key	= '';
-			$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
+			$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans')));
 		}
 		
 		$key = get_option('bible_reading_plans_esv_api_key');
@@ -715,10 +714,10 @@ EOS;
 						$dbp_versions[$lng_code_iso] = $this->dbp_vers_default[$lng_code_iso];
 					}
 				} else {
-					$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing Language ID for DBP', 'bible-reading-plans'));
+					$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing Language ID for DBP', 'bible-reading-plans')));
 				}
 			} else {
-				$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
+				$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans')));
 			}
 			return $this->dbp_versions;
 		} elseif ('esv' == $source) {
@@ -1618,9 +1617,12 @@ EOS;
 	protected function datekey ($reading_plan, $time) {
 		$date_key = date('m-d', $time);
 		if ($date_key == '02-29') {
+			$ary_kys = array_keys($reading_plan);
+			if (in_array($date_key, $ary_kys)) {
+				return $date_key;
+			}
 			// If 29 February is not in the reading plan, use the last day in the plan on that day.
-			$ary_kys		= array_keys($reading_plan);
-			$days_in_plan	= count($ary_kys) - 1;
+			$days_in_plan = count($ary_kys) - 1;
 			if ($days_in_plan < 366) {
 				$date_key = array_pop($ary_kys);
 			}
@@ -1894,15 +1896,7 @@ EOS;
 				$scptr_src_prefix = $this->scptr_src_prefix;
 			}
 			$reading_plan	= $this->get_reading_plan_for_source($scptr_src_prefix);
-			$date_key		= date('m-d', $time);
-			if ($date_key == '02-29') {
-				// If 29 February is not in the reading plan, use the last day in the plan on that day.
-				$ary_kys		= array_keys($reading_plan);
-				$days_in_plan	= count($ary_kys) - 1;
-				if ($days_in_plan < 366) {
-					$date_key = array_pop($ary_kys);
-				}
-			}
+			$date_key		= $this->datekey($reading_plan, $time);
 			if ($this->display_plan_name) {
 				if ('bcp19-acna-twoyear' == $this->reading_plan) {
 					$acna_twoyear_reading_plan	= get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan);
@@ -2292,7 +2286,7 @@ EOS;
 									</xsl:stylesheet>
 								*/
 								
-								break;
+								continue;
 							}
 							if (isset($data_ary['iso']) && $data_ary['iso'] && 1 != $not_text) {
 								if (!isset($filesets['codec'])) {										
