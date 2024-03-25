@@ -2323,7 +2323,7 @@ EOS;
 									</xsl:stylesheet>
 								*/
 								
-								break;
+								continue;
 							}
 							if (isset($data_ary['iso']) && $data_ary['iso'] && 1 != $not_text) {
 								if (!isset($filesets['codec'])) {										
