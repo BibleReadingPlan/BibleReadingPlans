@@ -1275,8 +1275,7 @@ EOS;
 
 /**
  * audio_check
- * Description to be inserted here
- *
+ * Configures internal variables to use the audio settings in DBP, or others, if the shortcodes are set
  * 
  * @return null
  *
