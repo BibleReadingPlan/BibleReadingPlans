@@ -55,7 +55,6 @@ class BibleReadingPlans {
 	protected $brp_prefix		 	= '';
 	protected $calendar_in_text	 	= '';
 	protected $cbrp_prefix		 	= '';
-	protected $dam_id			 	= ''; 
 	protected $date_format_js	 	= '';
 	protected $date_format_php	 	= '';
 	protected $dbp_api_key		 	= '';
@@ -1515,10 +1514,8 @@ EOS;
 	protected function construct_urls_array_dbp ($readings_querys) {
 		global $book_id;
 		//The bible_id is the same as what was the dam_id in earlier versions of the DBP API.
-		if ($this->bible_id) {
-			$this->dam_id = $this->bible_id;
-		} else {
-			$this->dam_id = $this->dbp_language_id.$this->version;
+		if (!$this->bible_id) {
+			$this->bible_id = $this->dbp_language_id.$this->version;
 		}
 		$urls_ary = array();
 		foreach ($readings_querys as $val) {
@@ -1537,7 +1534,7 @@ EOS;
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_nt_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
 				}
-				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;	
+				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->bible_id.'/'.$qry_str.'&'.$this->dbp_query_base;	
 			}
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
@@ -1545,14 +1542,14 @@ EOS;
 		$bible_abbr				= '';
 		if (isset($this->dbp_versions[$this->dbp_language_iso]) && is_array($this->dbp_versions[$this->dbp_language_iso])) {
 			foreach ($this->dbp_versions[$this->dbp_language_iso] as $key => $ary) {
-				if ($ary['bible_abbr'] && $ary['bible_id'] == $this->dam_id) {
+				if ($ary['bible_abbr'] && $ary['bible_id'] == $this->bible_id) {
 					$bible_abbr = $ary['bible_abbr'];
 					break;
 				}				
 			}
 		}
 		if (!$bible_abbr) {
-			$bible_abbr = $this->dam_id;
+			$bible_abbr = $this->bible_id;
 		}
 		$urls_ary['metadata'] .= $bible_abbr.'/copyright?'.$this->dbp_query_base;
 		return $urls_ary;
@@ -2720,8 +2717,11 @@ EOS;
 			$book = $decoded_text['data'][0]['book_name_alt'];
 		} else {
 			// Finally, try searching the bibles.
+			if (!$this->bible_id) {
+				$this->bible_id = $this->dbp_language_id.$this->version;
+			}
 			$args			= array('headers' => array("Authorization" => "Bearer $this->dbp_api_key", "v" => "4", "accept" => "application/json"));
-			$url			= $this->dbp_query_string.'bibles/'.$this->dam_id.'/book?book_id='.$book_code.'&verify_content=true&'.$this->dbp_query_base;
+			$url			= $this->dbp_query_string.'bibles/'.$this->bible_id.'/book?book_id='.$book_code.'&verify_content=true&'.$this->dbp_query_base;
 			$response_ary	= wp_remote_get($url, $args);
 			if (!$book) {
 				// Give up...
@@ -3388,7 +3388,7 @@ EOS;
 		// Currently for only the DBP. 
 		// Check verses in the middle of the Old and New Testaments to see whether or not they contain content.
 		// https://4.dbt.io/api/bibles/filesets/:fileset_id/:book/:chapter?verse_start=5&verse_end=5
-		// $this->dbp_query_string."bibles/filesets/".$this->dam_id.$qry_str.$this->dbp_query_base;
+		// $this->dbp_query_string."bibles/filesets/".$this->bible_id.$qry_str.$this->dbp_query_base;
 		$sample_querys	= array(
 								array(
 									'passage'	=> 'Ps 50:1',
