@@ -5,7 +5,7 @@ Requires at least: 2.8
 Tested up to: 6.4.3
 Requires PHP: 5.6
 Tested up to PHP: 8.3
-Stable tag: 3.0
+Stable tag: 3.0.2
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -127,17 +127,13 @@ This program is distributed in the hope that it will be useful, but WITHOUT ANY 
 
 == Installation ==
 
-1. Extract the embed-bible-passages folder and place in the wp-content/plugins folder. Enable the plugin.
+1. Go to the add plugins option in your WordPress dashboard, search for and then add and activate the plugin.
 
 1. Request Access Keys from the American Bible Society, the Bible Brain,  and/or the ESV Bible Web Service API using the links given on the settings page.
 
 1. Enter those Access Keys in their fields in the Bible Reading Plans Settings.
 
-1. Select whether or not to display plan names on pages.
-
-1. Select whether or not to provide the ability for users to select passages for days other than the current day by clicking on a calendar and where to place that calendar.
-
-1. Select whether or not to optionally show a "Powered by" attribution at the bottom of pages.
+1. Select whether or not to use the various options on the settings page.
 
 1. Create pages and/or posts containing the shortcode of the form <code>[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGESV"]</code>. (It is recommended that the shortcode be placed in a shortcode block when using the WordPress Gutenberg Editor.)
 
@@ -160,6 +156,14 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 7. Sample result for page of a reading plan in French with audio.
 
 == Upgrade Notice ==
+
+= 3.0.2 =
+
+Bug fix: Remove the trunk folder from release.
+
+= 3.0.1 =
+
+Bug fix: Corrects handling of Scriptures on Leap Day (29 Feb).
 
 = 3.0 =
 
@@ -511,7 +515,5 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 == Changelog ==
-
-= 3.0 =
 
 See "Upgrade Notice" above.

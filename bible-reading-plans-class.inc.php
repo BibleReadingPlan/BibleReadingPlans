@@ -55,7 +55,6 @@ class BibleReadingPlans {
 	protected $brp_prefix		 	= '';
 	protected $calendar_in_text	 	= '';
 	protected $cbrp_prefix		 	= '';
-	protected $dam_id			 	= ''; 
 	protected $date_format_js	 	= '';
 	protected $date_format_php	 	= '';
 	protected $dbp_api_key		 	= '';
@@ -174,7 +173,6 @@ class BibleReadingPlans {
 				}
 			}
 		}
-//		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
 				// Remove prefixes.
@@ -223,7 +221,7 @@ class BibleReadingPlans {
 			if (isset($dbp_vers_default) && is_array($dbp_vers_default) && count($dbp_vers_default)) {
 				$this->dbp_vers_default = $dbp_vers_default;
 			} else {
-				$this->dbp_vers_default	= $this->no_versns_found;
+				$this->dbp_vers_default	= array($this->no_versns_found);
 			}
 			$dbp_versions = get_option('bible_reading_plans_dbp_versions');
 			if (isset($dbp_versions) && is_array($dbp_versions) && count($dbp_versions)) {
@@ -237,7 +235,7 @@ class BibleReadingPlans {
 			$this->dbp_lang_id2iso_alt	= get_option('bible_reading_plans_dbp_lang_id2iso_alt');
 		} else {
 			$this->dbp_api_key	= '';
-			$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
+			$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans')));
 		}
 		
 		$key = get_option('bible_reading_plans_esv_api_key');
@@ -715,10 +713,10 @@ EOS;
 						$dbp_versions[$lng_code_iso] = $this->dbp_vers_default[$lng_code_iso];
 					}
 				} else {
-					$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing Language ID for DBP', 'bible-reading-plans'));
+					$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing Language ID for DBP', 'bible-reading-plans')));
 				}
 			} else {
-				$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
+				$this->dbp_versions = array($this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans')));
 			}
 			return $this->dbp_versions;
 		} elseif ('esv' == $source) {
@@ -1238,8 +1236,7 @@ EOS;
 
 /**
  * audio_check
- * Description to be inserted here
- *
+ * Configures internal variables to use the audio settings in DBP, or others, if the shortcodes are set
  * 
  * @return null
  *
@@ -1479,10 +1476,8 @@ EOS;
 	protected function construct_urls_array_dbp ($readings_querys) {
 		global $book_id;
 		//The bible_id is the same as what was the dam_id in earlier versions of the DBP API.
-		if ($this->bible_id) {
-			$this->dam_id = $this->bible_id;
-		} else {
-			$this->dam_id = $this->dbp_language_id.$this->version;
+		if (!$this->bible_id) {
+			$this->bible_id = $this->dbp_language_id.$this->version;
 		}
 		$urls_ary = array();
 		foreach ($readings_querys as $val) {
@@ -1501,7 +1496,7 @@ EOS;
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_nt_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
 				}
-				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;	
+				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->bible_id.'/'.$qry_str.'&'.$this->dbp_query_base;	
 			}
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
@@ -1509,14 +1504,14 @@ EOS;
 		$bible_abbr				= '';
 		if (isset($this->dbp_versions[$this->dbp_language_iso]) && is_array($this->dbp_versions[$this->dbp_language_iso])) {
 			foreach ($this->dbp_versions[$this->dbp_language_iso] as $key => $ary) {
-				if ($ary['bible_abbr'] && $ary['bible_id'] == $this->dam_id) {
+				if ($ary['bible_abbr'] && $ary['bible_id'] == $this->bible_id) {
 					$bible_abbr = $ary['bible_abbr'];
 					break;
 				}				
 			}
 		}
 		if (!$bible_abbr) {
-			$bible_abbr = $this->dam_id;
+			$bible_abbr = $this->bible_id;
 		}
 		$urls_ary['metadata'] .= $bible_abbr.'/copyright?'.$this->dbp_query_base;
 		return $urls_ary;
@@ -1618,9 +1613,12 @@ EOS;
 	protected function datekey ($reading_plan, $time) {
 		$date_key = date('m-d', $time);
 		if ($date_key == '02-29') {
+			$ary_kys = array_keys($reading_plan);
+			if (in_array($date_key, $ary_kys)) {
+				return $date_key;
+			}
 			// If 29 February is not in the reading plan, use the last day in the plan on that day.
-			$ary_kys		= array_keys($reading_plan);
-			$days_in_plan	= count($ary_kys) - 1;
+			$days_in_plan = count($ary_kys) - 1;
 			if ($days_in_plan < 366) {
 				$date_key = array_pop($ary_kys);
 			}
@@ -1894,15 +1892,7 @@ EOS;
 				$scptr_src_prefix = $this->scptr_src_prefix;
 			}
 			$reading_plan	= $this->get_reading_plan_for_source($scptr_src_prefix);
-			$date_key		= date('m-d', $time);
-			if ($date_key == '02-29') {
-				// If 29 February is not in the reading plan, use the last day in the plan on that day.
-				$ary_kys		= array_keys($reading_plan);
-				$days_in_plan	= count($ary_kys) - 1;
-				if ($days_in_plan < 366) {
-					$date_key = array_pop($ary_kys);
-				}
-			}
+			$date_key		= $this->datekey($reading_plan, $time);
 			if ($this->display_plan_name) {
 				if ('bcp19-acna-twoyear' == $this->reading_plan) {
 					$acna_twoyear_reading_plan	= get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan);
@@ -2292,7 +2282,7 @@ EOS;
 									</xsl:stylesheet>
 								*/
 								
-								break;
+								continue;
 							}
 							if (isset($data_ary['iso']) && $data_ary['iso'] && 1 != $not_text) {
 								if (!isset($filesets['codec'])) {										
@@ -2690,8 +2680,11 @@ EOS;
 			$book = $decoded_text['data'][0]['book_name_alt'];
 		} else {
 			// Finally, try searching the bibles.
+			if (!$this->bible_id) {
+				$this->bible_id = $this->dbp_language_id.$this->version;
+			}
 			$args			= array('headers' => array("Authorization" => "Bearer $this->dbp_api_key", "v" => "4", "accept" => "application/json"));
-			$url			= $this->dbp_query_string.'bibles/'.$this->dam_id.'/book?book_id='.$book_code.'&verify_content=true&'.$this->dbp_query_base;
+			$url			= $this->dbp_query_string.'bibles/'.$this->bible_id.'/book?book_id='.$book_code.'&verify_content=true&'.$this->dbp_query_base;
 			$response_ary	= wp_remote_get($url, $args);
 			if (!$book) {
 				// Give up...
@@ -3358,7 +3351,7 @@ EOS;
 		// Currently for only the DBP. 
 		// Check verses in the middle of the Old and New Testaments to see whether or not they contain content.
 		// https://4.dbt.io/api/bibles/filesets/:fileset_id/:book/:chapter?verse_start=5&verse_end=5
-		// $this->dbp_query_string."bibles/filesets/".$this->dam_id.$qry_str.$this->dbp_query_base;
+		// $this->dbp_query_string."bibles/filesets/".$this->bible_id.$qry_str.$this->dbp_query_base;
 		$sample_querys	= array(
 								array(
 									'passage'	=> 'Ps 50:1',

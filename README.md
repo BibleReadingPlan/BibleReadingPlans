@@ -1,9 +1,9 @@
 # BibleReadingPlans
 Wordpress plugin to embed Bible reading plans into a post or page
 
-Contributors: drmikegreen,sophoservices
+Contributors: drmikegreen, sophoservices
 
-Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bible readings
+Tags: Bible reading plans, shortcode, Bible, daily readings, Bible Brain, Digital Bible Platform, American Bible Society, API.Bible, api.esv.org
 
 Requires at least: 2.8
 
@@ -13,13 +13,13 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0
+Stable tag: 3.0.2
 
 License: GPLv3 or later
 
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
-This plugin provides the ability to embed text and audio Bible Reading Plans into a post or page using a shortcode.
+This plugin provides the ability to embed Bible Reading Plans into a post or page using a shortcode.
 
 ## Description
 
@@ -144,19 +144,17 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Screenshots
 
-1. Sample input page for English Standard Version® from DBP — Dramatized Audio Book of Common Prayer, 2019, Anglican Church in North America — Two Year Plan.
+1. Sample input for page of Daily Light on the Daily Path -- Morning Plan.
 
-2. Sample result page for English Standard Version® from DBP — Dramatized Audio Book of Common Prayer, 2019, Anglican Church in North America — Two Year Plan.
+2. Sample result for page of Daily Light on the Daily Path -- Morning Plan.
 
 3. Settings page part 1.
 
-4. Settings page part 2.
+4. Settings page part 1 open to French DBP versions.
 
-5. Settings page part 1 open to French DBP text and audio versions.
+5. Settings page part 2.
 
-6. Sample input page for a reading plan in French with audio.
-
-7. Sample result for page of a reading plan in French with audio.
+6. Sample result for page of a reading plan in French.
 
 ## To do
 
@@ -524,4 +522,317 @@ Initial release.
 
 = 3.0 =
 
-See "Upgrade Notice" above.
+In this version:
+
+1. Ability to have audio for many of the languages and versions from the Bible Brain API is added.
+
+1. Text to make wait time tor Scriptures to load more understandable is added.
+
+1. Time before time-out to one-minute, since having to load and process information about audio can take longer, is increased.
+
+1. Explanations are updated.
+
+1. Bug fix: Problem with books having multi-word names causing parts of names being lost is corrected.
+
+1. Bug fix: Problems with passage headers for non-English languages -- sometimes header would contain both English and other language --  are corrected.
+
+1. Bug fix: Error which was causing Create Bible Reading Plans plugin to not work fixed.
+
+## 2.2.3
+
+Bible book name in language being used in cases where that is not already available is now used, giving priority to the name used in localization.
+
+## 2.2.2
+
+Bug fix: Problem where both English and other language passage names were displayed when the language is not English fixed.
+
+## 2.2.1
+
+Bug fix: 16 places where there were contiguous passages in Book of Common Prayer, 2019, Anglican Church in North America reading plans which were be presented as separate ones are corrected. They are each now continuous passages.
+
+## 2.2
+
+This version:
+
+1. Options to display "Holy Days" and/or "Moveable Feasts" on pages above readingsare added.
+
+1. File loading is changed to ensure plugin works with multi-sites.
+
+1. Code is partially reorganized to improve readability.
+
+1. Bug fix: `` that was appearing in some texts is removed.
+
+1. Bug fix: Certain filenames are corrected.
+
+## 2.1.5
+
+This version:
+
+1. Retrieves and displays the copyright information for Bible versions from the Bible Brain (aka the Digital Bible Platform) API for which this information was not available for earlier versions of this plugin.
+
+1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
+
+1. Corrects the following bugs:
+
+	1. Corrects code incompatible with PHP 8.2.
+
+	1. Corrects DBP headers to include verse numbers.
+
+	1. Re-corrects Table of Contents so that it again displays in the language of the page. (This waa lost along the way.)
+
+	1. Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
+
+## 2.1.4
+
+Corrects bugs which were causing Scriptures obtained from the American Bible Society to always be in the King James version.
+
+## 2.1.3
+
+This version:
+
+1. Bug fix: Display Table of Contents is registered in Pages settings.
+
+1. Bug fix: Link to Create Bible Reading plans is corrected to https://sllwi.re/p/1Il.
+
+## 2.1.2
+
+This version:
+
+1. First day of week for the calendar is set to that of the first day of the week set in the WordPress options for English calendars (the script for the calendar for other languages set this).
+
+1. Screenshot of Create Bible Readings Plans plugin settings screen to text linking to that plugin is added.
+
+1. Bug fix: Table of Contents is corrected so that it now displays in the language of the page.
+
+1. Bug fix: Heading for first Scripture is corrected so that readings to be only for the language of the page, instead of a combination of that language and English.
+
+1. Bug fixes: Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 7 and 22 October are corrected.
+
+1. Bug fix: Table of Contents text is aligned center, as originally intended.
+
+1. Bug fix: Repetition of Apocryphal books is corrected.
+
+## 2.1.1
+
+The .pot languages file is updated.
+
+### 2.1
+
+This version:
+
+1. A floating table of contents is added.
+
+1. A typo on line 1460 of bible-reading-plans-class.inc.php of version 2.0.2 is corrected.
+
+1. Some code is restructured for easier maintenance.
+
+### 2.0.2
+
+This version:
+
+1. The call to the method which checks on whether or not there are any new reading plans is moved from the method which initializes the administrative settings to the __construct() method in order to make sure all new or corrected plans are available even if the administrative settings are not accessed after an upgrade.
+
+2. Scripture references in a number of places where the references were from a specific verse to the end of the chapter for the Book of Common Prayer, 2019, Anglican Church in North America for the ESV API are corrected.
+
+### 2.0.1
+
+This version:
+
+1. Problem with the AJAX call that was causing a conflict with some other plugins is corrected.
+
+1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 23 June is corrected.
+
+### 2.0
+
+This version:
+
+1. Access to over 1700 versions in more than 1500 languages via the Bible Brain (aka the Digital Bible Platform) API is added.
+
+1. On-the-fly conversion of plans created by the Create Bible Reading Plans plugins to Version 4 of the Bible Brain (aka Digital Bible Platform) API is provided.
+
+1. The URL for the ESV Scriptures source is corrected.
+
+1. An error in CSS class brp-no-readings -- there was a colon where there should have been a semi-colon is corrected.
+
+1. A statement to CSS class brp-no-readings -- "padding-left: 10.5em !important;" is added to class eb-container .p1,
+
+1. Certain places that Scripture references were repeated are corrected.
+
+### 1.1.3
+
+1. The <pre> tags some themes place around the shortcode, causing the text to not wrap, are removed.
+ 
+### 1.1.2
+
+1. Yet another problem with rendering proper Scriptures when the reference is a book with only one chapter is corrected.
+
+1. Problem with rendering Jeremiah 35:1-36:32 properly on 20 October for the "Every Day In the Word" plan is corrected.
+
+### 1.1.1
+
+1. An additional problem with rendering proper Scriptures when the reference is a book with only one chapter is corrected.
+
+### 1.1 
+
+1. Version 4 of the Bible Brain (aka Digital Bible Platform) API is implemented (requiring a significant code re-write).
+
+1. Problem with rendering proper Scriptures when the reference is a book with only one chapter is corrected.
+
+1. More appropriate formatting for poetic books from the Bible Brain (aka Digital Bible Platform) API is provided.
+
+### 1.0.8
+
+1. Bug which was inhibiting plugin activation fixed.
+
+1. Plugin URI added to help with potential conflicts with other plugins.
+
+1. Changed Text Domain to bible-reading-plans (from bible_reading_plans).
+
+### 1.0.7 
+
+1. Problem with rendering proper Scriptures when the reference spans more than one chapter (e.g, 2 Kings 8:1-9:13) is corrected.
+
+1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 2 June is corrected.
+
+### 1.0.6
+
+1. Problem of Firefox not playing audio is corrected.
+
+1. Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 May is corrected.
+
+1. Further improvements to the spacing of headings and wrapping of text around calendar in Scriptures from esv.org are made.
+
+1. Bug-fixes -- Scripture references which are just book and chapter (no verses specified) and undefined variable "$heading."
+
+### 1.0.5
+
+1. Conflict with the Elementor plugin is fixed.
+
+1. A Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 5 May is corrected.
+
+1. Wrapping of Psalm titles around calendar (when calendar in text option is selected) is improved for Scriptures from esv.org.
+
+### 1.0.4 
+
+1. Issue with calendar not appearing on mobile phones or above Scriptures (when that option is selected) is fixed.
+
+1. Wrapping of text around calendar (when calendar in text option is selected) is corrected for Scriptures from esv.org.
+
+1. Scripture references for Every Day in the Word Psalms for 27 April is corrected.
+
+### 1.0.3
+
+1. Conflict with WordFence firewall blocks when Yoast SEO plugin is also active is fixed.
+
+### 1.0.2
+
+1. The corrected Every Day in the Word reading plan is actually uploaded.
+
+### 1.0.1
+
+1. Errors in the Every Day in the Word reading plan are corrected.
+
+### 1.0
+
+1. The reading plans "Chronicles and Prophets," "Gospel and Epistles," "Pentateuch and History of Israel," and "Psalms and Wisdom Literature" are added.
+
+1. Text from esv.org is enhanced by including passage headings.
+
+1. One of the Scripture references in the Daily Office Lectionary of the _Book of Common Prayer, 2019_, Anglican Church in North America is corrected.
+
+### 0.9
+
+1. The reading plans "Heartlight Old and New Testament," "One Year Chronological," and"Through the Bible in a Year" are added.
+
+1. Copyright statements are restructured and the way they are stored and output is standardized, while rewording them for completeness and clarity.
+
+### 0.8
+
+1. The reading plans "Every Day In the Word," "Literary Study Bible," and "Back to the Bible Chronological" are added.
+
+1. Logic to prevent the calendar from being displayed more than once is added.
+
+### 0.7
+
+1. Reading plans from the Daily Office Lectionary of the _Book of Common Prayer, 2019_, Anglican  by including passage headingsChurch in North America, are added.
+
+1. Ability to use readings from the Apocrypha added, defaulting to the Apocrypha of the American Bible Society's King James Version, Ecumenical, if no books from the Apocrypha are available in the version used for the readings.
+
+1. Scriptures output restructured.
+
+1. Key lengths returned to 32 characters for ABS and DBP APIs and to 40 characters for the ESV API.
+
+### 0.6.3
+
+1. Key lengths increased for all APIs.
+
+### 0.6.2
+
+1. Fixed problems with passages not displaying correctly when multiple chapters from same book were included in the readings for a day.
+
+### 0.6.1
+
+1. Fixed bug that prevented reading plans created with the Create Bible Reading Plans plugin from working with the ESV Bible Web Service API.
+
+1. Modified <code>.esv-text span.end-line-group</code> in brp-esv-scripture-styles.css to improve formatting of Psalms.
+
+### 0.6
+
+1. Adds the the ESV Bible Web Service API as a source of Scriptures, which includes audio for the Scriptures as well as the ability to format the text better than that from the DBP API.
+
+1. Retrieves list of versions from APIs only when the settings screen is used, at which time they are stored in the database. All other times the list is retrieved from the database.
+
+### 0.5.2
+
+1. Fixes bugs in the retrieval and storage sequencing of available Scripture versions.
+
+1. Code added to ensure API keys are of the correct length.
+
+### 0.5.1
+
+Fixes bug in error reporting of getting Scriptures from remote servers.
+
+### 0.5 
+
+1. Correct array of Bible versions from API.Bible is obtained.
+
+1. Option for displaying or not displaying plan name on page is provided.
+
+1. Several places where arrays or objects are expected, but not present, are fixed.
+
+1. Enqueues JavaScript libraries using recommended methods.
+
+1. When API key is missing or incorrect an error message is displayed.
+
+1. When JavaScript is deactivated in browser an error message is displayed.
+ by including passage headings
+1. Instructions are clarified.
+
+### 0.4.1
+
+Addition of omitted style sheets.
+
+### 0.4
+
+1.	API.Bible (American Bible Society) added as an additional source of Scriptures.
+
+1.	Function naming rationalization.	
+
+### 0.3
+
+1.	Incorporates compatibility with the premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il).
+
+1.	Addition of another version of the Bible. by including passage headings
+
+1.	Incorporates storing of reading plan arrays in the database, rather than a directory.
+
+1.	Incorporates use of core WordPress CSS for Datepicker.
+
+### 0.2
+
+Incorporates changes that require each user of the plugin to register at the Digital Bible Platform and get their own Access Key.
+
+### 0.1
+
+Initial release.
+

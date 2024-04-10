@@ -1,15 +1,15 @@
 <?php
 /**
  * @package				BibleReadingPlans
- * @version				3.0
+ * @version				3.0.2
  * @license				GPLv3 or later
  *
  * @wordpress-plugin
  * Plugin Name:			Bible Reading Plans
  * Plugin URI:			https://www.sitewidgets.com/bible-reading-plans/
- * Description:			This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" version="NAS"]</code> or <code>[bible-reading-plan reading_plan="mcheyne" source="DBP" bible_id="ENGNAS"]</code>. The latter form is new in this version, applies only to the DBP source, and  provides access to over 1700 Bible versions in more than 1500 languages, with more versions and languages being added regularly. Three sources for the Scriptures displayed for each plan are available: the American Bible Society API, Version 1 (API.Bible), the Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). There are now 16 different Bible reading plans available with the plugin, plus the ability to create ones own reading plan using an auxiliary, premium plugin.
+ * Description:			This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code>. **The last three parameters are new Version 3.0 and provide access to audio versions of the Scriptures, this shortcode applies only to the DBP source and *provides access to over 2000 Bible versions in nearly 1900 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). There are 16 different Bible reading plans available with the plugin, plus the ability to create ones own reading plan using an auxiliary, premium plugin.
 
- * Version:				3.0
+ * Version:				3.0.2
  * Requires at least:	2.8
  * Tested up to:		6.4.3
  * Requires PHP: 		5.6
