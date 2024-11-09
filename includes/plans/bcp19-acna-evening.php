@@ -6861,10 +6861,10 @@ $reading_plan = array (
     ),
     2 => 
     array (
-      'passage' => 'John 8:3',
+      'passage' => 'John 8:31-end',
       'verses' => 
       array (
-        0 => 'JHN/8?verse_start=3&verse_end=999',
+        0 => 'JHN/8?verse_start=31&verse_end=999',
       ),
     ),
   ),

@@ -3339,7 +3339,7 @@ EOS;
 			$passage_header = $book.' '.$chapter.':'.$start_verse.'-'.$next_chapter.':'.$next_verses;
 		} elseif ($verses) {
 			$passage_header = $book.' '.$chapter.':'.$verses;
-		} elseif (isset($chapter)) {
+		} elseif (isset($chapter) && !in_array($book, $this->one_chapter_books)) {
 			$passage_header = $book.' '.$chapter;
 		} else {
 			$passage_header = $book;

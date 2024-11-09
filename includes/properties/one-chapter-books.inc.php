@@ -5,7 +5,8 @@
 									'Prayer of Manasseh',
 									'Bel and the Dragon',
 									'Susanna',
-									'Prayer of Azariah',
+									'Song of the Three',
+									'Prayer of Azariah', // This is the same as the former one.
 									'Letter of Jeremiah',
 									'Philemon',
 									'2 John',
