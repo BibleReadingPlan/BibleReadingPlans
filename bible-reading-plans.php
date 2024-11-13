@@ -11,7 +11,7 @@
 
  * Version:				3.0.3
  * Requires at least:	2.8
- * Tested up to:		6.6.2
+ * Tested up to:		6.7
  * Requires PHP: 		5.6
  * Tested up to PHP:	8.3
  * Contributors: 		drmikegreen, sophoservices
