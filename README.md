@@ -13,7 +13,7 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0.3
+Stable branch: 3.0.4
 
 License: GPLv3 or later
 
@@ -163,6 +163,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 1. Populate DocBlocks for methods/functions.
 
 ## Upgrade Notice
+
+## 3.0.4
+
+Bug fix: Corrects a Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 10 November.
 
 ## 3.0.3
 
