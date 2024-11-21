@@ -2,7 +2,7 @@
 Contributors: drmikegreen,sophoservices
 Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bible readings
 Requires at least: 2.8
-Tested up to: 6.7
+Tested up to: 6.7.1
 Requires PHP: 5.6
 Tested up to PHP: 8.3
 Stable tag: 3.0.4
