@@ -7,7 +7,7 @@ Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bi
 
 Requires at least: 2.8
 
-Tested up to: 6.7
+Tested up to: 6.7.1
 
 Requires PHP: 5.6
 
