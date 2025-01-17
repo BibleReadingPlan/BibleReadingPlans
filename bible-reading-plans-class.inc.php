@@ -1201,7 +1201,11 @@ EOT;*/
  * @since Version number at which this method was added to be added here
  */
 	protected function add_date_picker_ui () {
-		$language_name	 = $this->dbp_versions[$this->lng_code_iso][0]['language_name'];
+		if (is_array($this->dbp_versions)) {
+			$language_name	 = $this->dbp_versions[$this->lng_code_iso][0]['language_name'];
+		} else { // assume english
+			$language_name = "English"
+		}
 		if (isset($this->lng_name_to_2_ltr_cd[$language_name]) && $this->lng_name_to_2_ltr_cd[$language_name]) {
 			$lang_code_2ltr = $this->lng_name_to_2_ltr_cd[$language_name];
 		} else {
