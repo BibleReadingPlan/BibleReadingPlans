@@ -166,6 +166,7 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## 3.0.4
 
+Bug fix: Using datepicker on ESV or ASB source would result in fatal exception
 Bug fix: Corrects a Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 10 November.
 
 ## 3.0.3
