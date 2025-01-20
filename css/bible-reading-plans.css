@@ -12,6 +12,10 @@
 	margin: 15px 0 5px 10px;
 }
 
+#datepicker .ui-datepicker-calendar table tr td, #datepicker-above .ui-datepicker-calendar table tr td {
+	padding:1px;
+}
+
 #brp-scriptures h2 {
 	font-weight: bold;
 }
