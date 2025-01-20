@@ -1206,7 +1206,7 @@ EOS;
 				</div>", 'bible-reading-plans');
 				$nr_unique_plans = $nr_plans - 1;
 		_e("	<div id=\"tabs-2\">
-					The values of \"reading_plan\" can be $nr_unique_plans distinct plans are available at present, more may be added -- and you may also create your own Bible reading plans by purchasing the <a href=\"http://sllwi.re/p/1Il\" target=\"_blank\">Create Bible Reading Plans plugin</a>):
+					The values of \"reading_plan\" can be $nr_unique_plans distinct plans are available at present, more may be added -- and you may also create your own Bible reading plans by purchasing the <a href=\"https://sophoservices.com/brp/\" target=\"_blank\">Create Bible Reading Plans plugin</a>):
 					<ul class=\"brp-plans\">$plans_list</ul>
 					The default reading plan is mcheyne.
 				</div>", 'bible-reading-plans');
@@ -1247,7 +1247,7 @@ EOS;
 		echo '
 	</div><p>&nbsp;</p><p style="text-align: center; font-weight: bold; border: 1px solid gold; margin: 0 auto 20px 200px; padding: 15px; color: #005353; background-color: #F3E8DF; width: 50%; border-radius: 25px;">';
 		_e('Create your own Bible reading plans to use with this plugin. Purchase the ', 'bible-reading-plans');
-		echo '<a href="http://sllwi.re/p/1Il" target="_blank">Create Bible Reading Plans plugin</a>.<br /><br />';
+		echo '<a href="https://sophoservices.com/brp/" target="_blank">Create Bible Reading Plans plugin</a>.<br /><br />';
 		_e('Questions? <a href="https://saesolved.com/contact-us/" target="_blank">Contact us.</a>', 'bible-reading-plans');
 		echo '</p><div id="instructions_below">&nbsp;</div>';
 		echo '<form method="post" action="options.php">';

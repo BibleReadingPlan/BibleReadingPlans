@@ -863,7 +863,7 @@ EOS;
 				</div>", 'bible-reading-plans');
 				$nr_unique_plans = $nr_plans - 1;
 		_e("	<div id=\"tabs-2\">
-					The values of \"reading_plan\" can be $nr_unique_plans distinct plans are available at present, more may be added -- and you may also create your own Bible reading plans by purchasing the <a href=\"http://sllwi.re/p/1Il\" target=\"_blank\">Create Bible Reading Plans plugin</a>):
+					The values of \"reading_plan\" can be $nr_unique_plans distinct plans are available at present, more may be added -- and you may also create your own Bible reading plans by purchasing the <a href=\"https://sophoservices.com/brp/\" target=\"_blank\">Create Bible Reading Plans plugin</a>):
 					<ul class=\"brp-plans\">$plans_list</ul>
 					The default reading plan is mcheyne.
 				</div>", 'bible-reading-plans');
@@ -905,7 +905,7 @@ EOS;
 		echo '
 	</div><p>&nbsp;</p><div style="text-align: center; font-weight: bold; border: 1px solid gold; margin: 0 auto 20px 200px; padding: 15px; color: #005353; background-color: #F3E8DF; width: 50%; border-radius: 25px;">';
 		_e('Create your own Bible reading plans to use with this plugin. Purchase the ', 'bible-reading-plans');
-		echo '<a href="https://sllwi.re/p/1Il" target="_blank">Create Bible Reading Plans plugin</a>.';
+		echo '<a href="https://sophoservices.com/brp/" target="_blank">Create Bible Reading Plans plugin</a>.';
 		echo '<p><details>
   <summary style="cursor: pointer;">Click to toggle for more or less info...</summary>
   <p style="text-align: center; font-weight: bold;">This is a screen-shot of the input screen for the Create Bible Reading Plans plugin.<br />Click on it to open it in new tab where you can zoom in to see it in more detail.
