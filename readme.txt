@@ -40,7 +40,7 @@ The values of reading_plan can be:
 
 The default reading plan is M'Cheyne One-Year Reading Plan. 
 
-We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il) to make it possible to create one's own Bible reading plan for use in this plugin.
+We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sophoservices.com/brp/) to make it possible to create one's own Bible reading plan for use in this plugin.
 
 The values of source can be:
 
