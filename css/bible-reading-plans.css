@@ -12,7 +12,7 @@
 	margin: 15px 0 5px 10px;
 }
 
-#datepicker .ui-datepicker-calendar table tr td, #datepicker-above .ui-datepicker-calendar table tr td {
+#datepicker .ui-datepicker-calendar table tr td, #datepicker-above .ui-datepicker-calendar table tr td, #datepicker .ui-datepicker-calendar table tr th, #datepicker-above .ui-datepicker-calendar table tr th {
 	padding:1px;
 }
 
