@@ -161,6 +161,7 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 ## 3.0.5
 
 Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 January.
+Update: Change purchase link for Bible Reading Plan Creator to https://sophoservices.com/brp
 
 = 3.0.4 =
 
