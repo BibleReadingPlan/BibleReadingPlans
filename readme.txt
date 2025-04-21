@@ -157,6 +157,11 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
+= 3.0.5 =
+## 3.0.5
+
+Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 January.
+
 = 3.0.4 =
 
 Bug fix: Using datepicker on ESV or ASB source would result in fatal exception
