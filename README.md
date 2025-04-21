@@ -13,7 +13,7 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0.4
+Stable branch: 3.0.5
 
 License: GPLv3 or later
 
