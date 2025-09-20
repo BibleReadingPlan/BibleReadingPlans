@@ -19,14 +19,14 @@ class BibleReadingPlans {
 /* This needs to be broken up into much smaller sections of code.
  * DocBlocks are a work in progress.
  */
-	 
+
 // NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE PAGE.
-	
+
 	/*	Property values are in the includes/properties directory.
 		Properties used only by administrative methods are loaded as needed.
 		The others are loading by the load_property_values() method.
 	*/
-	
+
 	protected $abs_api_key	     	= '';
 	protected $abs_key_length	 	= '';
 	protected $abs_copyright     	= '';
@@ -131,7 +131,7 @@ class BibleReadingPlans {
 	protected $use_calendar			= '';
 	protected $version				= '';
 	protected $version_type			= array();
-	
+
 /**
  * __construct
  * Description to be inserted here
@@ -186,7 +186,7 @@ class BibleReadingPlans {
 				}
  			}
 		}
-		
+
 		$key = get_option('bible_reading_plans_abs_api_key');
 		if ($key && $this->abs_key_length == strlen(trim($key))) {
             $this->abs_api_key	= $key;
@@ -201,7 +201,7 @@ class BibleReadingPlans {
 			$this->abs_api_key	= '';
 			$this->abs_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ABS', 'bible-reading-plans'));	
 		}
-		
+
 		$key = get_option('bible_reading_plans_dbp_api_key');
 		if ($key && (strlen(trim($key)) <= $this->dbp_key_length_max && strlen(trim($key)) >= $this->dbp_key_length_min)) {
             $this->dbp_api_key = $key;
@@ -238,7 +238,7 @@ class BibleReadingPlans {
 			$this->dbp_api_key	= '';
 			$this->dbp_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for DBP', 'bible-reading-plans'));
 		}
-		
+
 		$key = get_option('bible_reading_plans_esv_api_key');
 		if ($key && $this->esv_key_length == strlen(trim($key))) {
 			$this->esv_api_key	= $key;
@@ -247,9 +247,9 @@ class BibleReadingPlans {
 			$this->esv_api_key	= '';
 			$this->esv_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ESV', 'bible-reading-plans'));	
 		}
-		
+
 		$this->dbp_query_base   .= "&key={$this->dbp_api_key}";
-		
+
 		$this->display_plan_name = get_option('bible_reading_plans_display_plan_name');
 		if (false === $this->display_plan_name) {
 			$this->display_plan_name = false;
@@ -314,7 +314,7 @@ class BibleReadingPlans {
 		// Scripts
 		wp_enqueue_script('jquery');
 	}
-	
+
 /**
  * addLanguagesAndVersions
  * Description to be inserted here
@@ -352,7 +352,7 @@ class BibleReadingPlans {
 			</script>\n";
 EOS;
 	}
-	
+
 /**
  * addScriptureLoader
  * Description to be inserted here
@@ -472,7 +472,7 @@ EOS;
 	/* ]]> */ 
 </script>\n";
 	}
-		
+
 /**
  * adminAddPage
  * Description to be inserted here
@@ -537,7 +537,7 @@ EOS;
 	public function bibleReadingPlansDisplayPlanName () {
 		echo '<input name="bible_reading_plans_display_plan_name" id="bible_reading_plans_display_plan_name_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_plan_name, false).' />';
 	}
-	
+
 /**
  * bibleReadingPlansDisplayMoveableFeasts
  * Description to be inserted here
@@ -554,7 +554,7 @@ EOS;
 		echo '<input title="'.$moveable_feasts.'" name="bible_reading_plans_display_mvble_feasts" id="bible_reading_plans_display_mvble_feasts_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_mvble_feasts, false).' />';
 		_e('These are days like Easter Sunday, Good Friday, Pentecost, etc., which are observed on the different dates every year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day. <span style="font-weight: bold; font-style: italic;">Note that this defaulted to "checked" in versions prior to 2.2 for the ACNA readings.</span>', 'bible-reading-plans');
 	}
-	
+
 /**
  * bibleReadingPlansDisplayHolyDays
  * Echo to the screen HTML for selecting if Holy Days should be displayed.
@@ -573,7 +573,7 @@ EOS;
 		<?php
 		_e('These are Christmas Day, All Saints\' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day.', 'bible-reading-plans');
 	}
-	
+
 /**
  * bibleReadingPlansDisplayToc
  * Description to be inserted here
@@ -586,7 +586,7 @@ EOS;
 		echo '<input name="bible_reading_plans_display_toc" id="bible_reading_plans_display_toc_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_toc, false).' />';
 		_e('You may alter the appearance and location of the Table of Contents by overriding the styles of the "Table of Contents" and "Mobile" sections of the "css/bible-reading-plans.css" stylesheet.', 'bible-reading-plans');
 	}
-	
+
 /**
  * bibleReadingPlansEsvApiKeyValue
  * Description to be inserted here
@@ -629,7 +629,7 @@ EOS;
 	public function bibleReadingPlansShowPoweredByValue () {
 		echo '<input name="bible_reading_plans_show_poweredby" id="bible_reading_plans_show_poweredby_id" type="checkbox" value="1" class="code" '.checked(true, $this->show_poweredby, false).' />';
 	}
-	
+
 /**
  * bibleReadingPlansUseCalendarValue
  * Description to be inserted here
@@ -667,7 +667,7 @@ EOS;
 </script>
 		';
 	}
-	
+
 /**
  * getVersionsList
  * Description to be inserted here
@@ -786,7 +786,7 @@ EOS;
 		echo $rtn_str;
  		die();
 	}
-	
+
 /**
  * drawOptionsPage
  * Description to be inserted here
@@ -842,9 +842,9 @@ EOS;
 				</ul>
 			</p>
 			<p>The "source", "reading_plan", "version", "bible_id", and (for the DBP the "bible_all_audio_id", "bible_ot_audio_id", and "bible_nt_audio_id") values are listed under the following tabs:</p>', 'bible-reading-plans');
-			
+
 		echo '<div id="tabs">';
-			
+
 		_e('	<ul>
 					<li><a href="#tabs-1">Sources Available</a></li>
 					<li><a href="#tabs-2">Reading Plans Available</a></li>
@@ -852,7 +852,7 @@ EOS;
 					<li><a href="#tabs-4">Versions Available from the Bible Brain API (DBP)</a></li>
 					<li><a href="#tabs-5">English Standard Version API (ESV)</a></li>
 				</ul>', 'bible-reading-plans');
-				
+
 		_e("	<div id=\"tabs-1\">
 					The \"source\" can be: 
 					<ul class=\"brp-plans\">
@@ -869,7 +869,7 @@ EOS;
 					<ul class=\"brp-plans\">$plans_list</ul>
 					The default reading plan is mcheyne.
 				</div>", 'bible-reading-plans');
-				
+
 		echo '	<div id="tabs-3">';
 		_e('		The English language versions available from API.Bible (ABS) and the corresponding codes to be used for "version" in the shortcode currently are:
 					<ul class="brp-plans">'.$abs_versions_list.'</ul>
@@ -897,11 +897,11 @@ EOS;
 			</div>
 		</div>
 	</div>
-	
+
 	<script type="text/javascript">
 				jQuery("#tabs").tabs();
 	</script>
-			
+
 	<div style="clear: both; padding-top: 15px;">';
 		_e('The page opens with the plan reading for the current date. A date picker calendar is available (see option below) to enable users to choose readings for other dates.<br /><br />This plugin requires JavaScript to be active.', 'bible-reading-plans');
 		echo '
@@ -1238,7 +1238,7 @@ EOT;*/
 			$rtn_str .= "
 			jQuery(document).ready(function($){
 				$.datepicker.setDefaults($.datepicker.regional[\"$lang_code_2ltr\"]);
-				
+
 			})";
 		}
 		$rtn_str .= "
@@ -1429,7 +1429,7 @@ EOS;
 		}
 		return $dbp_versions_list;
 	}
-	
+
 /**
  * construct_urls_array_abs
  * Description to be inserted here
@@ -1589,7 +1589,7 @@ EOS;
 		}
 		return $urls_ary;
 	}
-	
+
 /**
  * convert_dbp4_plan_to_abs_plan
  * Description to be inserted here
@@ -1828,22 +1828,22 @@ EOS;
 				$reading_plan_0['copy_type'] = __('Public Domain', 'bible-reading-plans');
 			}						
 			switch ($reading_plan_0['copy_type']) {
-			
+
 				case 'Alan Hartless':
 					$rtn_str .= __('This Bible reading plan from ', 'bible-reading-plans').$reading_plan_0['plan_orgn'].__(' is licensed under the <a target="_blank" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v.3</a> by Alan Hartless in a plugin written for Joomla: https://github.com/alanhartless/bibleplan, &copy; HartlessByDesign 2011. All rights reserved. Licensed under GNU General Public License v.3.', 'bible-reading-plans');
 					break;
-					
+
 				case 'ACNA':
 					$rtn_str .= __('All not-for-profit reproduction of this Bible reading plan by churches and non-profit organizations is permitted (reference Copyright statement in <a href="https://bcp2019.anglicanchurch.net/" target="_blank">', 'bible-reading-plans').'<span style="font-style: italic;">The Book of Common Prayer</span></a>, 2019, Anglican Church in North America). '.'<span style="font-size: 0.9em;">'.__('Many thanks to ', 'bible-reading-plans').'<a href="https://www.joshuapsteele.com/" target="_blank">The Revd Joshua P Steele</a> '.__('for supplying this plan in digital form.', 'bible-reading-plans').'</span>';
 					break;
-					
+
 				case 'Public Domain':
 					$rtn_str .= __('This Bible reading plan by ', 'bible-reading-plans').$reading_plan_0['plan_orgn'].__(' is in the Public Domain.', 'bible-reading-plans');
 					break;
-					
+
 				default:
 					$rtn_str .= $reading_plan_0['copy_type'];
-				
+
 			}
 		} else {
 			$rtn_str .= $reading_plan_0['copyright'];
@@ -1851,7 +1851,7 @@ EOS;
 		$rtn_str .= $scriptures_copyright.'<br />';
 		$rtn_str .= $apocrypha_copyright.'</div>';
 	}
-	
+
 /**
  * display_header_items
  * Description to be inserted here
@@ -2122,7 +2122,7 @@ EOS;
 			return $scriptures_div; // no calendar
 		}
 	}
-	
+
 /**
  * convert_dbp4_url_to_abs_url_end
  * Description to be inserted here
@@ -2143,7 +2143,7 @@ EOS;
 		$abs_url_end								= $book_code.'.'.$chapter.'.'.$verse_start.'-'.$book_code.'.'.$chapter.'.'.$verse_end;
 		return $abs_url_end;
 	}
-	
+
 /**
  * decoded_body_passages_is_empty
  * Description to be inserted here
@@ -2275,7 +2275,7 @@ EOS;
 							$not_text = preg_match("/(video|film)/i", $data_ary['name']);
 							if ('text_usx' == $filesets['type']) {
 								// Do not use usx-formatted files for this version.
-								
+
 								/* There is, however, an xslt file available at <script src="https://gist.github.com/jonbitgood/d3eac3aa9dc25a1413cebf1c437b93ec.js"></script> which could be of use. The creator of this xslt file says "It looks nice with the css from API.bible." (https://github.com/ubsicap/usx/issues/39) This xslt file is recorded here, in case the version at GitHub goes away:
 									<xsl:stylesheet version="2.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 										<xsl:output indent="yes" />
@@ -2328,7 +2328,7 @@ EOS;
 										</xsl:template>
 									</xsl:stylesheet>
 								*/
-								
+
 								break;
 							}
 							if (isset($data_ary['iso']) && $data_ary['iso'] && 1 != $not_text) {
@@ -2389,7 +2389,7 @@ EOS;
 		$this->add_versions('dbp');
 		die();
 	}
-	
+
 /**
  * add_readings_plans_arrays_to_database
  * Description to be inserted here
@@ -2482,7 +2482,7 @@ EOS;
 		}
 		return $reading_plan;
 	}
-	
+
 /**
  * is_json
  * Description to be inserted here
@@ -2497,7 +2497,7 @@ EOS;
 		json_decode($string);
 		return json_last_error() === JSON_ERROR_NONE;
 	}
-	
+
 /**
  * load_property_values
  * Description to be inserted here
@@ -2519,7 +2519,7 @@ EOS;
 		require_once('includes/properties/short_code_atts.inc.php');
 		require_once('includes/properties/sources.inc.php');
 	}
-	
+
 /**
  * moveable_feasts_dates
  * Description to be inserted here
@@ -2562,7 +2562,7 @@ EOS;
 		}
 		return $date_key;
 	}
-	
+
 /**
  * parse_bk_chp_vrs
  * Description to be inserted here
@@ -2584,7 +2584,7 @@ EOS;
 		}
 		return array($book, $chapter_and_verses);
 	}
-	
+
 /**
  * poetic_passage
  * Description to be inserted here
@@ -2652,7 +2652,7 @@ EOS;
 		}
 		return $rtn_str;
 	}
-	
+
 /**
  * put_verses_apocrypha
  * Description to be inserted here
@@ -2737,7 +2737,7 @@ EOS;
 		}
 		return $book;
 	}
-	
+
 /**
  * transform_passage_dbp
  * Transforms the passage header from English to whatever language is being used.
@@ -2770,7 +2770,7 @@ EOS;
 		$chapter_and_verses	= implode(' ', $parts);
 		return $book_name.' '.$chapter_and_verses;
 	}
-	
+
 /**
  * layout_passage_dbp
  * Description to be inserted here
@@ -3252,7 +3252,7 @@ EOS;
 			return $text;
 		}
 	}
-	
+
 /**
  * toc_list
  * Description to be inserted here
@@ -3407,7 +3407,7 @@ EOS;
 								)
 							);
 	}
-	
+
 	protected function verify_version_content ($language_code = 'ENG') {
 		// Currently for only the DBP. 
 		$tmp_ary				= array();
