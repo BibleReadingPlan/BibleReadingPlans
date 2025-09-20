@@ -7,13 +7,13 @@ Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bi
 
 Requires at least: 2.8
 
-Tested up to: 6.4.3
+Tested up to: 6.7.1
 
 Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0
+Stable branch: 3.0.4
 
 License: GPLv3 or later
 
@@ -163,6 +163,25 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 1. Populate DocBlocks for methods/functions.
 
 ## Upgrade Notice
+
+## 3.0.5
+
+Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 January.
+
+## 3.0.4
+
+Bug fix: Using datepicker on ESV or ASB source would result in fatal exception
+Bug fix: Corrects a Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 10 November.
+
+## 3.0.3
+
+Bug fix: Corrects a Scripture reference for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 6 August.
+
+Bug fix: Corrects issues caused by omission of one chapter books array.
+
+## 3.0.1
+
+Bug fix: Corrects handling of Scriptures on Leap Day (29 Feb).
 
 ## 3.0
 
@@ -521,7 +540,5 @@ This version incorporates changes that require each user of the plugin to regist
 Initial release.
 
 ## Changelog
-
-= 3.0 =
 
 See "Upgrade Notice" above.

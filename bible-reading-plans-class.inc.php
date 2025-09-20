@@ -174,7 +174,6 @@ class BibleReadingPlans {
 				}
 			}
 		}
-//		$reading_plans_list = get_option('brp_reading_plans_list');
 		if (is_array($reading_plans_list) && count($reading_plans_list)) {
 			foreach ($reading_plans_list as $prefixed_shortcode => $plan_name) {
 				// Remove prefixes.
@@ -1164,7 +1163,11 @@ EOT;*/
  * @since Version number at which this method was added to be added here
  */
 	protected function add_date_picker_ui () {
-		$language_name	 = $this->dbp_versions[$this->lng_code_iso][0]['language_name'];
+		if (is_array($this->dbp_versions)) {
+			$language_name	 = $this->dbp_versions[$this->lng_code_iso][0]['language_name'];
+		} else { // assume english
+			$language_name = "English";
+		}
 		if (isset($this->lng_name_to_2_ltr_cd[$language_name]) && $this->lng_name_to_2_ltr_cd[$language_name]) {
 			$lang_code_2ltr = $this->lng_name_to_2_ltr_cd[$language_name];
 		} else {
@@ -1618,9 +1621,12 @@ EOS;
 	protected function datekey ($reading_plan, $time) {
 		$date_key = date('m-d', $time);
 		if ($date_key == '02-29') {
+			$ary_kys = array_keys($reading_plan);
+			if (in_array($date_key, $ary_kys)) {
+				return $date_key;
+			}
 			// If 29 February is not in the reading plan, use the last day in the plan on that day.
-			$ary_kys		= array_keys($reading_plan);
-			$days_in_plan	= count($ary_kys) - 1;
+			$days_in_plan = count($ary_kys) - 1;
 			if ($days_in_plan < 366) {
 				$date_key = array_pop($ary_kys);
 			}
@@ -1894,15 +1900,7 @@ EOS;
 				$scptr_src_prefix = $this->scptr_src_prefix;
 			}
 			$reading_plan	= $this->get_reading_plan_for_source($scptr_src_prefix);
-			$date_key		= date('m-d', $time);
-			if ($date_key == '02-29') {
-				// If 29 February is not in the reading plan, use the last day in the plan on that day.
-				$ary_kys		= array_keys($reading_plan);
-				$days_in_plan	= count($ary_kys) - 1;
-				if ($days_in_plan < 366) {
-					$date_key = array_pop($ary_kys);
-				}
-			}
+			$date_key		= $this->datekey($reading_plan, $time);
 			if ($this->display_plan_name) {
 				if ('bcp19-acna-twoyear' == $this->reading_plan) {
 					$acna_twoyear_reading_plan	= get_option($this->brp_prefix.$scptr_src_prefix.$this->reading_plan);
@@ -3308,7 +3306,7 @@ EOS;
 			$passage_header = $book.' '.$chapter.':'.$start_verse.'-'.$next_chapter.':'.$next_verses;
 		} elseif ($verses) {
 			$passage_header = $book.' '.$chapter.':'.$verses;
-		} elseif (isset($chapter)) {
+		} elseif (isset($chapter) && !in_array($book, $this->one_chapter_books)) {
 			$passage_header = $book.' '.$chapter;
 		} else {
 			$passage_header = $book;

@@ -82,7 +82,7 @@
 										'JUD' => __('Jude', 'bible-reading-plans'),
 										'REV' => __('Revelation', 'bible-reading-plans'),
 										);
-/*	$this->book_names_ap	= array(// Apocrypha
+	$this->book_names_ap	= array(// Apocrypha
 										__('1 Esdras', 'bible-reading-plans'),
 										__('2 Esdras', 'bible-reading-plans'),
 										__('Tobit', 'bible-reading-plans'),
@@ -97,8 +97,8 @@
 										__('Manasseh', 'bible-reading-plans'),
 										__('1 Maccabees', 'bible-reading-plans'),
 										__('2 Maccabees', 'bible-reading-plans'),
-										);*/
-	$this->book_codes_ot		= array( // Old Testament
+										);
+	$this->book_codes_ot	= array( // Old Testament
 										'GEN',
 										'EXO',
 										'LEV',
