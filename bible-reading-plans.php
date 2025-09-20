@@ -11,7 +11,7 @@
 
  * Version:				3.0.5
  * Requires at least:	2.8
- * Tested up to:		6.7.1
+ * Tested up to:		6.8.2
  * Requires PHP: 		5.6
  * Tested up to PHP:	8.3
  * Contributors: 		drmikegreen, sophoservices
@@ -29,7 +29,7 @@ This program is free software; you can redistribute it and/or modify it under th
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.
 */
 
-	include_once('bible-reading-plans-class.inc.php');
-	include_once('bible-reading-plans-hooks.inc.php');
+include_once "bible-reading-plans-class.inc.php";
+include_once "bible-reading-plans-hooks.inc.php";
 
 ?>
