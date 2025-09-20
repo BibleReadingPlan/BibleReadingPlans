@@ -1,4 +1,4 @@
-# Copyright (C) 2024 
+# Copyright (C) 2024
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
@@ -278,7 +278,7 @@ msgid "Create your own Bible reading plans to use with this plugin. Purchase the
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:914
-msgid "Further questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
+msgid "Further questions? <a href=\"https://sophoservices.com/brp/\" target=\"_blank\">Contact us.</a>"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:920
@@ -680,7 +680,7 @@ msgid ""
 msgstr ""
 
 #: css/bible-reading-plans-class.inc.php:1251
-msgid "Questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
+msgid "Questions? <a href=\"sophoservices.com/brp/\" target=\"_blank\">Contact us.</a>"
 msgstr ""
 
 #: css/bible-reading-plans-class.inc.php:1313
