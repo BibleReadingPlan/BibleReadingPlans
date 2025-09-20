@@ -13,7 +13,7 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0.4
+Stable branch: 3.0.5
 
 License: GPLv3 or later
 
@@ -52,7 +52,7 @@ The values of reading_plan can be:
 
 The default reading plan is M'Cheyne One-Year Reading Plan. 
 
-We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il) to make it possible to create one's own Bible reading plan for use in this plugin.
+We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sophoservices.com/brp/) to make it possible to create one's own Bible reading plan for use in this plugin.
 
 The values of source can be:
 
@@ -167,6 +167,7 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 ## 3.0.5
 
 Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 January.
+Update: Change purchase link for Bible Reading Plan Creator to <https://sophoservices.com/brp>
 
 ## 3.0.4
 
