@@ -132,7 +132,7 @@ msgid "These are days like Easter Sunday, Good Friday, Pentecost, etc., which ar
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:572
-msgid "These are r Christmas Day, All Saints' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day."
+msgid "These are Christmas Day, All Saints' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:585

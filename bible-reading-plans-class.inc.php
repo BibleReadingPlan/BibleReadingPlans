@@ -557,19 +557,21 @@ EOS;
 	
 /**
  * bibleReadingPlansDisplayHolyDays
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Echo to the screen HTML for selecting if Holy Days should be displayed.
  */
 	public function bibleReadingPlansDisplayHolyDays () {
 		$holy_days = '';
 		foreach ($this->holy_days as $val) {
-			$holy_days .= "$val\n";		
+			$holy_days .= "$val\n";
 		}
-		echo '<input title="'.$holy_days.'" name="bible_reading_plans_display_holy_days" id="bible_reading_plans_display_holy_days_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_holy_days, false).' />';
-		_e('These are r Christmas Day, All Saints\' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day.', 'bible-reading-plans');
+		// list of holy days will popup with a hover over the input checkbox.
+		?>
+		<input title="<?php echo $holy_days?>"
+		    name="bible_reading_plans_display_holy_days"
+			id="bible_reading_plans_display_holy_days_id"
+			type="checkbox" value="1" class="code" <?php echo checked(true, $this->display_holy_days, false)?> />
+		<?php
+		_e('These are Christmas Day, All Saints\' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day.', 'bible-reading-plans');
 	}
 	
 /**
