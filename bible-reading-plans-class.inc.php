@@ -2,8 +2,8 @@
 
 /**
  * BibleReadingPlans
- * Shortcodes of the form [bible-reading-plan reading_plan="mcheyne" source="DBP" version="NAS"] or 
- * [bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS"] are replaced 
+ * Shortcodes of the form [bible-reading-plan reading_plan="mcheyne" source="DBP" version="NAS"] or
+ * [bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS"] are replaced
  * by the Scriptures from a Bible Reading Plan for the date selected.
  *
  * @package Bible Reading Plans
@@ -34,7 +34,7 @@ class BibleReadingPlans {
 	protected $abs_language_ids	 	= array();
 	protected $abs_sctr_src_url	 	= '';
 	protected $abs_url_base		 	= '';
-	protected $abs_vers_default  	= array(); 
+	protected $abs_vers_default  	= array();
 	protected $abs_versions		 	= array();
 	protected $ajax_url          	= '';
 	protected $api_request_err	 	= '';
@@ -43,9 +43,9 @@ class BibleReadingPlans {
 	protected $audio_none_note		= '';
 	protected $chapter_start	 	= array();
 	protected $bible_id		 		= '';
-    protected $bible_all_audio_id	= ''; 
-	protected $bible_nt_audio_id	= ''; 
-	protected $bible_ot_audio_id	= ''; 
+    protected $bible_all_audio_id	= '';
+	protected $bible_nt_audio_id	= '';
+	protected $bible_ot_audio_id	= '';
 	// DBP v4 book_codes are the same as the abs_codes.
 	protected $book_codes_names		= array();
 	protected $book_codes_ap		= array(); // Apocrypha
@@ -55,7 +55,7 @@ class BibleReadingPlans {
 	protected $brp_prefix		 	= '';
 	protected $calendar_in_text	 	= '';
 	protected $cbrp_prefix		 	= '';
-	protected $dam_id			 	= ''; 
+	protected $dam_id			 	= '';
 	protected $date_format_js	 	= '';
 	protected $date_format_php	 	= '';
 	protected $dbp_api_key		 	= '';
@@ -111,7 +111,7 @@ class BibleReadingPlans {
 	protected $one_chapter_books 	= array();
 	protected $php_date_format	 	= '';
 	protected $plugin_url			= '';
-	protected $poetic				= array(); 
+	protected $poetic				= array();
 	protected $powered_by		 	= '';
 	protected $reading_plan		 	= '';
 	protected $reading_plans		= array();
@@ -161,7 +161,7 @@ class BibleReadingPlans {
 				$reading_plan	= get_option($plan_key);
 				if (isset($reading_plan[0]['copyright']) && 'Public Domain' == $reading_plan[0]['copyright']) {
 					$reading_plan[0]['copy_type'] = 'Public Domain';
-					$reading_plan[0]['copyright'] = 'standardized'; 
+					$reading_plan[0]['copyright'] = 'standardized';
 				}
 				if (strpos($plan_key, 'dbp') !== false) {
 					// Only plans from the Create Bible Reading Plans plugin created for the Digital Bible Platform need conversion.
@@ -199,7 +199,7 @@ class BibleReadingPlans {
 			update_option('bible_reading_plans_abs_versions', $this->abs_versions);
 		} else {
 			$this->abs_api_key	= '';
-			$this->abs_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ABS', 'bible-reading-plans'));	
+			$this->abs_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ABS', 'bible-reading-plans'));
 		}
 
 		$key = get_option('bible_reading_plans_dbp_api_key');
@@ -245,7 +245,7 @@ class BibleReadingPlans {
 			$this->esv_versions	= $this->esv_vers_default;
 		} else {
 			$this->esv_api_key	= '';
-			$this->esv_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ESV', 'bible-reading-plans'));	
+			$this->esv_versions = $this->return_api_error($this->err_flag.__(': Missing API Key for ESV', 'bible-reading-plans'));
 		}
 
 		$this->dbp_query_base   .= "&key={$this->dbp_api_key}";
@@ -327,7 +327,7 @@ class BibleReadingPlans {
 		$err_msg		= __('ERROR: Could not retrieve list of versions from the Bible Brain (aka the Digital Bible Platform) API', 'bible-reading-plans');
 		$loading_image	= '<div class="brp-loading"><br />'.__('Please wait.', 'bible-reading-plans').'<br />'.$this->loading_image.'<br />'.__('It takes a short while to load and process all of the required data from the Bible Brain (aka the Digital Bible Platform) API.', 'bible-reading-plans').'<br /><br /></div>';
 		echo <<<EOS
-			<script type="text/javascript" defer> 
+			<script type="text/javascript" defer>
 				/* <![CDATA[ */
 					var ajaxurl	= '{$this->ajax_url}';
 					var err_msg = '{$err_msg}.';
@@ -343,12 +343,12 @@ class BibleReadingPlans {
 							success: function (response) {
 								$('#brp-dbp-languages-and-versions').html(response);
 							},
-							error: function () { 
+							error: function () {
 								$('#brp-dbp-languages-and-versions').html(err_msg);
 							}
 						});
 					});
-				/* ]]> */ 
+				/* ]]> */
 			</script>\n";
 EOS;
 	}
@@ -368,7 +368,7 @@ EOS;
 		}
 		$err_msg		= __("TIMEOUT ERROR: Could not retrieve Scriptures from ");
 		echo '
-<script type="text/javascript" defer> 
+<script type="text/javascript" defer>
 	/* <![CDATA[ */';
 		if ('abs_' == $this->scptr_src_prefix) {
 			$err_msg .= $this->abs_sctr_src_url;
@@ -389,13 +389,13 @@ EOS;
 						reading_plan:			'{$this->reading_plan}',
 						version:				'{$this->version}',
 						source:					'ABS',
-						requested_date:			brp_date_obj.toDateString(),					
+						requested_date:			brp_date_obj.toDateString(),
 						device_screen_width:	$(window).width(),
 					},
 					success: function (response) {
 						$('#brp-scriptures').html(response);
 					},
-					error: function (response) { 
+					error: function (response) {
 						$('#brp-scriptures').html(err_msg);
 					},
 				})
@@ -425,13 +425,13 @@ EOS;
 						reading_plan:			'{$this->reading_plan}',
 						version:				'{$this->version}',
 						source:					'DBP',
-						requested_date:			brp_date_obj.toDateString(),					
+						requested_date:			brp_date_obj.toDateString(),
 						device_screen_width:	$(window).width(),
 					},
 					success: function (response) {
 						$('#brp-scriptures').html(response);
 					},
-					error: function () { 
+					error: function () {
 						$('#brp-scriptures').html(err_msg);
 					}
 				})
@@ -456,20 +456,20 @@ EOS;
 						reading_plan:			'{$this->reading_plan}',
 						version:				'{$this->version}',
 						source:					'ESV',
-						requested_date:			brp_date_obj.toDateString(),					
+						requested_date:			brp_date_obj.toDateString(),
 						device_screen_width:	$(window).width(),
 					},
 					success: function (response) {
 						$('#brp-scriptures').html(response);
 					},
-					error: function () { 
+					error: function () {
 						$('#brp-scriptures').html(err_msg);
 					}
 				})
 			});";
 		}
 		echo "
-	/* ]]> */ 
+	/* ]]> */
 </script>\n";
 	}
 
@@ -549,7 +549,7 @@ EOS;
 	public function bibleReadingPlansDisplayMoveableFeasts () {
 		$moveable_feasts = '';
 		foreach ($this->moveable_feasts as $val) {
-			$moveable_feasts .= "$val\n";		
+			$moveable_feasts .= "$val\n";
 		}
 		echo '<input title="'.$moveable_feasts.'" name="bible_reading_plans_display_mvble_feasts" id="bible_reading_plans_display_mvble_feasts_id" type="checkbox" value="1" class="code" '.checked(true, $this->display_mvble_feasts, false).' />';
 		_e('These are days like Easter Sunday, Good Friday, Pentecost, etc., which are observed on the different dates every year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day. <span style="font-weight: bold; font-style: italic;">Note that this defaulted to "checked" in versions prior to 2.2 for the ACNA readings.</span>', 'bible-reading-plans');
@@ -579,7 +579,6 @@ EOS;
  * Description to be inserted here
  *
  *
- * @return Datatype description to be added here
  *
  */
 	public function bibleReadingPlansDisplayToc () {
@@ -649,21 +648,21 @@ EOS;
 		echo ';">';
 		echo '<div class="brp-in-text"><input name="bible_reading_plans_calendar_in_text" type="radio" value=1 class="code" ';
 		if ($this->calendar_in_text)  echo 'checked';
-		echo ' />'; 
+		echo ' />';
 		_e('at top of Bible text, with text wrapped', 'bible-reading-plans');
 		echo '</div>';
 		echo '<div class="brp-in-text"><input name="bible_reading_plans_calendar_in_text" type="radio" value=0 class="code" ';
 		if (!$this->calendar_in_text) echo 'checked';
 		echo ' /> '.__('above text', 'bible-reading-plans').'</div><div class="brp-in-text">'.__('(Calendar will always be above the text for screens less than ', 'bible-reading-plans').$this->switch_cal_width.__('px wide', 'bible-reading-plans').')</div></div>';
 		echo '
-<script type="text/javascript"> 
+<script type="text/javascript">
 	/* <![CDATA[ */
 		jQuery(document).ready(function($) {
 			$("#bible_reading_plans_use_calendar_id").click(function() {
 				$("#bible_reading_plans_calendar_in_text_id").toggle(this.checked);
 			});
 		});
-	/* ]]> */ 
+	/* ]]> */
 </script>
 		';
 	}
@@ -828,12 +827,12 @@ EOS;
 			}
 		} else {
 			$esv_versions_list = $this->esv_versions; // This will be the error message for no versions.
-		}		
-		echo '<script type="text/javascript" src="'.includes_url().'js/jquery/ui/core.min.js"></script>';		
+		}
+		echo '<script type="text/javascript" src="'.includes_url().'js/jquery/ui/core.min.js"></script>';
 		echo '<script type="text/javascript" src="'.includes_url().'js/jquery/ui/tabs.min.js"></script>';
 		echo '<div><h2>'.__('Bible Reading Plans Options', 'bible-reading-plans').'</h2>';
 		_e('<h3>Shortcode Format</h3>
-			<p>This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the forms: 
+			<p>This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the forms:
 				<ul class="brp-plans">
 					<li>ABS:<code class="brp-plans">[bible-reading-plan source="ABS" reading_plan="mcheyne" version="KJV-P"]</code></li>
 					<li>DBP (text and <span style="color: red; font-style: italic; font-weight: bold;">(New)</span> audio for many languages): <code class="brp-plans">[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code></li>
@@ -854,7 +853,7 @@ EOS;
 				</ul>', 'bible-reading-plans');
 
 		_e("	<div id=\"tabs-1\">
-					The \"source\" can be: 
+					The \"source\" can be:
 					<ul class=\"brp-plans\">
 						<li>ABS - {$this->abs_sctr_src_url},</li>
 						<li>DBP - {$this->dbp_sctr_src_url}, or</li>
@@ -884,7 +883,7 @@ EOS;
 				<div style="font-style: italic; margin-top: 12px;">
 							';
 		_e('Note that, in order to use this API, you must obtain an Access Key from the Bible Brain (aka Digital Bible Platform -- DBP), Version 4 of their API. See instructions for obtaining that key and the field for entering it <a href="#instructions_below">below</a>.', 'bible-reading-plans');
-		echo '		</div>						
+		echo '		</div>
 				</div>
 			<div id="tabs-5">
 					'.$esv_versions_list.'
@@ -1162,7 +1161,7 @@ EOT;*/
 			if (isset($combined_atts['bible_id']) && $combined_atts['bible_id']) {
 				$this->bible_id = $combined_atts['bible_id'];
 				$lang_id		= substr($this->bible_id, 0, 3);
-				if (isset($this->dbp_bible_id_to_iso[$this->bible_id]) && $this->dbp_bible_id_to_iso[$this->bible_id]) {				
+				if (isset($this->dbp_bible_id_to_iso[$this->bible_id]) && $this->dbp_bible_id_to_iso[$this->bible_id]) {
 					$this->lng_code_iso	= $this->dbp_bible_id_to_iso[$this->bible_id];
 				} elseif (isset($this->dbp_lang_id2iso_alt[$lang_id]) && $this->dbp_lang_id2iso_alt[$lang_id]) {
 					$this->lng_code_iso	= $this->dbp_lang_id2iso_alt[$lang_id];
@@ -1242,7 +1241,7 @@ EOT;*/
 			})";
 		}
 		$rtn_str .= "
-	/* ]]> */ 
+	/* ]]> */
 </script>\n";
 		return $rtn_str;
 	}
@@ -1259,7 +1258,7 @@ EOT;*/
 	protected function add_versions ($source = 'dbp') {
 		$loading = '<p>'.__('Versions are loading...', 'bible-reading-plans').'</p>'.$this->loading_image;
 		echo <<<EOS
-<script type="text/javascript"> 
+<script type="text/javascript">
 	/* <![CDATA[ */
 		jQuery(document).ready(function($) {
 			var ajaxurl	= '{$this->ajax_url}';
@@ -1274,7 +1273,7 @@ EOT;*/
 				});
 			});
 		});
-	/* ]]> */ 
+	/* ]]> */
 </script>\n
 EOS;
 	}
@@ -1283,7 +1282,7 @@ EOS;
  * audio_check
  * Description to be inserted here
  *
- * 
+ *
  * @return null
  *
  */
@@ -1361,7 +1360,7 @@ EOS;
 		} else {
 			$lang_name			 = __('English', 'bible-reading-plans');
 			$dbp_languages_list .= '<option value="eng">'._e('English', 'bible-reading-plans')."</option>\n\t";
-		}	
+		}
 		$dbp_languages_list .= '</select>';
 //		$dbp_languages_list .= $count; // for displaying the current number of languages
 		$dbp_languages_list .= '<div class="brp-languages-sort-note">'.__('Languages are sorted by their ISO code. (If different from the native name, English or alternate names for a language are in parentheses.)', 'bible-reading-plans').'</div><br /></div>';
@@ -1507,7 +1506,7 @@ EOS;
 			$passage   .= $book.'.'.$chapter_id.'.'.$verse_end;
 			$abs_url	= $this->abs_url_base.'/'.$version.'/verses/'.urlencode($passage);
 		}
-		return $abs_url; 
+		return $abs_url;
 	}
 
 /**
@@ -1537,14 +1536,14 @@ EOS;
 				if ($this->dbp_use_audio_all) {
 					$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_all_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 				} else {
-					if ($this->dbp_use_audio_ot && in_array($book_id[$val['passage']], $this->book_codes_ot)) {				
+					if ($this->dbp_use_audio_ot && in_array($book_id[$val['passage']], $this->book_codes_ot)) {
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_ot_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
 					if ($this->dbp_use_audio_nt && in_array($book_id[$val['passage']], $this->book_codes_nt)) {
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_nt_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
 				}
-				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;	
+				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 			}
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
@@ -1555,7 +1554,7 @@ EOS;
 				if ($ary['bible_abbr'] && $ary['bible_id'] == $this->dam_id) {
 					$bible_abbr = $ary['bible_abbr'];
 					break;
-				}				
+				}
 			}
 		}
 		if (!$bible_abbr) {
@@ -1592,11 +1591,11 @@ EOS;
 
 /**
  * convert_dbp4_plan_to_abs_plan
- * Description to be inserted here
+ * Converts a reading plan from DBP v4 to an ABS plan. Updates the URLs
  *
- * @param $reading_plan
+ * @param $reading_plan reading plan to convert
  *
- * @return Datatype description to be added here
+ * @return array the converted reading plan
  *
  */
 	protected function convert_dbp4_plan_to_abs_plan ($reading_plan = array()) {
@@ -1616,11 +1615,11 @@ EOS;
 
 /**
  * convert_dbp2_plan_to_dbp4_plan
- * Description to be inserted here
+ * Updates a DBP reading plan from an earlier version to v4
  *
- * @param $reading_plan
+ * @param $reading_plan the plan to update
  *
- * @return Datatype description to be added here
+ * @return array the updated plan
  *
  */
 	protected function convert_dbp2_plan_to_dbp4_plan ($reading_plan = array()) {
@@ -1637,7 +1636,7 @@ EOS;
 						parse_str($qry_str, $result);
 						$dpp2_book_id = $result['book_id'];
 						// DBP v4 book_icodes are the same as the abs_codes
-						$book_code							= $this->bk_cds_dpp2_to_dbp4[$dpp2_book_id]; 
+						$book_code							= $this->bk_cds_dpp2_to_dbp4[$dpp2_book_id];
 						$plan[$plan_date][$nr]['verses'][]	= $book_code.'/'.$result['chapter_id'].'?verse_start='.$result['verse_start'].'&verse_end='.$result['verse_end'];
 					}
 				} else {
@@ -1686,7 +1685,7 @@ EOS;
 		// Datepicker to load Scriptures for dates other than today
 		$rtn_str = $this->add_date_picker_ui();
 		$rtn_str .= "
-<script type=\"text/javascript\"> 
+<script type=\"text/javascript\">
 	/* <![CDATA[ */
  		var datepicker_id		= '#datepicker_above';
 		var calendar_in_text	= ".($this->calendar_in_text ? 'true' : 'false').";
@@ -1718,7 +1717,7 @@ EOS;
 				})
 			})
 		});
-	/* ]]> */ 
+	/* ]]> */
 </script>\n";
 		if ($this->calendar_in_text && $this->switch_cal_width < $this->dev_screen_width) {
 			return "<div title=\"".__('Click on a date to open the readings for that day.', 'bible-reading-plans')."\" id=\"datepicker\"></div>".$rtn_str;
@@ -1817,7 +1816,7 @@ EOS;
 			if (isset($copyright_ary['copyright'])) {
 				$scriptures_copyright .= $copyright_ary['copyright'];
 			} else {
-				$scriptures_copyright .= __('Unavailable.', 'bible-reading-plans');			
+				$scriptures_copyright .= __('Unavailable.', 'bible-reading-plans');
 			}
 		} elseif ('esv_' == $this->scptr_src_prefix) {
 			$scriptures_copyright .= '<br />'.__('Scriptures Copyright: The ESV Bible® (The Holy Bible, English Standard Version®) Copyright © 2001 by Crossway, a publishing ministry of Good News Publishers. ESV® Text Edition: 2007. All rights reserved. English Standard Version, ESV, and the ESV logo are registered trademarks of Good News Publishers. Used by permission.', 'bible-reading-plans').'<br />';
@@ -1826,7 +1825,7 @@ EOS;
 		if ('standardized' == $reading_plan_0['copyright'] || 'Public Domain' == $reading_plan_0['copyright']) {
 			if ('Public Domain' == $reading_plan_0['copyright']) {
 				$reading_plan_0['copy_type'] = __('Public Domain', 'bible-reading-plans');
-			}						
+			}
 			switch ($reading_plan_0['copy_type']) {
 
 				case 'Alan Hartless':
@@ -1970,7 +1969,7 @@ EOS;
 				if ('abs_' == $this->scptr_src_prefix) {
 					$abs_passages = array();
 					$urls_ary			= $this->construct_urls_array_abs($readings_querys, $abs_passages);
-					$this->text_source .= $this->abs_sctr_src_url.'.';					
+					$this->text_source .= $this->abs_sctr_src_url.'.';
 					$texts				= $this->remote_get_scriptures($urls_ary, $date_key);
 				} elseif ('dbp_' == $this->scptr_src_prefix) {
 					$urls_ary			= $this->construct_urls_array_dbp($readings_querys);
@@ -2053,7 +2052,7 @@ EOS;
 								$rtn_str		.= "<div class=\"brp-passage\">$passage_header</div>";
 							}
 						}
-						$n++;	
+						$n++;
 						if (is_array($txt_ary)) {
 							$write_tags = true;
 							$i			= 0;
@@ -2114,7 +2113,7 @@ EOS;
 		}
 		$scriptures_div = '<div id="brp-scriptures"><noscript><h3 style="color: #EDD400; margin: 20px auto; text-align: center; background-color: #FF0000; padding: 15px; border: 2px outset #EDD400;">This page needs JavaScript activated to work.</h3></noscript>'.$this->loading_image.'</div>';
 		if ($scriptures_date) {
-			return $rtn_str; // with calendar, and loaded with calendar selection 
+			return $rtn_str; // with calendar, and loaded with calendar selection
 		} elseif ($this->use_calendar) {
 			 // with calendar, but loaded without calendar selection
 			return  '<div title="'.__('Click on a date to open the readings for that day.', 'bible-reading-plans').'" id="datepicker_above"></div>'.$scriptures_div;
@@ -2226,7 +2225,7 @@ EOS;
 		}
 		$args		= array('headers' => array("api-key" => $this->abs_api_key, "accept" => "application/json"));
 		$response	= wp_remote_get($abs_url, $args);
-		return $response; 
+		return $response;
 	}
 
 /**
@@ -2270,7 +2269,7 @@ EOS;
 				foreach ($bibles_group['data'] as $data_ary) {
 					if (isset($data_ary['filesets']['dbp-prod']) && is_array($data_ary['filesets']['dbp-prod'])) {
 						foreach ($data_ary['filesets']['dbp-prod'] as $fs_key => $filesets) {
-							// The Bbibles query should retrieve only text versions. (See $base_url above.) 
+							// The Bbibles query should retrieve only text versions. (See $base_url above.)
 							// However, that is apparently not correct. Therefore, the non-text versions are filtered out here.
 							$not_text = preg_match("/(video|film)/i", $data_ary['name']);
 							if ('text_usx' == $filesets['type']) {
@@ -2332,7 +2331,7 @@ EOS;
 								break;
 							}
 							if (isset($data_ary['iso']) && $data_ary['iso'] && 1 != $not_text) {
-								if (!isset($filesets['codec'])) {										
+								if (!isset($filesets['codec'])) {
 									$filesets['codec'] = '';
 								}
 								if (!isset($filesets['container'])) {
@@ -2349,15 +2348,15 @@ EOS;
 																						'dbp_version' 		=> $filesets['volume'],
 																						'dbp_version_natv'	=> $data_ary['vname'],
 																						'size'				=> $filesets['size'],
-																						'language_name' 	=> $data_ary['language'], 
-																						'native_name' 		=> $data_ary['autonym'], 
+																						'language_name' 	=> $data_ary['language'],
+																						'native_name' 		=> $data_ary['autonym'],
 																						'type'				=> $filesets['type'],
 																						);
 								$this->dbp_bible_id_to_iso[$filesets['id']]	= $data_ary['iso'];
 								$lang_id									= substr($filesets['id'], 0, 3);
 								$dbp_lang_id2iso_alt[$lang_id]				= $data_ary['iso'];
 								if (isset($data_ary['language']) && $data_ary['language']) {
-									$this->dbp_language_ids[$data_ary['language']]	= array( 
+									$this->dbp_language_ids[$data_ary['language']]	= array(
 																							'native_name'		=> $data_ary['autonym'],
 																							'lng_code_iso' 		=> $data_ary['iso'],
 																							);
@@ -2452,7 +2451,7 @@ EOS;
 				}
 				update_option('brp_reading_plans_list', $reading_plans_list);
 				/*if (!rmdir($path_to_plans)) {
-					_e("ERROR: Cannot remove $path_to_plans.<br />", 'bible-reading-plans');								
+					_e("ERROR: Cannot remove $path_to_plans.<br />", 'bible-reading-plans');
 				}*/
 			}
 		}
@@ -2460,11 +2459,11 @@ EOS;
 
 /**
  * if_necessary_convert_dbp2_plan_to_dbp4_plan
- * Description to be inserted here
+ * Checks if a DBP reading plan needs to be converted from an earlier version to v4. If it needs converting, it will do it.
  *
- * @param $reading_plan
+ * @param $reading_plan The reading plan to convert
  *
- * @return Datatype description to be added here
+ * @return mixed The updated reading plan as an array, or an error as a string
  *
  */
 	protected function if_necessary_convert_dbp2_plan_to_dbp4_plan ($reading_plan = array(), &$plan_converted = false) {
@@ -2617,7 +2616,7 @@ EOS;
 		if (is_string($txt)) {
 			$decoded_text = json_decode($txt);
 		} else {
-			return $rtn_str;			
+			return $rtn_str;
 		}
 		$tmp_ary	  = array('',);
 		if (isset($decoded_text->data)) {
@@ -2714,10 +2713,10 @@ EOS;
 		/* There may be other books that need the following treatment, in which case something like this might work.
 		 * $this->dbp_plan_book_names would need to be uncommented.
 		if (!in_array($this->book_codes_names[$book_code], $this->dbp_plan_book_names)) {
-			$book_english = $this->book_codes_names[$book_code];						
+			$book_english = $this->book_codes_names[$book_code];
 		} */
 		if ($this->book_codes_names[$book_code] = 'Psalms') {
-			$book_english = 'Psalms';			
+			$book_english = 'Psalms';
 		}
 		if ($this->book_codes_names[$book_code] != $book_english) {
 			// Use localized names if they exist.
@@ -2764,7 +2763,7 @@ EOS;
 		} else {
 			// Remove book number and name from array.
 			array_shift($parts);
-			array_shift($parts);			
+			array_shift($parts);
 		}
 		// Put array back together into book number, book name, chapter and verses.
 		$chapter_and_verses	= implode(' ', $parts);
@@ -2776,8 +2775,8 @@ EOS;
  * Description to be inserted here
  *
  * @param $rtn_str
- * @param $ary, 
- * @param $chapter, 
+ * @param $ary,
+ * @param $chapter,
  * @param $is_poetic
  * @param $prgrph_nr
  *
@@ -2789,7 +2788,7 @@ EOS;
 			$ary = array();
 		}
 		if ($is_poetic) {
-			if (isset($ary['verse_text'])) { 
+			if (isset($ary['verse_text'])) {
 				$text = $this->poetic_passage($ary['verse_text']);
 			} else {
 				$text = '';
@@ -2815,7 +2814,7 @@ EOS;
 		} elseif (isset($ary['verse_text'])) {
 			if ($is_poetic) {
 				if (isset($ary['verse_start'])) {
-					$rtn_str .=  '<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;';					
+					$rtn_str .=  '<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;';
 				}
 				$rtn_str .= '&nbsp;'.$this->poetic_passage($ary['verse_text']);
 			} else {
@@ -2852,12 +2851,12 @@ EOS;
 		global $english_book, $passage_prev, $toc;
 		if (is_array($txt)) {
 			foreach ($txt as $txt_ary) {
-				if (is_array($txt_ary)) {	
+				if (is_array($txt_ary)) {
 					$decoded_text[] = $txt_ary;
 				} else {
-					$decoded_text[] = json_decode($txt_ary, true);					
+					$decoded_text[] = json_decode($txt_ary, true);
 				}
-			}	
+			}
 		} else {
 			$decoded_text[0] = json_decode($txt, true);
 		}
@@ -2871,7 +2870,7 @@ EOS;
 		} else {
 			$english_book = $book_chapter_and_verses[0];
 		}
-		$is_partial_chapter = str_contains($passage_index, ':');	
+		$is_partial_chapter = str_contains($passage_index, ':');
 		if ($passage_index != $passage_prev) {
 			$passage_prev	 = $passage_index;
 			$passage		 = $this->transform_passage_dbp($passage_index, $decoded_text[0]);
@@ -2886,7 +2885,7 @@ EOS;
 		} else {
 			$is_poetic = false;
 		}
-		$m = 0;					
+		$m = 0;
 		$n = 0;
 		foreach ($decoded_text as $key => $passage_ary) {
 			if (isset($passage_ary) && is_array($passage_ary)) {
@@ -2901,7 +2900,7 @@ EOS;
 								$ary = array();
 							}
 							if ($is_poetic) {
-								if (isset($ary['verse_text'])) { 
+								if (isset($ary['verse_text'])) {
 									$text = $this->poetic_passage($ary['verse_text']);
 								} else {
 									$text = '';
@@ -2921,12 +2920,12 @@ EOS;
 									if ($is_partial_chapter) {
 										$rtn_str .= '<div class="brp-audio-caveats"><br />'.__('Audio for Chapter ', 'bible-reading-plans').$this->chapter_start[$m].':</div>';
 										$rtn_str .= '<div><audio controls="" src="'.$this->audio_link["$passage_index"][$m].'"></audio><div>';
-										$rtn_str .= '<div class="brp-audio-caveats">'.$this->audio_full_chap_note.'</div>';	
+										$rtn_str .= '<div class="brp-audio-caveats">'.$this->audio_full_chap_note.'</div>';
 									} else {
 										$rtn_str .= '<div><audio controls="" src="'.$this->audio_link["$passage_index"][$m].'"></audio><div>';
 									}
 								} elseif ($this->use_audio) {
-									$rtn_str .= '<div class="brp-audio-caveats">'.$this->audio_none_note.'</div>';			
+									$rtn_str .= '<div class="brp-audio-caveats">'.$this->audio_none_note.'</div>';
 								}
 								$rtn_str .=  '<p class="brp-paragraph">';
 								if (isset($ary['paragraph_number'])) {
@@ -2937,7 +2936,7 @@ EOS;
 							} elseif (isset($ary['verse_text'])) {
 								if ($is_poetic) {
 									if (isset($ary['verse_start'])) {
-										$rtn_str .=  '<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;';					
+										$rtn_str .=  '<span class="brp-verse-nr">'.$ary['verse_start'].'</span>&nbsp;';
 									}
 									$rtn_str .= '&nbsp;'.$this->poetic_passage($ary['verse_text']);
 								} else {
@@ -2986,7 +2985,7 @@ EOS;
 						 '|<h4 id="([a-zA-Z0-9_-]+)" class="psalm-acrostic-title">([^>]+)</h4>|',
 						 );
 		$replace = array('
-						<audio controls="" src="', 
+						<audio controls="" src="',
 						'"></audio><br />',
 						'<div id="$1" class="subject-heading">$2</div>',
 						'<div id="$1" class="psalm-book">$2</div>',
@@ -3273,7 +3272,7 @@ EOS;
 /**
  * transform_header
  * Makes changes to the Scripture header for things like headers which are for a full chapter,
- * cover more than one chapter, one chapter books... 
+ * cover more than one chapter, one chapter books...
  *
  * @param $passage_header
  *
@@ -3389,10 +3388,10 @@ EOS;
 			return false;
 		}
 	}
-	
-	/* *****  Code for potential future use... *****		
+
+	/* *****  Code for potential future use... *****
 	protected function sample_version_content () {
-		// Currently for only the DBP. 
+		// Currently for only the DBP.
 		// Check verses in the middle of the Old and New Testaments to see whether or not they contain content.
 		// https://4.dbt.io/api/bibles/filesets/:fileset_id/:book/:chapter?verse_start=5&verse_end=5
 		// $this->dbp_query_string."bibles/filesets/".$this->dam_id.$qry_str.$this->dbp_query_base;
@@ -3409,7 +3408,7 @@ EOS;
 	}
 
 	protected function verify_version_content ($language_code = 'ENG') {
-		// Currently for only the DBP. 
+		// Currently for only the DBP.
 		$tmp_ary				= array();
 		// An element of the $version_names array is the name of the language.
 		foreach ($this->dbp_versions as $version_id => $version_name) {
