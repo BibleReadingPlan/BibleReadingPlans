@@ -1,0 +1,8 @@
+
+*.kate-swp
+bkp_bible-reading-plans-class-names.inc.php
+bkp_bible-reading-plans-class.inc.php
+bkp_bible-reading-plans.php
+bkp_readme.txt
+includes/properties/bkp_book-codes.inc.php
+includes/properties/bkp_short_code_atts.inc.php

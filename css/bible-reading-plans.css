@@ -28,6 +28,19 @@
 	margin: 10px 0 15px 0;
 }
 
+h2.brp-holy-days {
+	margin-top: 10px;
+	font-size: 1.3em;
+/*	line-height: 2.0em;*/
+	font-style: italic;
+}
+
+h2.brp-moveable-feasts {
+	font-size: 1.3em;
+/*	line-height: 2.0em;*/
+	font-style: italic;
+}
+
 .eb-container .wj,
 .brp-container .woc {
   color: #CC0000;
@@ -119,9 +132,21 @@ b.verse-num .woc{
 	width: 50%;
 }
 
-.brp-loading-img {
+.brp-audio-caveats {
+	font-size: 0.7em;
+	line-height: 0.7em;"
+}
+
+.brp-loading {
+	text-align: center;
+	margin: 0 auto;
+	width: 95%;
+}
+
+brp-loading-img {
 	display: block;
-	margin: 10% auto;
+	margin-left: auto;
+	margin-right: auto;
 	height: 25%;
 	width: 25%;
 }
