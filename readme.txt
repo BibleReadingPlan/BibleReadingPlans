@@ -1,11 +1,11 @@
 === Bible Reading Plans ===
 Contributors: drmikegreen,sophoservices
 Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bible readings
-Requires at least: 2.8
+Requires at least: 4.6
 Tested up to: 6.7.1
 Requires PHP: 5.6
 Tested up to PHP: 8.3
-Stable tag: 3.0.4
+Stable tag: 3.0.6
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -13,18 +13,18 @@ Provides the ability to embed text and audio Bible Reading Plans into a post or 
 
 == Description ==
 
-This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code>. **The last three parameters are new in this version and provide access to audio versions of the Scriptures, this shortcode applies only to the DBP source and *provides access to over 2000 Bible versions in nearly 1900 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin. 
+This plugin provides the ability to embed Bible reading plans into a post or page using shortcode of the form <code>[bible-reading-plan source="DBP" reading_plan="mcheyne" bible_id="ENGNAS" bible_all_audio_id="" bible_ot_audio_id="" bible_nt_audio_id=""]</code>. **The last three parameters are new in this version and provide access to audio versions of the Scriptures, this shortcode applies only to the DBP source and *provides access to over 2000 Bible versions in nearly 1900 languages,* with more versions and languages being added regularly.** Three sources for the Scriptures displayed for each plan are available: American Bible Society API, Version 1 (API.Bible), The Bible Brain (aka Digital Bible Platform) API, Version 4 (faithcomesbyhearing.com/bible-brain/developer-documentation), and the ESV Bible Web Service API, Version 3 (api.esv.org). See the screenshots for an example of how to use this plugin.
 
 The American Bible Society API provides more than 20 English language versions (with the potential for more via the Digital Bible Library to acquire the necessary licenses) and the potential of over 1600 languages in a future version of this plugin The Bible Brain API provides 10 English versions and access to over 2000 Bible versions in nearly 1900 languages. In addition, it has audio versions and the potential for video for many of the versions. The ESV Bible Web Service API, Version 3 also provides audio as well as better formatting control. Naturally it provides only the English Standard Version.
 
 It is hoped that persons with skills in other languages will come forward to localize this plugin for the available languages. (I.e., Translate things like the instructions on the "Settings" page, the reading plan names, and copyright statements.)
 
 The values of reading_plan can be:
-        	
+
 	back-to-the-bible-chronological - Back to the Bible Chronological
 	bcp19-acna-evening - Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer
 	bcp19-acna-morning - Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer
-	bcp19-acna-twoyear - Book of Common Prayer, 2019, Anglican Church in North America -- Two Year Plan 
+	bcp19-acna-twoyear - Book of Common Prayer, 2019, Anglican Church in North America -- Two Year Plan
 	chronicles-and-prophets - Chronicles and Prophets
 	daily-light-on-the-daily-path-evening - Daily Light on the Daily Path -- Evening
 	daily-light-on-the-daily-path-morning - Daily Light on the Daily Path -- Morning
@@ -38,9 +38,9 @@ The values of reading_plan can be:
 	psalms-and-wisdom-literature - Psalms and Wisdom Literature
 	through-the-bible - Through the Bible in a Year
 
-The default reading plan is M'Cheyne One-Year Reading Plan. 
+The default reading plan is M'Cheyne One-Year Reading Plan.
 
-We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sllwi.re/p/1Il) to make it possible to create one's own Bible reading plan for use in this plugin.
+We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sophoservices.com/brp/) to make it possible to create one's own Bible reading plan for use in this plugin.
 
 The values of source can be:
 
@@ -53,7 +53,7 @@ The default source is DBP.
 (Note that, in order to use these sources, you must obtain Access Keys from the American Bible Society, the Bible Brain, and/or the ESV Bible Web Service API. Instructions for doing so are on the Settings page for the plugin.)
 
 If the source is ABS, the values of version can, at present, be:
-        	
+
     ASV - American Standard Version
     LXXup - Brenton English Septuagint (Updated Spelling and Formatting)
     Brenton - Brenton English translation of the Septuagint
@@ -157,10 +157,14 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 == Upgrade Notice ==
 
+= 3.0.6
+
+Update requires at least to 4.6 for language support
+
 = 3.0.5 =
-## 3.0.5
 
 Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 January.
+Update: Change purchase link for Bible Reading Plan Creator to https://sophoservices.com/brp
 
 = 3.0.4 =
 
@@ -224,12 +228,12 @@ This version:
 
 = 2.1.5 =
 
-Bug fixes: 
+Bug fixes:
 
 	1. Corrects DBP headers to include verse numbers.
-	
+
 	1. Re-corrects Table of Contents so that it again displays in the language of the page. (This waa lost along the way.)
-	
+
 	1. Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Evening Prayer for 2 December and Morning Prayer for 13 and 17 January and 7 April.
 
 = 2.1.4 =
