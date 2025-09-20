@@ -1,4 +1,4 @@
-# Copyright (C) 2024 
+# Copyright (C) 2024
 # This file is distributed under the GPLv3 or later.
 msgid ""
 msgstr ""
@@ -132,7 +132,7 @@ msgid "These are days like Easter Sunday, Good Friday, Pentecost, etc., which ar
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:572
-msgid "These are r Christmas Day, All Saints' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day."
+msgid "These are Christmas Day, All Saints' Day, Conversion of Paul the Apostle, etc., which are observed on the same date each year. (Mouse over checkbox for full list.) Some reading plans may have special readings, appropriate to the day."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:585
@@ -278,7 +278,7 @@ msgid "Create your own Bible reading plans to use with this plugin. Purchase the
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:914
-msgid "Further questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
+msgid "Further questions? <a href=\"https://sophoservices.com/brp/\" target=\"_blank\">Contact us.</a>"
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:920
@@ -680,7 +680,7 @@ msgid ""
 msgstr ""
 
 #: css/bible-reading-plans-class.inc.php:1251
-msgid "Questions? <a href=\"https://saesolved.com/contact-us/\" target=\"_blank\">Contact us.</a>"
+msgid "Questions? <a href=\"sophoservices.com/brp/\" target=\"_blank\">Contact us.</a>"
 msgstr ""
 
 #: css/bible-reading-plans-class.inc.php:1313

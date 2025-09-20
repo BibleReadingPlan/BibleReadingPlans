@@ -5,7 +5,7 @@ Contributors: drmikegreen,sophoservices
 
 Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bible readings
 
-Requires at least: 2.8
+Requires at least: 4.6
 
 Tested up to: 6.7.1
 
@@ -13,7 +13,7 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0.5
+Stable branch: 3.0.6
 
 License: GPLv3 or later
 
@@ -50,7 +50,7 @@ The values of reading_plan can be:
 	```psalms-and-wisdom-literature``` - Psalms and Wisdom Literature
 	```through-the-bible``` - Through the Bible in a Year
 
-The default reading plan is M'Cheyne One-Year Reading Plan. 
+The default reading plan is M'Cheyne One-Year Reading Plan.
 
 We may add more plans in the future, but have created a premium plugin "Create Bible Reading Plans" (https://sophoservices.com/brp/) to make it possible to create one's own Bible reading plan for use in this plugin.
 
@@ -164,6 +164,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 
 ## Upgrade Notice
 
+## 3.0.6
+
+Update requires at least to 4.6 for language support
+
 ## 3.0.5
 
 Bug fixes: Corrects Scripture references for Book of Common Prayer, 2019, Anglican Church in North America -- Morning Prayer for 17 January.
@@ -236,7 +240,7 @@ This version:
 
 1. Changes the default version for the Bible Brain (aka the Digital Bible Platform -- DBP) API from ESV to the New American Standard Bible (NAS) because for a period of time prior to the release of this version the ESV was not available to the DBP.
 
-1. Fixes the following bugs: 
+1. Fixes the following bugs:
 
 	1. Corrects code incompatible with PHP 8.2.
 
@@ -284,7 +288,7 @@ This version updates the .pot languages file.
 
 This version:
 
-1. Adds a floating table of contents, 
+1. Adds a floating table of contents,
 
 1. Corrects typo on line 1460 of bible-reading-plans-class.inc.php of version 2.0.2.
 
@@ -328,7 +332,7 @@ This version:
 
 1. Removes <pre> tags some themes place around the shortcode, causing the text to not wrap.
 
-### 1.1.2 
+### 1.1.2
 
 This version:
 
@@ -400,7 +404,7 @@ This version:
 
 1. Corrects Scripture references for Every Day in the Word Psalms for 27 April.
 
-### 1.0.3 
+### 1.0.3
 
 1. This version fixes conflict with WordFence firewall blocks when Yoast SEO plugin is also active.
 
@@ -430,7 +434,7 @@ This version:
 
 1. restructures and standardizes way copyright statements are stored and output, rewording them for completeness and clarity.
 
-### 0.8 
+### 0.8
 
 This version:
 
@@ -470,7 +474,7 @@ This version:
 
 1. improves formatting of Psalms by modifing .esv-text span.end-line-group in brp-esv-scripture-styles.css.
 
-### 0.6 
+### 0.6
 
 This version:
 
@@ -486,7 +490,7 @@ This version:
 
 1. adds code to ensure API keys are of the correct length.
 
-### 0.5.1 
+### 0.5.1
 
 This version fixes a bug in the error reporting of getting Scriptures from remote servers.
 
