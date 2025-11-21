@@ -572,7 +572,7 @@ EOS;
 	public function bibleReadingPlansEsvApiKeyValue () {
 		echo '<input id="bible_reading_plans_esv_api_key_input" name="bible_reading_plans_esv_api_key" size="'.$this->esv_key_length.'" minlength="'.$this->esv_key_length.'" maxlength="'.$this->esv_key_length.'" type="text" value="'.$this->esv_api_key.'" />';
 		echo '<div class="brp-access-key-note">&nbsp;&nbsp;';
-		_e('To request an Access Key <a href="https://my.crossway.org/account/register/" target="_blank" title="Create an Account">Create an Account</a> at Crossway. Then go to <a href="https://api.esv.org/account/create-application/" target="_blank" title="API.Bible Registration">Create an API Application</a>.', 'bible-reading-plans');
+		_e('To request an Access Key <a href="https://www.esv.org/account/register/" target="_blank" title="Create an Account">Create an Account</a> at Crossway. Then go to <a href="https://api.esv.org/account/create-application/" target="_blank" title="API.Bible Registration">Create an API Application</a>.', 'bible-reading-plans');
 		echo '<div class="brp-access-key-note-directions">';
 		_e('Enter', 'bible-reading-plans');
 		echo ' "Bible Reading Plans plugin for WordPress (https://wordpress.org/plugins/bible-reading-plans/) on our website" ';
