@@ -5,7 +5,7 @@ Requires at least: 4.6
 Tested up to: 6.7.1
 Requires PHP: 5.6
 Tested up to PHP: 8.3
-Stable tag: 3.0.6
+Stable tag: 3.0.7
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,6 +156,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 7. Sample result for page of a reading plan in French with audio.
 
 == Upgrade Notice ==
+
+= 3.0.7
+
+Fix signup link for Crossways ESV
 
 = 3.0.6
 

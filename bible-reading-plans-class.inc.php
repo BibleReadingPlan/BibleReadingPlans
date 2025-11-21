@@ -355,7 +355,7 @@ EOS;
 
 /**
  * addScriptureLoader
- * Adds the javascript scripture loader to the footer of the page. Compares scptr_arc_prefix to see what javascript it should use. IT's used 
+ * Adds the javascript scripture loader to the footer of the page. Compares scptr_arc_prefix to see what javascript it should use. IT's used
  * for the front end
  *
  */
