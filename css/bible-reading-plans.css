@@ -12,7 +12,10 @@
 	margin: 15px 0 5px 10px;
 }
 
-#datepicker .ui-datepicker-calendar table tr td, #datepicker-above .ui-datepicker-calendar table tr td, #datepicker .ui-datepicker-calendar table tr th, #datepicker-above .ui-datepicker-calendar table tr th {
+#datepicker table.ui-datepicker-calendar tr td,
+#datepicker-above table.ui-datepicker-calendar  tr td,
+#datepicker table.ui-datepicker-calendar  tr th,
+#datepicker-above table.ui-datepicker-calendar tr th {
 	padding:1px;
 }
 
@@ -71,7 +74,7 @@ h2.brp-moveable-feasts {
 }
 
 .brp-passage {
-	font-weight: bold; 
+	font-weight: bold;
 	font-size: 1.15em;
 	margin-top: 1.2em;
 }
@@ -95,7 +98,7 @@ b.verse-num,
 .verse-num .inline,
 .verse-num .woc,
 b.verse-num .woc{
-	font-size: 0.8em !important; 
+	font-size: 0.8em !important;
 	vertical-align: top !important;
 	font-weight: normal !important;
 }
@@ -112,22 +115,22 @@ b.verse-num .woc{
 
 .brp-copyright {
 	font-size: 0.8em;
-	width: 100%; 
-	float: left; 
+	width: 100%;
+	float: left;
 	margin: 0;
 }
 
 .brp-copyright-small {
 	font-size: 0.7em;
-	width: 100%; 
-	float: left; 
+	width: 100%;
+	float: left;
 	margin: 0;
 }
 
 .brp-powered-by {
-	font-size: 0.8em; 
-	width: 100%; 
-	float: left; 
+	font-size: 0.8em;
+	width: 100%;
+	float: left;
 	margin: 7px 0;
 	border-top: 1px solid #999;
 }
@@ -156,7 +159,7 @@ brp-loading-img {
 }
 
 .brp-access-key-note {
-	font-size: 0.95em; 
+	font-size: 0.95em;
 	text-align: left;
 	background-color: #fff;
 	padding: 7px;
@@ -172,20 +175,20 @@ brp-loading-img {
 }
 
 .brp-available-versons-note {
-	font-size: 0.9em; 
+	font-size: 0.9em;
 	text-align: left;
 	background-color: #fff;
 	padding: 0;
 }
 
 .brp-languages-sort-note {
-	font-size: 0.9em; 
+	font-size: 0.9em;
 	text-align: left;
 	margin: 7px 0 -15px 0;
 }
 
 .brp-dbp-languages-notes {
-	font-size: 0.8em; 
+	font-size: 0.8em;
 	text-align: left;
 	margin: 7px 0;
 }
@@ -195,12 +198,12 @@ brp-loading-img {
 }
 
 .brp-place-calendar {
-	float: left; 
+	float: left;
 	margin: 0;
 }
 
 .brp-in-text {
-	float: left; 
+	float: left;
 	margin: 0 0 0 10px;
 }
 
@@ -216,18 +219,18 @@ brp-loading-img {
 }
 
 .brp-donate {
-	width: 90%; 
+	width: 90%;
 	margin: 25px auto;
 	text-align: center;
 }
 
 .brp-donate-form {
-	margin: auto; 
+	margin: auto;
 	text-align: center;
 }
 
 .brp-muzzle-not {
-	font-size: 0.7em; 
+	font-size: 0.7em;
 	text-align: center;
 }
 
@@ -294,11 +297,11 @@ brp-loading-img {
 		margin: 10px auto;
 		width: 80%;
 	}
-	
+
 	#datepicker {
 		display: none;
 	}
-	
+
 	.ui-widget {
 		width: 100%;
 	}
@@ -306,13 +309,13 @@ brp-loading-img {
 	.brp h2 {
 		margin-bottom: -17px;
 	}
-	
+
 	.brp-audio-player {
 		margin: 0.3em 0 0.7em 0;
 		width: 95%;
 		float: none;
 	}
-	
+
 	.brp-toc {
 		float: none;
 		position: fixed;
@@ -321,12 +324,11 @@ brp-loading-img {
 		left: 0;
 		bottom: 0;
 		width: 99%;
-		margin: 0 auto;	
+		margin: 0 auto;
 		padding: 0;
 		background-color: #eee;
 		font-size: 0.7em !important;
-		line-height: 0.7em !important;		
+		line-height: 0.7em !important;
 	}
 
 }
-
