@@ -1,4 +1,4 @@
-#datepicker-above {
+#datepicker_above {
 	float: left;
 	font-size: 0.7em;
 	line-height: 1.0em;
@@ -13,9 +13,9 @@
 }
 
 #datepicker table.ui-datepicker-calendar tr td,
-#datepicker-above table.ui-datepicker-calendar  tr td,
+#datepicker_above table.ui-datepicker-calendar  tr td,
 #datepicker table.ui-datepicker-calendar  tr th,
-#datepicker-above table.ui-datepicker-calendar tr th {
+#datepicker_above table.ui-datepicker-calendar tr th {
 	padding:1px;
 }
 
@@ -292,7 +292,7 @@ brp-loading-img {
 -------------------------------------------------------------- */
 
 @media screen and (max-width: 480px) {
-	#datepicker-above {
+	#datepicker_above {
 		float: none;
 		margin: 10px auto;
 		width: 80%;
