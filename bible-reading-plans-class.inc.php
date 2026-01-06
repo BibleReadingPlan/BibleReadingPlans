@@ -28,7 +28,8 @@ class BibleReadingPlans {
 	*/
 
 	protected $abs_api_key	     	= '';
-	protected $abs_key_length	 	= '';
+	protected $abs_key_length_min	= '';
+	protected $abs_key_length_max   = '';
 	protected $abs_copyright     	= '';
 	protected $abs_language_id	 	= '';
 	protected $abs_language_ids	 	= array();
@@ -187,8 +188,8 @@ class BibleReadingPlans {
  			}
 		}
 
-		$key = get_option('bible_reading_plans_abs_api_key');
-		if ($key && $this->abs_key_length == strlen(trim($key))) {
+		$key = trim(get_option('bible_reading_plans_abs_api_key'));
+		if ($key && $this->abs_key_length_min <= strlen($key) && $this->abs_key_length_max >= strlen($key)) {
             $this->abs_api_key	= $key;
 			$abs_versions		= get_option('bible_reading_plans_abs_versions');
 			if ($abs_versions && count($abs_versions)) {
@@ -486,7 +487,7 @@ EOS;
  * Building the admin settings page, we display HTML to ask for the value of the ABS api key
  */
 	public function bibleReadingPlansAbsApiKeyValue () {
-		echo '<input id="bible_reading_plans_abs_api_key_input" name="bible_reading_plans_abs_api_key" size="'.$this->abs_key_length.'" minlength="'.$this->abs_key_length.'" maxlength="'.$this->abs_key_length.'" type="text" value="'.$this->abs_api_key.'" />';
+		echo '<input id="bible_reading_plans_abs_api_key_input" name="bible_reading_plans_abs_api_key" size="'.$this->abs_key_length_max.'" minlength="'.$this->abs_key_length_min.'" maxlength="'.$this->abs_key_length_max.'" type="text" value="'.$this->abs_api_key.'" />';
 		echo '<div class="brp-access-key-note">&nbsp;&nbsp;';
 		_e('To request an Access Key fill out the form at <a href="https://scripture.api.bible/signup/" target="_blank" title="API.Bible Registration">API.Bible Registration</a>. Then go to', 'bible-reading-plans');
 		echo ' <a href="https://scripture.api.bible/admin/applications/new/" target="_blank" title="New Application">New Application</a>.';

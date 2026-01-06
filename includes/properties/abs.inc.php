@@ -1,5 +1,6 @@
 <?php
-	$this->abs_key_length	 = 32;
+    $this->abs_key_length_min    = 21;
+	$this->abs_key_length_max	 = 32;
 	$this->abs_language_ids	 = array('eng',);
 	$this->abs_sctr_src_url	 = '<a href="https://scripture.api.bible/" target="_blank">American Bible Society API</a>';
 	$this->abs_url_base		 = 'https://api.scripture.api.bible/v1/bibles';
@@ -81,7 +82,7 @@
 													"id"	=> "04da588535d2f823-04",
 													),
 									"LXXup" 	=> array(
-													"name"	=> __("Brenton English 
+													"name"	=> __("Brenton English
 										Septuagint (Updated Spelling and Formatting)", 'bible-reading-plans'),
 													"id"	=> "6bab4d6c61b31b80-01",
 													),
@@ -101,5 +102,5 @@
 													"name"	=> __("The English New Testament According to Family 35", 'bible-reading-plans'),
 													"id"	=> "2f0fd81d7b85b923-01",
 													),
-									); 
+									);
 	?>
