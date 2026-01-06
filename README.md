@@ -13,7 +13,7 @@ Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0.10
+Stable branch: 3.0.11
 
 License: GPLv3 or later
 
@@ -163,6 +163,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 1. Populate DocBlocks for methods/functions.
 
 ## Upgrade Notice
+
+## 3.0.11
+
+Change ABS endpoint when using new key
 
 ## 3.0.10
 

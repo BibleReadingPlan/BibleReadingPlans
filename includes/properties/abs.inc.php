@@ -3,7 +3,7 @@
 	$this->abs_key_length_max	 = 32;
 	$this->abs_language_ids	 = array('eng',);
 	$this->abs_sctr_src_url	 = '<a href="https://scripture.api.bible/" target="_blank">American Bible Society API</a>';
-	$this->abs_url_base		 = 'https://api.scripture.api.bible/v1/bibles';
+	// abs_url moved to includes/abs.php
 	$this->abs_vers_default  = array(
 									"ASV" 	=> array(
 													"name"	=> __("American Standard Version", 'bible-reading-plans'),
@@ -103,4 +103,5 @@
 													"id"	=> "2f0fd81d7b85b923-01",
 													),
 									);
+
 	?>

@@ -14,6 +14,9 @@
 
  * @since Initial release.
  */
+
+require_once ("includes/abs.php");
+
 class BibleReadingPlans {
 
 /* This needs to be broken up into much smaller sections of code.
@@ -34,7 +37,6 @@ class BibleReadingPlans {
 	protected $abs_language_id	 	= '';
 	protected $abs_language_ids	 	= array();
 	protected $abs_sctr_src_url	 	= '';
-	protected $abs_url_base		 	= '';
 	protected $abs_vers_default  	= array();
 	protected $abs_versions		 	= array();
 	protected $ajax_url          	= '';
@@ -651,7 +653,7 @@ EOS;
 		$this->scptr_src_prefix = $source.'_';
 		if ('abs' == $source) {
 			if ($this->abs_api_key) {
-				$urls_ary		= array("$this->abs_url_base",);
+				$urls_ary		= array(ABS_URL($this->abs_api_key));
 				$remote_bibles	= $this->remote_get_scriptures($urls_ary);
 				if (is_array($remote_bibles)) {
 					$bibles			= json_decode($remote_bibles[0][0]);
@@ -1412,7 +1414,7 @@ EOS;
 		if (!$version) {
 			$version = $this->abs_versions[$this->version]['id'];
 		}
-		$url_base = $this->abs_url_base.'/'.$version.'/'.'verses/';
+		$url_base = ABS_URL($this->abs_api_key).'/'.$version.'/'.'verses/';
 		foreach ($readings_querys as $val) {
 			if (isset($val['verses'])) {
 				foreach ($val['verses'] as $vrs) {
@@ -1447,7 +1449,7 @@ EOS;
 		if ('abs_' == $this->scptr_src_prefix) {
 			$matches = array();
 			preg_match("|\/verses\/[A-Z0-9\.-]+$|", $url, $matches);
-			$abs_url = $this->abs_url_base.'/'.$version.$matches[0];
+			$abs_url = ABS_URL($this->abs_api_key).'/'.$version.$matches[0];
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
 			$abs_url = $url;
 		} elseif ('esv_' == $this->scptr_src_prefix) {
@@ -1471,7 +1473,7 @@ EOS;
 			}
 			$passage	= $book.'.'.$chapter_id.'.'.$verse_start.'-';
 			$passage   .= $book.'.'.$chapter_id.'.'.$verse_end;
-			$abs_url	= $this->abs_url_base.'/'.$version.'/verses/'.urlencode($passage);
+			$abs_url	= ABS_URL($this->abs_api_key).'/'.$version.'/verses/'.urlencode($passage);
 		}
 		return $abs_url;
 	}
@@ -2165,7 +2167,7 @@ EOS;
 		if ('abs_' == $this->scptr_src_prefix) {
 			$matches = array();
 			preg_match("|\/verses\/[A-Z0-9\.-]+$|", $url, $matches);
-			$abs_url = $this->abs_url_base.'/'.$version.$matches[0];
+			$abs_url = ABS_URL($this->abs_api_key).'/'.$version.$matches[0];
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
 			$abs_url = $url;
 		} elseif ('esv_' == $this->scptr_src_prefix) {
@@ -2189,7 +2191,7 @@ EOS;
 			}
 			$passage	= $book.'.'.$chapter_id.'.'.$verse_start.'-';
 			$passage   .= $book.'.'.$chapter_id.'.'.$verse_end;
-			$abs_url	= $this->abs_url_base.'/'.$version.'/verses/'.urlencode($passage);
+			$abs_url	= ABS_URL($this->abs_api_key).'/'.$version.'/verses/'.urlencode($passage);
 		}
 		$args		= array('headers' => array("api-key" => $this->abs_api_key, "accept" => "application/json"));
 		$response	= wp_remote_get($abs_url, $args);
