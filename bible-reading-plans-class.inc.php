@@ -51,7 +51,8 @@ class BibleReadingPlans {
 	protected $bible_ot_audio_id	= '';
 	// DBP v4 book_codes are the same as the abs_codes.
 	protected $book_codes_names		= array();
-	protected $book_codes_ap		= array(); // Apocrypha
+	protected $book_codes_ap		= array(); // Apocrypha book codes
+	protected $book_names_ap		= array(); // Apocrypha book names
 	protected $book_codes_nt		= array(); // New Testament
 	protected $book_codes_ot		= array(); // Old Testament
 	protected $bk_cds_dpp2_to_dbp4	= array();
