@@ -5,3 +5,6 @@ zip:
 
 svn:
 	cp -r *.php css images includes js languages LICENSE README.md readme.txt ${SVN}/trunk
+
+test:
+	set -a && . $(CURDIR)/.env && set +a && phpunit
