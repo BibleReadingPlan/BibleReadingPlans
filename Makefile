@@ -7,7 +7,7 @@ svn:
 	cp -r *.php css images includes js languages LICENSE README.md readme.txt ${SVN}/trunk
 
 test:
-	git checkout HEAD -- includes/plans/
+	# git checkout HEAD -- includes/plans/
 	script -q -e -c 'npx wp-env run tests-cli --env-cwd wp-content/plugins/BibleReadingPlans -- phpunit' /dev/null
 
 test-local:
