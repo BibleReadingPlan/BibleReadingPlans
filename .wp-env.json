@@ -1,14 +1,16 @@
 {
   "core": null,
-  "plugins": [
-    "."
-  ],
+  "plugins": [],
+  "mappings": {
+    "wp-content/plugins/BibleReadingPlans": "."
+  },
   "themes": [],
   "env": {
     "tests": {
-      "plugins": [
-        "."
-      ],
+      "plugins": [],
+      "mappings": {
+        "wp-content/plugins/BibleReadingPlans": "."
+      },
       "config": {
         "WP_DEBUG": false,
         "SCRIPT_DEBUG": false

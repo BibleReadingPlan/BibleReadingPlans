@@ -2210,20 +2210,15 @@ EOS;
  */
 	public function putLanguagesAndVersions () {
 		$base_url		= "{$this->dbp_query_string}bibles?limit=9999&v=4&key={$this->dbp_api_key}&page=";
-		$ch				= curl_init();
-		curl_setopt($ch, CURLOPT_VERBOSE, false);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$bibles_pages	= array();
 		$i				= 0;
 		$nr_in_data_ary	= 1;
 		while ($nr_in_data_ary) {
 			$url 				= $base_url.$i;
-			curl_setopt($ch, CURLOPT_URL, $url);
-			$bibles_pages[$i]	= json_decode(trim(curl_exec($ch)), true);
+			$resp = wp_remote_get($url);
+			$bibles_pages[$i]	= json_decode(trim(wp_remote_retrieve_body($resp)), true);
 			$nr_in_data_ary		= count($bibles_pages[$i++]['data']);
 		}
-		curl_close($ch);
 		unset($bibles_pages[$i-1]);
 		$this->dbp_language_ids		= array();
 		$this->dbp_bible_id_to_iso	= array();
