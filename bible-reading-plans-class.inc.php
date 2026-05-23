@@ -1554,7 +1554,8 @@ EOS;
 			} else {
 				$passage = $val['passage'];
 			}
-			$urls_ary[] = $this->esv_url_base.$passage;
+			$urls_ary[] = $this->esv_url_base.urlencode($passage);
+
 		}
 		return $urls_ary;
 	}
