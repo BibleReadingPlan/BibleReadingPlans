@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@wordpress/env": "^11.6.0"
+  }
+}

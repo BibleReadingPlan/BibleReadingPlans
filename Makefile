@@ -6,8 +6,22 @@ zip:
 svn:
 	cp -r *.php css images includes js languages LICENSE README.md readme.txt ${SVN}/trunk
 
-test:
-	set -a && . $(CURDIR)/.env && set +a && phpunit
+test: wp-env-start test-run wp-env-stop
+
+test-run:
+	set -a && . $(CURDIR)/.env && set +a && vendor/bin/phpunit
 
 test-show-dep:
-	set -a && . $(CURDIR)/.env && set +a && phpunit --display-deprecations
+	set -a && . $(CURDIR)/.env && set +a && vendor/bin/phpunit --display-deprecations
+
+composer:
+	composer update --prefer-dist --dev --optimize-autoloader
+
+wp-env:
+	npm install --save-dev @wordpress/env
+
+wp-env-start:
+	npx wp-env start
+
+wp-env-stop:
+	npx wp-env stop

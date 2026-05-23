@@ -1,0 +1,18 @@
+{
+  "core": null,
+  "plugins": [
+    "."
+  ],
+  "themes": [],
+  "env": {
+    "tests": {
+      "plugins": [
+        "."
+      ],
+      "config": {
+        "WP_DEBUG": false,
+        "SCRIPT_DEBUG": false
+      }
+    }
+  }
+}

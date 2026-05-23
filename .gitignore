@@ -9,3 +9,5 @@ includes/properties/bkp_short_code_atts.inc.php
 .env
 .phpunit.result.cache
 bible-reading-plans.zip
+/vendor/
+/node_modules/

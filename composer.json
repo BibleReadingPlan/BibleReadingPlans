@@ -1,0 +1,13 @@
+{
+    "require": {
+        "php": ">=8.2"
+    },
+    "require-dev": {
+        "yoast/phpunit-polyfills": "^3.0",
+        "wp-phpunit/wp-phpunit": "^6.7",
+        "phpunit/phpunit": "^11.5"
+    },
+    "scripts": {
+        "test": "phpunit"
+    }
+}
