@@ -290,7 +290,7 @@ class BibleReadingPlans {
 			update_option('bible_reading_plans_show_poweredby', $this->show_poweredby);
 		}
 		$this->ajax_url	= admin_url('admin-ajax.php', 'relative');
-		add_shortcode('bible-reading-plan', array(&$this, 'shortcodeAttributes'));
+		add_shortcode('bible-reading-plan', array($this->getThisRef(), 'shortcodeAttributes'));
 	}
 
 /**
@@ -481,7 +481,7 @@ EOS;
  */
 	public function adminAddPage () {
 		if (current_user_can('manage_options')) {
-			add_options_page(__('Bible Reading Plans Settings', 'bible-reading-plans'), __('Bible Reading Plans', 'bible-reading-plans'), 'manage_options', 'bible_reading_plans_plugin', array(&$this, 'drawOptionsPage'));
+			add_options_page(__('Bible Reading Plans Settings', 'bible-reading-plans'), __('Bible Reading Plans', 'bible-reading-plans'), 'manage_options', 'bible_reading_plans_plugin', array($this->getThisRef(), 'drawOptionsPage'));
 		}
 	}
 
@@ -956,6 +956,7 @@ EOT;*/
  *
  */
 	public function initializeAdmin () {
+	    $thisRef = $this->getThisRef();
 		if ($this->abs_api_key) {
 			$this->abs_versions = get_option('bible_reading_plans_abs_versions');
 		}
@@ -965,16 +966,16 @@ EOT;*/
 		if (function_exists('register_setting')) {
 			$page_for_settings		= 'bible_reading_plans_plugin';
 			$section_for_settings	= 'bible_reading_plans_section';
-			add_settings_section($section_for_settings, __('Bible Reading Plans Settings', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansSectionHeading'), $page_for_settings);
-			add_settings_field('bible_reading_plans_abs_api_key_id', __('American Bible Society<br />Access Key (API Version 1)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansAbsApiKeyValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_dbp_api_key_id', __('Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDbpApiKeyValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_esv_api_key_id', __('English Standard Version<br />Access Key (API Version 3)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansEsvApiKeyValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_plan_name_calendar_id', __('Display Plan Name on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayPlanName'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_mvble_feasts', __('Display "Moveable Feasts" on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayMoveableFeasts'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_holy_days', __('Display "Holy Days" on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayHolyDays'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_use_calendar_id', __('Show Date Picker Calendar', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansUseCalendarValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_toc_id', __('Display Table of Contents on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayToc'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_show_powered_by_id', __('Show "Powered by" attribution at bottom of page', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansShowPoweredByValue'), $page_for_settings, $section_for_settings);
+			add_settings_section($section_for_settings, __('Bible Reading Plans Settings', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansSectionHeading'), $page_for_settings);
+			add_settings_field('bible_reading_plans_abs_api_key_id', __('American Bible Society<br />Access Key (API Version 1)', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansAbsApiKeyValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_dbp_api_key_id', __('Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDbpApiKeyValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_esv_api_key_id', __('English Standard Version<br />Access Key (API Version 3)', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansEsvApiKeyValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_plan_name_calendar_id', __('Display Plan Name on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayPlanName'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_mvble_feasts', __('Display "Moveable Feasts" on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayMoveableFeasts'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_holy_days', __('Display "Holy Days" on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayHolyDays'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_use_calendar_id', __('Show Date Picker Calendar', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansUseCalendarValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_toc_id', __('Display Table of Contents on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayToc'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_show_powered_by_id', __('Show "Powered by" attribution at bottom of page', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansShowPoweredByValue'), $page_for_settings, $section_for_settings);
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_abs_api_key', 'wp_filter_nohtml_kses');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_dbp_api_key', 'wp_filter_nohtml_kses');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_esv_api_key', 'wp_filter_nohtml_kses');
@@ -3419,6 +3420,15 @@ protected function debug_print ($label = '', $input = '', $print_or_dump = 'prin
 	}
 }
 
+function getThisRef() {
+    if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
+        return $this;
+    } else {
+        // PHP 4 compatibility
+        $ref = &$this;
+        return $ref;
+    }
+}
 }
 
 ?>
