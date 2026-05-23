@@ -8,3 +8,6 @@ svn:
 
 test:
 	set -a && . $(CURDIR)/.env && set +a && phpunit
+
+test-show-dep:
+	set -a && . $(CURDIR)/.env && set +a && phpunit --display-deprecations
