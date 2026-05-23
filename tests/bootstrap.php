@@ -66,7 +66,7 @@ if (!function_exists('wp_remote_get')) {
         $curlError   = curl_error($ch);
         $httpCode    = (int) curl_getinfo($ch, CURLINFO_HTTP_CODE);
         $headerSize  = (int) curl_getinfo($ch, CURLINFO_HEADER_SIZE);
-        curl_close($ch);
+        // curl_close($ch);
 
         if ($curlError !== '') {
             return new WP_Error('http_request_failed', $curlError);
