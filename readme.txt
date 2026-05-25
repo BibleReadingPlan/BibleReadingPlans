@@ -2,10 +2,10 @@
 Contributors: drmikegreen,sophoservices
 Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bible readings
 Requires at least: 4.6
-Tested up to: 6.9.4
+Tested up to: 7.0
 Requires PHP: 5.6
 Tested up to PHP: 8.3
-Stable tag: 3.0.12
+Stable tag: 3.0.13
 License: GPLv3 or later
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -156,6 +156,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 7. Sample result for page of a reading plan in French with audio.
 
 == Upgrade Notice ==
+
+= 3.0.13
+
+Updated supported version of WordPress to 7.0. Fixed bug in ESV fetching code, fixed usage of language translation before init
 
 = 3.0.12
 
