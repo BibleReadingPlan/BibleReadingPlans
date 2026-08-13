@@ -1,5 +1,8 @@
 {
   "devDependencies": {
     "@wordpress/env": "^11.6.0"
+  },
+  "overrides": {
+    "adm-zip": "^0.6.0"
   }
 }
