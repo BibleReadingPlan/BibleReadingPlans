@@ -14,6 +14,9 @@
 
  * @since Initial release.
  */
+
+require_once ("includes/abs.php");
+
 class BibleReadingPlans {
 
 /* This needs to be broken up into much smaller sections of code.
@@ -28,12 +31,12 @@ class BibleReadingPlans {
 	*/
 
 	protected $abs_api_key	     	= '';
-	protected $abs_key_length	 	= '';
+	protected $abs_key_length_min	= '';
+	protected $abs_key_length_max   = '';
 	protected $abs_copyright     	= '';
 	protected $abs_language_id	 	= '';
 	protected $abs_language_ids	 	= array();
 	protected $abs_sctr_src_url	 	= '';
-	protected $abs_url_base		 	= '';
 	protected $abs_vers_default  	= array();
 	protected $abs_versions		 	= array();
 	protected $ajax_url          	= '';
@@ -48,7 +51,8 @@ class BibleReadingPlans {
 	protected $bible_ot_audio_id	= '';
 	// DBP v4 book_codes are the same as the abs_codes.
 	protected $book_codes_names		= array();
-	protected $book_codes_ap		= array(); // Apocrypha
+	protected $book_codes_ap		= array(); // Apocrypha book codes
+	protected $book_names_ap		= array(); // Apocrypha book names
 	protected $book_codes_nt		= array(); // New Testament
 	protected $book_codes_ot		= array(); // Old Testament
 	protected $bk_cds_dpp2_to_dbp4	= array();
@@ -74,6 +78,7 @@ class BibleReadingPlans {
 	protected $dbp_query_string		= '';
 	protected $dbp_query_base	 	= '';
 	protected $dbp_sctr_src_url	 	= '';
+	protected $dbp_text_filesets	= array(); // Text fileset IDs resolved per testament, keyed by OT or NT
 	protected $dbp_idcode_to_prtn	= array();
 	protected $dbp_use_audio_all	= '';
 	protected $dbp_use_audio_nt		= '';
@@ -187,8 +192,8 @@ class BibleReadingPlans {
  			}
 		}
 
-		$key = get_option('bible_reading_plans_abs_api_key');
-		if ($key && $this->abs_key_length == strlen(trim($key))) {
+		$key = trim(get_option('bible_reading_plans_abs_api_key'));
+		if ($key && $this->abs_key_length_min <= strlen($key) && $this->abs_key_length_max >= strlen($key)) {
             $this->abs_api_key	= $key;
 			$abs_versions		= get_option('bible_reading_plans_abs_versions');
 			if ($abs_versions && count($abs_versions)) {
@@ -286,7 +291,7 @@ class BibleReadingPlans {
 			update_option('bible_reading_plans_show_poweredby', $this->show_poweredby);
 		}
 		$this->ajax_url	= admin_url('admin-ajax.php', 'relative');
-		add_shortcode('bible-reading-plan', array(&$this, 'shortcodeAttributes'));
+		add_shortcode('bible-reading-plan', array($this->getThisRef(), 'shortcodeAttributes'));
 	}
 
 /**
@@ -355,10 +360,8 @@ EOS;
 
 /**
  * addScriptureLoader
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Adds the javascript scripture loader to the footer of the page. Compares scptr_arc_prefix to see what javascript it should use. IT's used
+ * for the front end
  *
  */
 	public function addScriptureLoader () {
@@ -475,28 +478,20 @@ EOS;
 
 /**
  * adminAddPage
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Adds our admin page to the Settings menu in wordpress
  */
 	public function adminAddPage () {
 		if (current_user_can('manage_options')) {
-			add_options_page(__('Bible Reading Plans Settings', 'bible-reading-plans'), __('Bible Reading Plans', 'bible-reading-plans'), 'manage_options', 'bible_reading_plans_plugin', array(&$this, 'drawOptionsPage'));
+			add_options_page(__('Bible Reading Plans Settings', 'bible-reading-plans'), __('Bible Reading Plans', 'bible-reading-plans'), 'manage_options', 'bible_reading_plans_plugin', array($this->getThisRef(), 'drawOptionsPage'));
 		}
 	}
 
 /**
  * bibleReadingPlansAbsApiKeyValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Building the admin settings page, we display HTML to ask for the value of the ABS api key
  */
 	public function bibleReadingPlansAbsApiKeyValue () {
-		echo '<input id="bible_reading_plans_abs_api_key_input" name="bible_reading_plans_abs_api_key" size="'.$this->abs_key_length.'" minlength="'.$this->abs_key_length.'" maxlength="'.$this->abs_key_length.'" type="text" value="'.$this->abs_api_key.'" />';
+		echo '<input id="bible_reading_plans_abs_api_key_input" name="bible_reading_plans_abs_api_key" size="'.$this->abs_key_length_max.'" minlength="'.$this->abs_key_length_min.'" maxlength="'.$this->abs_key_length_max.'" type="text" value="'.$this->abs_api_key.'" />';
 		echo '<div class="brp-access-key-note">&nbsp;&nbsp;';
 		_e('To request an Access Key fill out the form at <a href="https://scripture.api.bible/signup/" target="_blank" title="API.Bible Registration">API.Bible Registration</a>. Then go to', 'bible-reading-plans');
 		echo ' <a href="https://scripture.api.bible/admin/applications/new/" target="_blank" title="New Application">New Application</a>.';
@@ -509,11 +504,7 @@ EOS;
 
 /**
  * bibleReadingPlansDbpApiKeyValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
- *
+ * Building the admin settings page, we display HTML to ask for the value of the DBP api key
  */
 	public function bibleReadingPlansDbpApiKeyValue () {
 		echo '<input id="bible_reading_plans_dbp_api_key_input" name="bible_reading_plans_dbp_api_key" size="'.$this->dbp_key_length_max.'" minlength="'.$this->dbp_key_length_min.'" maxlength="'.$this->dbp_key_length_max.'" type="text" value="'.$this->dbp_api_key.'" />';
@@ -528,10 +519,7 @@ EOS;
 
 /**
  * bibleReadingPlansDisplayPlanName
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask for the value of the plan name
  *
  */
 	public function bibleReadingPlansDisplayPlanName () {
@@ -540,10 +528,7 @@ EOS;
 
 /**
  * bibleReadingPlansDisplayMoveableFeasts
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if special readings for moveable feasts should be shown
  *
  */
 	public function bibleReadingPlansDisplayMoveableFeasts () {
@@ -576,9 +561,7 @@ EOS;
 
 /**
  * bibleReadingPlansDisplayToc
- * Description to be inserted here
- *
- *
+ * Building the admin settings page, we display HTML to ask if TOC should be shown
  *
  */
 	public function bibleReadingPlansDisplayToc () {
@@ -588,16 +571,13 @@ EOS;
 
 /**
  * bibleReadingPlansEsvApiKeyValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask for the ESV API key
  *
  */
 	public function bibleReadingPlansEsvApiKeyValue () {
 		echo '<input id="bible_reading_plans_esv_api_key_input" name="bible_reading_plans_esv_api_key" size="'.$this->esv_key_length.'" minlength="'.$this->esv_key_length.'" maxlength="'.$this->esv_key_length.'" type="text" value="'.$this->esv_api_key.'" />';
 		echo '<div class="brp-access-key-note">&nbsp;&nbsp;';
-		_e('To request an Access Key <a href="https://my.crossway.org/account/register/" target="_blank" title="Create an Account">Create an Account</a> at Crossway. Then go to <a href="https://api.esv.org/account/create-application/" target="_blank" title="API.Bible Registration">Create an API Application</a>.', 'bible-reading-plans');
+		_e('To request an Access Key <a href="https://www.esv.org/account/register/" target="_blank" title="Create an Account">Create an Account</a> at Crossway. Then go to <a href="https://api.esv.org/account/create-application/" target="_blank" title="API.Bible Registration">Create an API Application</a>.', 'bible-reading-plans');
 		echo '<div class="brp-access-key-note-directions">';
 		_e('Enter', 'bible-reading-plans');
 		echo ' "Bible Reading Plans plugin for WordPress (https://wordpress.org/plugins/bible-reading-plans/) on our website" ';
@@ -607,10 +587,7 @@ EOS;
 
 /**
  * bibleReadingPlansSectionHeading
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display the Section Heading, which is currently blank
  *
  */
 	public function bibleReadingPlansSectionHeading () {
@@ -619,10 +596,7 @@ EOS;
 
 /**
  * bibleReadingPlansShowPoweredByValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if the powered by value should be shown
  *
  */
 	public function bibleReadingPlansShowPoweredByValue () {
@@ -631,10 +605,7 @@ EOS;
 
 /**
  * bibleReadingPlansUseCalendarValue
- * Description to be inserted here
- *
- *
- * @return Datatype description to be added here
+ * Building the admin settings page, we display HTML to ask if the calendar should be shown
  *
  */
 	public function bibleReadingPlansUseCalendarValue () {
@@ -684,7 +655,7 @@ EOS;
 		$this->scptr_src_prefix = $source.'_';
 		if ('abs' == $source) {
 			if ($this->abs_api_key) {
-				$urls_ary		= array("$this->abs_url_base",);
+				$urls_ary		= array(ABS_URL($this->abs_api_key));
 				$remote_bibles	= $this->remote_get_scriptures($urls_ary);
 				if (is_array($remote_bibles)) {
 					$bibles			= json_decode($remote_bibles[0][0]);
@@ -986,6 +957,7 @@ EOT;*/
  *
  */
 	public function initializeAdmin () {
+	    $thisRef = $this->getThisRef();
 		if ($this->abs_api_key) {
 			$this->abs_versions = get_option('bible_reading_plans_abs_versions');
 		}
@@ -995,16 +967,16 @@ EOT;*/
 		if (function_exists('register_setting')) {
 			$page_for_settings		= 'bible_reading_plans_plugin';
 			$section_for_settings	= 'bible_reading_plans_section';
-			add_settings_section($section_for_settings, __('Bible Reading Plans Settings', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansSectionHeading'), $page_for_settings);
-			add_settings_field('bible_reading_plans_abs_api_key_id', __('American Bible Society<br />Access Key (API Version 1)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansAbsApiKeyValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_dbp_api_key_id', __('Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDbpApiKeyValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_esv_api_key_id', __('English Standard Version<br />Access Key (API Version 3)', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansEsvApiKeyValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_plan_name_calendar_id', __('Display Plan Name on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayPlanName'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_mvble_feasts', __('Display "Moveable Feasts" on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayMoveableFeasts'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_holy_days', __('Display "Holy Days" on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayHolyDays'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_use_calendar_id', __('Show Date Picker Calendar', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansUseCalendarValue'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_display_toc_id', __('Display Table of Contents on Pages', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansDisplayToc'), $page_for_settings, $section_for_settings);
-			add_settings_field('bible_reading_plans_show_powered_by_id', __('Show "Powered by" attribution at bottom of page', 'bible-reading-plans'), array(&$this, 'bibleReadingPlansShowPoweredByValue'), $page_for_settings, $section_for_settings);
+			add_settings_section($section_for_settings, __('Bible Reading Plans Settings', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansSectionHeading'), $page_for_settings);
+			add_settings_field('bible_reading_plans_abs_api_key_id', __('American Bible Society<br />Access Key (API Version 1)', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansAbsApiKeyValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_dbp_api_key_id', __('Bible Brain<br />(aka Digital Bible Platform)<br />Access Key (API Version 4)', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDbpApiKeyValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_esv_api_key_id', __('English Standard Version<br />Access Key (API Version 3)', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansEsvApiKeyValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_plan_name_calendar_id', __('Display Plan Name on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayPlanName'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_mvble_feasts', __('Display "Moveable Feasts" on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayMoveableFeasts'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_holy_days', __('Display "Holy Days" on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayHolyDays'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_use_calendar_id', __('Show Date Picker Calendar', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansUseCalendarValue'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_display_toc_id', __('Display Table of Contents on Pages', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansDisplayToc'), $page_for_settings, $section_for_settings);
+			add_settings_field('bible_reading_plans_show_powered_by_id', __('Show "Powered by" attribution at bottom of page', 'bible-reading-plans'), array($thisRef, 'bibleReadingPlansShowPoweredByValue'), $page_for_settings, $section_for_settings);
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_abs_api_key', 'wp_filter_nohtml_kses');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_dbp_api_key', 'wp_filter_nohtml_kses');
 			register_setting('bible_reading_plans_settings', 'bible_reading_plans_esv_api_key', 'wp_filter_nohtml_kses');
@@ -1121,24 +1093,24 @@ EOT;*/
 
 /**
  * shortcodeAttributes
- * Description to be inserted here
+ * called by WordPress when the shortcode "bible-reading-plan" is used
  *
- * @param $atts
+ * @param $atts attributes associated with the shortcode that the web dev used
  *
- * @return Datatype description to be added here
+ * @return string HTML to be displayed
  *
  */
 	public function shortcodeAttributes ($atts) {
 		$combined_atts = shortcode_atts($this->short_code_atts, $atts);
 		if (!array_key_exists($combined_atts['reading_plan'], $this->reading_plans)) {
-			$reading_plan = $this->short_code_atts['reading_plan']; // default
+			// if the passed reading_plan is not part of the approved list, we choose our default
+			$this->reading_plan = $this->short_code_atts['reading_plan']; // default
 		} else {
-			$reading_plan = $combined_atts['reading_plan'];
+			$this->reading_plan = $combined_atts['reading_plan'];
 		}
-		if ('one-year-tract' == $reading_plan) {
-			$reading_plan = $this->short_code_atts['reading_plan']; // for compatibility with the Embed Bible Passages plugin
+		if ('one-year-tract' == $this->reading_plan) {
+			$this->reading_plan = $this->short_code_atts['reading_plan']; // for compatibility with the Embed Bible Passages plugin
 		}
-		$this->reading_plan = $reading_plan;
 		if (!array_key_exists($combined_atts['source'], $this->sources)) {
 			$this->source = $this->short_code_atts['source']; // default
 		} else {
@@ -1248,7 +1220,7 @@ EOT;*/
 
 /**
  * add_versions
- * Description to be inserted here
+ * Add jQuery code to retrieve the current versions via ajax
  *
  * @param $source
  *
@@ -1376,25 +1348,25 @@ EOS;
 
 /**
  * construct_dbp_versions_list
- * Description to be inserted here
+ * Display the DigitalBrainPlatform versions to the admin screen. They appear in the "Versions available from the Bible Brain API (DBP) tab
  *
  * @param $lng_code_iso
  *
- * @return Datatype description to be added here
+ * @return string HTML of the tab to be displayed in admin backend
  *
  */
-	protected function construct_dbp_versions_list ($lng_code_iso = '') {
-		$dbp_versions_list  = '<div id="brp-dbp-versions">';
-		$dbp_versions_list .= __('The ', 'bible-reading-plans');
+	protected function construct_dbp_versions_list ($lng_code_iso = '', $opts = []) {
+		$ret  = '<div id="brp-dbp-versions">';
+		$ret .= __('The ', 'bible-reading-plans');
 		if (isset($this->dbp_versions[$lng_code_iso][0]['language_name']) && $this->dbp_versions[$lng_code_iso][0]['language_name']) {
-			$dbp_versions_list .= $this->dbp_versions[$lng_code_iso][0]['language_name'];
+			$ret .= $this->dbp_versions[$lng_code_iso][0]['language_name'];
 		} elseif (isset($this->dbp_versions[$lng_code_iso][0]['native_name']) && $this->dbp_versions[$lng_code_iso][0]['native_name']) {
-			$dbp_versions_list .= $this->dbp_versions[$lng_code_iso][0]['native_name'];
+			$ret .= $this->dbp_versions[$lng_code_iso][0]['native_name'];
 		} else {
-			$dbp_versions_list .= $lng_code_iso;
+			$ret .= $lng_code_iso;
 		}
-		$dbp_versions_list .= __(' language versions in text or audio (if there is text or audio for that version -- see also Notes 1 through 3, below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id" (Old and New Testaments), "bible_ot_audio_id" (Old Testament), and/or "bible_nt_audio_id" (New Testament) in the shortcode currently are:', 'bible-reading-plans');
-		$dbp_versions_list .= "\t\t".'<ul class="brp-plans">'."\n";
+		$ret .= __(' language versions in text or audio (if there is text or audio for that version -- see also Notes 1 through 3, below) available from Bible Brain (aka Digital Bible Platform -- DBP) and the corresponding codes to be used for "bible_id", "bible_all_audio_id" (Old and New Testaments), "bible_ot_audio_id" (Old Testament), and/or "bible_nt_audio_id" (New Testament) in the shortcode currently are:', 'bible-reading-plans');
+		$ret .= "\t\t".'<ul class="brp-plans">'."\n";
 		require_once('includes/properties/dbp_idcode_to_prtn.inc.php');
 		if (isset($this->dbp_versions[$lng_code_iso]) && is_array($this->dbp_versions[$lng_code_iso])) {
 			$bible_ids = array();
@@ -1405,28 +1377,28 @@ EOS;
 							$bible_ids[] 		= $vers_data['bible_id'];
 							$size				= $vers_data['size'];
 							$portion			= $this->dbp_idcode_to_prtn[$size];
-							$dbp_versions_list .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}\t\t\t- {$this->dbp_media_types[$vers_data['type']]}";
+							$ret .= "\t\t\t<li>{$vers_data['bible_id']}\t\t\t- {$vers_data['dbp_version']}\t\t\t- {$this->dbp_media_types[$vers_data['type']]}";
 							if ($portion) {
-								$dbp_versions_list .= " ($portion)";
+								$ret .= " ($portion)";
 							}
-							$dbp_versions_list .= "</li>\n";
+							$ret .= "</li>\n";
 						}
 					}
-					$dbp_versions_list .= "</li>\n";
+					$ret .= "</li>\n";
 				}
-				$dbp_versions_list .= "</li>\n";
+				$ret .= "</li>\n";
 			}
 			if ('eng' == $lng_code_iso) {
-				$dbp_versions_list .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS.';
-				$dbp_versions_list .= '<div class="brp-available-versons-note">'.__('Note that this changed from ', 'bible-reading-plans').'ENGESV'.__(' at Version 2.1.5 of this plugin, since for a period of time prior to the release of this version the ESV was not available to the DBP.', 'bible-reading-plans').'</div>';
+				$ret .= '<br />'.__('The default version is ', 'bible-reading-plans').'ENGNAS.';
+				$ret .= '<div class="brp-available-versons-note">'.__('Note that this changed from ', 'bible-reading-plans').'ENGESV'.__(' at Version 2.1.5 of this plugin, since for a period of time prior to the release of this version the ESV was not available to the DBP.', 'bible-reading-plans').'</div>';
 			}
-			$dbp_versions_list .= "\t\t</ul>\n";
-			$dbp_versions_list .= "\t<span class=\"brp-available-versons-note\">".__('(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)', 'bible-reading-plans')."</span></div>\n";
+			$ret .= "\t\t</ul>\n";
+			$ret .= "\t<span class=\"brp-available-versons-note\">".__('(If there are only portions of the Bible available for a particular version, the available portions are indicated in parentheses after the translation name.)', 'bible-reading-plans')."</span></div>\n";
 		} else {
-			$dbp_versions_list .= "\t\t\t<li>{$this->no_versns_found}</li>\n";
-			$dbp_versions_list .= "\t\t</ul></div>\n";
+			$ret .= "\t\t\t<li>{$this->no_versns_found}</li>\n";
+			$ret .= "\t\t</ul></div>\n";
 		}
-		return $dbp_versions_list;
+		return $ret;
 	}
 
 /**
@@ -1445,7 +1417,7 @@ EOS;
 		if (!$version) {
 			$version = $this->abs_versions[$this->version]['id'];
 		}
-		$url_base = $this->abs_url_base.'/'.$version.'/'.'verses/';
+		$url_base = ABS_URL($this->abs_api_key).'/'.$version.'/'.'verses/';
 		foreach ($readings_querys as $val) {
 			if (isset($val['verses'])) {
 				foreach ($val['verses'] as $vrs) {
@@ -1480,7 +1452,7 @@ EOS;
 		if ('abs_' == $this->scptr_src_prefix) {
 			$matches = array();
 			preg_match("|\/verses\/[A-Z0-9\.-]+$|", $url, $matches);
-			$abs_url = $this->abs_url_base.'/'.$version.$matches[0];
+			$abs_url = ABS_URL($this->abs_api_key).'/'.$version.$matches[0];
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
 			$abs_url = $url;
 		} elseif ('esv_' == $this->scptr_src_prefix) {
@@ -1504,7 +1476,7 @@ EOS;
 			}
 			$passage	= $book.'.'.$chapter_id.'.'.$verse_start.'-';
 			$passage   .= $book.'.'.$chapter_id.'.'.$verse_end;
-			$abs_url	= $this->abs_url_base.'/'.$version.'/verses/'.urlencode($passage);
+			$abs_url	= ABS_URL($this->abs_api_key).'/'.$version.'/verses/'.urlencode($passage);
 		}
 		return $abs_url;
 	}
@@ -1526,6 +1498,7 @@ EOS;
 		} else {
 			$this->dam_id = $this->dbp_language_id.$this->version;
 		}
+		$this->dbp_text_filesets = array();
 		$urls_ary = array();
 		foreach ($readings_querys as $val) {
 			$i			= 0;
@@ -1543,7 +1516,8 @@ EOS;
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_nt_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
 				}
-				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;
+				$text_fileset_id = $this->dbp_text_fileset_for_book($book_id[$val['passage']]);
+				$urls_ary[$val['passage']]['text'][$i++] = $url.$text_fileset_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 			}
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
@@ -1562,6 +1536,73 @@ EOS;
 		}
 		$urls_ary['metadata'] .= $bible_abbr.'/copyright?'.$this->dbp_query_base;
 		return $urls_ary;
+	}
+
+/**
+ * dbp_text_fileset_for_book
+ * Some DBP versions (e.g., the NLT) have no complete-Bible text fileset, only separate Old and New Testament
+ * filesets (e.g., ENGNLTO_ET and ENGNLTN_ET). If the fileset given as bible_id does not cover the testament of
+ * the requested book, find the companion fileset for that testament so that plans mixing OT and NT readings work.
+ *
+ * @param $book_code The DBP book code (e.g., GEN, MAT)
+ *
+ * @return string The fileset ID to use for the book's text
+ *
+ */
+	protected function dbp_text_fileset_for_book ($book_code) {
+		if (in_array($book_code, $this->book_codes_ot)) {
+			$testament = 'OT';
+		} elseif (in_array($book_code, $this->book_codes_nt)) {
+			$testament = 'NT';
+		} else {
+			return $this->dam_id;
+		}
+		if (isset($this->dbp_text_filesets[$testament])) {
+			return $this->dbp_text_filesets[$testament];
+		}
+		$fileset_id = $this->dam_id;
+		// Prefer the versions list retrieved from the DBP API, which records each fileset's size (C, OT, NT, OTP, etc.).
+		$versions	= array();
+		$iso		= isset($this->dbp_bible_id_to_iso[$this->dam_id]) ? $this->dbp_bible_id_to_iso[$this->dam_id] : $this->lng_code_iso;
+		if (is_array($this->dbp_versions) && isset($this->dbp_versions[$iso]) && is_array($this->dbp_versions[$iso])) {
+			$versions = $this->dbp_versions[$iso];
+		}
+		$current = array();
+		foreach ($versions as $vers_data) {
+			if (is_array($vers_data) && isset($vers_data['bible_id']) && $vers_data['bible_id'] == $this->dam_id) {
+				$current = $vers_data;
+				break;
+			}
+		}
+		if ($current) {
+			if ('C' != $current['size'] && false === strpos($current['size'], $testament)) {
+				$partial_match = '';
+				foreach ($versions as $vers_data) {
+					if (!is_array($vers_data) || !isset($vers_data['bible_abbr'], $vers_data['type'], $vers_data['size']) || $vers_data['bible_abbr'] != $current['bible_abbr'] || $vers_data['type'] != $current['type']) {
+						continue;
+					}
+					if ($testament == $vers_data['size'] || 'C' == $vers_data['size']) {
+						$fileset_id = $vers_data['bible_id'];
+						break;
+					} elseif (!$partial_match && false !== strpos($vers_data['size'], $testament)) {
+						$partial_match = $vers_data['bible_id'];
+					}
+				}
+				if ($fileset_id == $this->dam_id && $partial_match) {
+					$fileset_id = $partial_match;
+				}
+			}
+		} elseif (strlen($this->dam_id) > 6) {
+			// Versions list unavailable, so fall back on the DBP fileset naming convention: the 7th character is O or N for testament filesets.
+			$portion = substr($this->dam_id, 6, 1);
+			if ('O' == $portion && 'NT' == $testament) {
+				$fileset_id = substr_replace($this->dam_id, 'N', 6, 1);
+			} elseif ('N' == $portion && 'OT' == $testament) {
+				$fileset_id = substr_replace($this->dam_id, 'O', 6, 1);
+			}
+		}
+		$this->dbp_text_filesets[$testament] = $fileset_id;
+		return $fileset_id;
 	}
 
 /**
@@ -1584,7 +1625,8 @@ EOS;
 			} else {
 				$passage = $val['passage'];
 			}
-			$urls_ary[] = $this->esv_url_base.$passage;
+			$urls_ary[] = $this->esv_url_base.urlencode($passage);
+
 		}
 		return $urls_ary;
 	}
@@ -1913,7 +1955,7 @@ EOS;
 
 /**
  * get_bible_reading_plan
- * Description to be inserted here
+ * Main UI function that builds the display for the end user
  *
  * @param $scriptures_date
  * @param $error_message
@@ -1922,6 +1964,7 @@ EOS;
  *
  */
 	protected function get_bible_reading_plan ($scriptures_date = '', $error_message = 'ERROR: Could not retrieve readings') {
+		// TODO: move use_abs4apocrypha and toc to the class, avoid global
 		global $use_abs4apocrypha, $toc;
 		$this->reading_plan_shrtcd = $this->reading_plan;
 		if ($scriptures_date) {
@@ -2197,7 +2240,7 @@ EOS;
 		if ('abs_' == $this->scptr_src_prefix) {
 			$matches = array();
 			preg_match("|\/verses\/[A-Z0-9\.-]+$|", $url, $matches);
-			$abs_url = $this->abs_url_base.'/'.$version.$matches[0];
+			$abs_url = ABS_URL($this->abs_api_key).'/'.$version.$matches[0];
 		} elseif ('dbp_' == $this->scptr_src_prefix) {
 			$abs_url = $url;
 		} elseif ('esv_' == $this->scptr_src_prefix) {
@@ -2221,7 +2264,7 @@ EOS;
 			}
 			$passage	= $book.'.'.$chapter_id.'.'.$verse_start.'-';
 			$passage   .= $book.'.'.$chapter_id.'.'.$verse_end;
-			$abs_url	= $this->abs_url_base.'/'.$version.'/verses/'.urlencode($passage);
+			$abs_url	= ABS_URL($this->abs_api_key).'/'.$version.'/verses/'.urlencode($passage);
 		}
 		$args		= array('headers' => array("api-key" => $this->abs_api_key, "accept" => "application/json"));
 		$response	= wp_remote_get($abs_url, $args);
@@ -2230,7 +2273,7 @@ EOS;
 
 /**
  * putLanguagesAndVersions
- * Description to be inserted here
+ * Get the list of languages and bible versions from the internet
  *
  *
  * @return Datatype description to be added here
@@ -2238,20 +2281,15 @@ EOS;
  */
 	public function putLanguagesAndVersions () {
 		$base_url		= "{$this->dbp_query_string}bibles?limit=9999&v=4&key={$this->dbp_api_key}&page=";
-		$ch				= curl_init();
-		curl_setopt($ch, CURLOPT_VERBOSE, false);
-		curl_setopt($ch, CURLOPT_HEADER, false);
-		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 		$bibles_pages	= array();
 		$i				= 0;
 		$nr_in_data_ary	= 1;
 		while ($nr_in_data_ary) {
 			$url 				= $base_url.$i;
-			curl_setopt($ch, CURLOPT_URL, $url);
-			$bibles_pages[$i]	= json_decode(trim(curl_exec($ch)), true);
+			$resp = wp_remote_get($url);
+			$bibles_pages[$i]	= json_decode(trim(wp_remote_retrieve_body($resp)), true);
 			$nr_in_data_ary		= count($bibles_pages[$i++]['data']);
 		}
-		curl_close($ch);
 		unset($bibles_pages[$i-1]);
 		$this->dbp_language_ids		= array();
 		$this->dbp_bible_id_to_iso	= array();
@@ -3452,6 +3490,15 @@ protected function debug_print ($label = '', $input = '', $print_or_dump = 'prin
 	}
 }
 
+function getThisRef() {
+    if (version_compare(PHP_VERSION, '5.0.0', '>=')) {
+        return $this;
+    } else {
+        // PHP 4 compatibility
+        $ref = &$this;
+        return $ref;
+    }
+}
 }
 
 ?>

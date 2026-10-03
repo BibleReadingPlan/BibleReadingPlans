@@ -142,7 +142,7 @@ msgstr ""
 
 #: bible-reading-plans-class.inc.php:599
 #: css/bible-reading-plans-class.inc.php:976
-msgid "To request an Access Key <a href=\"https://my.crossway.org/account/register/\" target=\"_blank\" title=\"Create an Account\">Create an Account</a> at Crossway. Then go to <a href=\"https://api.esv.org/account/create-application/\" target=\"_blank\" title=\"API.Bible Registration\">Create an API Application</a>."
+msgid "To request an Access Key <a href=\"https://www.esv.org/account/register/\" target=\"_blank\" title=\"Create an Account\">Create an Account</a> at Crossway. Then go to <a href=\"https://api.esv.org/account/create-application/\" target=\"_blank\" title=\"API.Bible Registration\">Create an API Application</a>."
 msgstr ""
 
 #: bible-reading-plans-class.inc.php:603
