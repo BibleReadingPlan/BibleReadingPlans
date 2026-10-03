@@ -98,6 +98,54 @@ final class RemoteGetTest extends TestCase
     }
 
     /**
+     * Versions such as the NLT only have separate OT and NT text filesets.
+     * With an OT fileset as bible_id and no versions list cached, the NT
+     * readings must switch to the companion NT fileset by naming convention.
+     */
+    public function testDbpUrlConstructionSwitchesTestamentFilesetByName(): void
+    {
+        $this->helper->setSource('DBP');
+        $this->helper->setBibleId('ENGNLTO_ET');
+
+        $urls = $this->helper->callConstructUrlsArrayDbp($this->jan1Dbp);
+
+        $this->assertStringContainsString('filesets/ENGNLTO_ET/GEN/1', $urls['Genesis 1']['text'][0]);
+        $this->assertStringContainsString('filesets/ENGNLTN_ET/MAT/1', $urls['Matthew 1']['text'][0]);
+        $this->assertStringContainsString('filesets/ENGNLTO_ET/EZR/1', $urls['Ezra 1']['text'][0]);
+        $this->assertStringContainsString('filesets/ENGNLTN_ET/ACT/1', $urls['Acts 1']['text'][0]);
+
+        // Starting from the NT fileset must work the same way.
+        $this->helper->setBibleId('ENGNLTN_ET');
+        $urls = $this->helper->callConstructUrlsArrayDbp($this->jan1Dbp);
+
+        $this->assertStringContainsString('filesets/ENGNLTO_ET/GEN/1', $urls['Genesis 1']['text'][0]);
+        $this->assertStringContainsString('filesets/ENGNLTN_ET/MAT/1', $urls['Matthew 1']['text'][0]);
+    }
+
+    /**
+     * When the DBP versions list is cached, the companion fileset is found by
+     * matching bible_abbr, type and size rather than by naming convention.
+     */
+    public function testDbpUrlConstructionSwitchesTestamentFilesetFromVersionsList(): void
+    {
+        $this->helper->setSource('DBP');
+        $this->helper->setBibleId('ENGXYZOT');
+        $this->helper->setDbpVersions([
+            'eng' => [
+                ['bible_abbr' => 'ENGXYZ', 'bible_id' => 'ENGXYZOT',      'type' => 'text_plain', 'size' => 'OT'],
+                ['bible_abbr' => 'ENGXYZ', 'bible_id' => 'ENGXYZNT-json', 'type' => 'text_json',  'size' => 'NT'],
+                ['bible_abbr' => 'ENGXYZ', 'bible_id' => 'ENGXYZNT',      'type' => 'text_plain', 'size' => 'NT'],
+            ],
+        ]);
+
+        $urls = $this->helper->callConstructUrlsArrayDbp($this->jan1Dbp);
+
+        $this->assertStringContainsString('filesets/ENGXYZOT/GEN/1', $urls['Genesis 1']['text'][0]);
+        $this->assertStringContainsString('filesets/ENGXYZNT/MAT/1', $urls['Matthew 1']['text'][0]);
+        $this->assertStringContainsString('bibles/ENGXYZ/copyright', $urls['metadata']);
+    }
+
+    /**
      * ABS URL builder must produce one verse URL per reading and correctly
      * convert DBP-style verse codes (GEN/1?...) to ABS dot-notation (GEN.1.x).
      */
@@ -186,6 +234,36 @@ final class RemoteGetTest extends TestCase
             '"verse_text" missing from first DBP verse object');
         $this->assertNotEmpty($firstVerse['verse_text'],
             'DBP verse_text is empty');
+    }
+
+    /**
+     * The NLT has no complete-Bible text fileset in DBP. With the OT fileset as
+     * bible_id, both OT and NT readings must still return verse text.
+     */
+    public function testDbpRemoteGetReturnsOtAndNtFromTestamentFilesets(): void
+    {
+        $key = (string) getenv('BRP_DBP_KEY');
+        if (!$key) {
+            $this->markTestSkipped('BRP_DBP_KEY environment variable is not set.');
+        }
+
+        $helper = new BibleReadingPlansTestHelper('', $key, '');
+        $helper->setSource('DBP');
+        $helper->setBibleId('ENGNLTO_ET');
+
+        // Genesis 1 and Matthew 1.
+        $readings = [$this->jan1Dbp[0], $this->jan1Dbp[1]];
+        $urls     = $helper->callConstructUrlsArrayDbp($readings);
+        $result   = $helper->callRemoteGetScripturesDbp($urls);
+
+        foreach (['Genesis 1', 'Matthew 1'] as $passage) {
+            $textBodies = $result[$passage]['text'] ?? [];
+            $this->assertNotEmpty($textBodies, "No text body received for '$passage'");
+
+            $decoded = json_decode($textBodies[0], true);
+            $this->assertNotEmpty($decoded['data'] ?? [],
+                "No verses returned for '$passage': " . substr($textBodies[0], 0, 300));
+        }
     }
 
     /**

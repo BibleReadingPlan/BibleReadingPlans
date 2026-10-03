@@ -95,6 +95,11 @@ class BibleReadingPlansTestHelper extends BibleReadingPlans
         $this->dam_id   = $bible_id;
     }
 
+    public function setDbpVersions(array $dbp_versions): void
+    {
+        $this->dbp_versions = $dbp_versions;
+    }
+
     public function callRemoteGetScriptures(array $urls_ary, string $date_key = ''): mixed
     {
         return $this->remote_get_scriptures($urls_ary, $date_key);

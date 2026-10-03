@@ -78,6 +78,7 @@ class BibleReadingPlans {
 	protected $dbp_query_string		= '';
 	protected $dbp_query_base	 	= '';
 	protected $dbp_sctr_src_url	 	= '';
+	protected $dbp_text_filesets	= array(); // Text fileset IDs resolved per testament, keyed by OT or NT
 	protected $dbp_idcode_to_prtn	= array();
 	protected $dbp_use_audio_all	= '';
 	protected $dbp_use_audio_nt		= '';
@@ -1497,6 +1498,7 @@ EOS;
 		} else {
 			$this->dam_id = $this->dbp_language_id.$this->version;
 		}
+		$this->dbp_text_filesets = array();
 		$urls_ary = array();
 		foreach ($readings_querys as $val) {
 			$i			= 0;
@@ -1514,7 +1516,8 @@ EOS;
 						$urls_ary[$val['passage']]['audio'][$i] = $url.$this->bible_nt_audio_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 					}
 				}
-				$urls_ary[$val['passage']]['text'][$i++] = $url.$this->dam_id.'/'.$qry_str.'&'.$this->dbp_query_base;
+				$text_fileset_id = $this->dbp_text_fileset_for_book($book_id[$val['passage']]);
+				$urls_ary[$val['passage']]['text'][$i++] = $url.$text_fileset_id.'/'.$qry_str.'&'.$this->dbp_query_base;
 			}
 		}
 		$this->dbp_language_iso = $this->lng_code_iso;
@@ -1533,6 +1536,73 @@ EOS;
 		}
 		$urls_ary['metadata'] .= $bible_abbr.'/copyright?'.$this->dbp_query_base;
 		return $urls_ary;
+	}
+
+/**
+ * dbp_text_fileset_for_book
+ * Some DBP versions (e.g., the NLT) have no complete-Bible text fileset, only separate Old and New Testament
+ * filesets (e.g., ENGNLTO_ET and ENGNLTN_ET). If the fileset given as bible_id does not cover the testament of
+ * the requested book, find the companion fileset for that testament so that plans mixing OT and NT readings work.
+ *
+ * @param $book_code The DBP book code (e.g., GEN, MAT)
+ *
+ * @return string The fileset ID to use for the book's text
+ *
+ */
+	protected function dbp_text_fileset_for_book ($book_code) {
+		if (in_array($book_code, $this->book_codes_ot)) {
+			$testament = 'OT';
+		} elseif (in_array($book_code, $this->book_codes_nt)) {
+			$testament = 'NT';
+		} else {
+			return $this->dam_id;
+		}
+		if (isset($this->dbp_text_filesets[$testament])) {
+			return $this->dbp_text_filesets[$testament];
+		}
+		$fileset_id = $this->dam_id;
+		// Prefer the versions list retrieved from the DBP API, which records each fileset's size (C, OT, NT, OTP, etc.).
+		$versions	= array();
+		$iso		= isset($this->dbp_bible_id_to_iso[$this->dam_id]) ? $this->dbp_bible_id_to_iso[$this->dam_id] : $this->lng_code_iso;
+		if (is_array($this->dbp_versions) && isset($this->dbp_versions[$iso]) && is_array($this->dbp_versions[$iso])) {
+			$versions = $this->dbp_versions[$iso];
+		}
+		$current = array();
+		foreach ($versions as $vers_data) {
+			if (is_array($vers_data) && isset($vers_data['bible_id']) && $vers_data['bible_id'] == $this->dam_id) {
+				$current = $vers_data;
+				break;
+			}
+		}
+		if ($current) {
+			if ('C' != $current['size'] && false === strpos($current['size'], $testament)) {
+				$partial_match = '';
+				foreach ($versions as $vers_data) {
+					if (!is_array($vers_data) || !isset($vers_data['bible_abbr'], $vers_data['type'], $vers_data['size']) || $vers_data['bible_abbr'] != $current['bible_abbr'] || $vers_data['type'] != $current['type']) {
+						continue;
+					}
+					if ($testament == $vers_data['size'] || 'C' == $vers_data['size']) {
+						$fileset_id = $vers_data['bible_id'];
+						break;
+					} elseif (!$partial_match && false !== strpos($vers_data['size'], $testament)) {
+						$partial_match = $vers_data['bible_id'];
+					}
+				}
+				if ($fileset_id == $this->dam_id && $partial_match) {
+					$fileset_id = $partial_match;
+				}
+			}
+		} elseif (strlen($this->dam_id) > 6) {
+			// Versions list unavailable, so fall back on the DBP fileset naming convention: the 7th character is O or N for testament filesets.
+			$portion = substr($this->dam_id, 6, 1);
+			if ('O' == $portion && 'NT' == $testament) {
+				$fileset_id = substr_replace($this->dam_id, 'N', 6, 1);
+			} elseif ('N' == $portion && 'OT' == $testament) {
+				$fileset_id = substr_replace($this->dam_id, 'O', 6, 1);
+			}
+		}
+		$this->dbp_text_filesets[$testament] = $fileset_id;
+		return $fileset_id;
 	}
 
 /**
