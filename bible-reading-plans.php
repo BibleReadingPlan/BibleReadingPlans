@@ -15,7 +15,7 @@
  * Requires PHP: 		5.6
  * Tested up to PHP:	8.3
  * Contributors: 		drmikegreen, sophoservices
- * Contributors URI: 	https://www.saesolved.com/, https://sophoservices.com/
+ * Contributors URI: 	https://sophoservices.com/
  * Text Domain: 		bible-reading-plans
  * Domain Path:         /languages
  * License: 			GPLv3 or later

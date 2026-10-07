@@ -115,7 +115,7 @@ If the source is ESV, the value of the version naturally can only be ESV.
 
 The page opens with the plan reading for the current date, as set on the client computer. An optional date picker calendar is available to enable users to choose readings for other dates.
 
-See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site for the Bible Reading Plans Plugin](https://test-brp.saesolved.com/) for example implementations of this plugin.
+See [Gospel and Epistles](https://ogbcashdown.org/gospel-and-epistles-bible-reading-plan/) and other reading plans on that site, the [Daily Office at Habits of Grace](https://habitsofgrace.org/), and the test pages at [Test Site for the Bible Reading Plans Plugin](https://brptest.sophoservices.com/) for example implementations of this plugin.
 
 This plugin requires JavaScript to be active.
 

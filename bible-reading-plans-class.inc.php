@@ -883,7 +883,7 @@ EOS;
   <p style="text-align: center; font-weight: bold;">This is a screen-shot of the input screen for the Create Bible Reading Plans plugin.<br />Click on it to open it in new tab where you can zoom in to see it in more detail.
   <a href="'.$this->plugin_url.'images/cbrp-input-screen.png" title="Click to open image in new tab.+" target="_blank"><img width=100% title="Create Bible Reading Plans plugin input dashboard screenshot." class="brp_loading_img" src="'.$this->plugin_url.'images/cbrp-input-screen.png" /></a>Clicking on "Save Changes" saves the Bible reading plan(s) directly into the Bible Reading Plans database.</p>
 </details></p>';
-		_e('Further questions? <a href="https://saesolved.com/contact-us/" target="_blank">Contact us.</a>', 'bible-reading-plans');
+		_e('Further questions? <a href="https://sophoservices.com/brp/" target="_blank">Contact us.</a>', 'bible-reading-plans');
 		echo '</div><div id="instructions_below">&nbsp;</div>';
 		echo '<form method="post" action="options.php">';
 		settings_fields('bible_reading_plans_settings');
