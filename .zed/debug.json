@@ -7,7 +7,10 @@
     "label": "PHP: Listen to Xdebug",
     "adapter": "Xdebug",
     "request": "launch",
-    "port": 9003
+    "port": 9003,
+    "pathMappings": {
+      "/var/www/html/wp-content/plugins/BibleReadingPlans/":"$ZED_WORKTREE_ROOT/"
+    }
   },
   {
     "label": "PHP: Debug this test",

@@ -27,3 +27,6 @@ wp-env-start:
 
 wp-env-stop:
 	npx wp-env stop
+
+wp-debug:
+	npx wp-env start --xdebug

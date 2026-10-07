@@ -1577,6 +1577,7 @@ EOS;
 		if ($current) {
 			if ('C' != $current['size'] && false === strpos($current['size'], $testament)) {
 				$partial_match = '';
+				// find matching OT/NT pair
 				foreach ($versions as $vers_data) {
 					if (!is_array($vers_data) || !isset($vers_data['bible_abbr'], $vers_data['type'], $vers_data['size']) || $vers_data['bible_abbr'] != $current['bible_abbr'] || $vers_data['type'] != $current['type']) {
 						continue;

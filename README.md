@@ -7,13 +7,13 @@ Tags: Bible reading plans, shortcode, Bible, audio Bible reading plans, daily Bi
 
 Requires at least: 4.6
 
-Tested up to: 7.0
+Tested up to: 7.1.2
 
 Requires PHP: 5.6
 
 Tested up to PHP: 8.3
 
-Stable branch: 3.0.13
+Stable branch: 3.0.14
 
 License: GPLv3 or later
 
@@ -163,6 +163,10 @@ NOTE THAT THE COPYRIGHT NOTICE FROM THE SOURCE OF THE TEXT MUST BE KEPT ON THE P
 1. Populate DocBlocks for methods/functions.
 
 ## Upgrade Notice
+
+## 3.0.14
+
+Updated support to Wordpress 7.1.2. Fixed bug in DBP which prevented old and new testament verses showing from the same bible tag
 
 ## 3.0.13
 
